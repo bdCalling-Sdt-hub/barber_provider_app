@@ -1,10 +1,10 @@
-import 'package:barbar_provider/view/screens/splash_screen/splash_screen.dart';
+import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String titleText;
   final Color titleColor;
   final Color buttonColor;
@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton(
       {this.textAlign = TextAlign.center,
-        required this.onPressed,
+        this.onPressed,
         required this.titleText,
         this.titleColor = AppColors.white,
         this.buttonColor = AppColors.primaryOrange,

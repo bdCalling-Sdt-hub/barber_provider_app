@@ -1,4 +1,4 @@
-import 'package:barbar_provider/view/screens/splash_screen/splash_screen.dart';
+import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
