@@ -17,16 +17,24 @@ class AppIcons {
   static const String terms = "$basePath/terms.svg";
   static const String google = "$basePath/google.svg";
   static const String facebook = "$basePath/facebook.svg";
+  static const String bookings = "$basePath/bookings.svg";
+  static const String earnings = "$basePath/earnings.svg";
+  static const String home = "$basePath/home.svg";
+  static const String profile = "$basePath/profile.svg";
+  static const String notification = "$basePath/notification.svg";
+  static const String settings = "$basePath/setting.svg";
+  static const String check = "$basePath/check.svg";
 
   static const String appointment = "$basePath/appointment.png";
   static const String bookingRequest = "$basePath/booking_request.png";
   static const String forgetPass = "$basePath/fg_pass.png";
-  static const String home = "$basePath/home.png";
+  static const String homeScreen = "$basePath/home_screen.png";
   static const String otp = "$basePath/otp.png";
   static const String setup = "$basePath/setup.png";
   static const String slotUnavailable = "$basePath/slot_unavailable.png";
   static const String specialOffers = "$basePath/special_offers.png";
   static const String successfulAppointment = "$basePath/successful_appointment.png";
+  static const String flag = "$basePath/flag.png";
 
 
 }

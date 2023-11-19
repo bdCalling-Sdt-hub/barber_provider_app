@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomBack extends StatelessWidget {
-  const CustomBack(
+   const CustomBack(
       {super.key,
       this.text = "",
       this.fontSize = 18,
@@ -13,6 +13,7 @@ class CustomBack extends StatelessWidget {
       this.left = 0,
       this.right = 0,
       this.maxLines = 1,
+      this.isIcon = true,
       this.color = AppColors.white,
       this.textAlign = TextAlign.start,
       this.fontWeight = FontWeight.w600,
@@ -29,21 +30,20 @@ class CustomBack extends StatelessWidget {
   final TextAlign textAlign;
   final FontWeight fontWeight;
   final TextOverflow overflow;
+  final bool isIcon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () => Get.back(),
-          child: const SizedBox(
-            height: 42,
-            width: 42,
-            child: Icon(Icons.arrow_back_ios_new_outlined,
-                color: AppColors.white, size: 18),
-          ),
-        ),
+        isIcon == true
+            ? IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined,
+              color: AppColors.white, size: 18),
+        )
+            : const SizedBox(),
         CustomText(
           text: text,
           fontSize: fontSize,

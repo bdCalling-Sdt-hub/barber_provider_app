@@ -1,17 +1,15 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
-import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
-import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ForgetPassword extends StatelessWidget {
-  const ForgetPassword({super.key});
+class ResetPassword extends StatelessWidget {
+  const ResetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +17,7 @@ class ForgetPassword extends StatelessWidget {
       top: true,
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
-        appBar: CustomAppBar(
-          appBarContent: CustomBack(text: "Forgot Password".tr)
-        ),
+        appBar: CustomAppBar(appBarContent: CustomBack(text: "Set A New Password".tr)),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return SingleChildScrollView(
@@ -30,36 +26,22 @@ class ForgetPassword extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomText(text: "Your password must be 8-10 characters.".tr,maxLines: 2,textAlign: TextAlign.start,overflow: TextOverflow.ellipsis,bottom: 24),
 
-                  CustomText(
-                    text: "Please enter your email address for recover your password.".tr,
-                    maxLines: 2,overflow: TextOverflow.ellipsis,bottom: 24,
-                    textAlign: TextAlign.start,
-                  ),
-
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryOrange,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const CustomImage(
-                        imageSrc: AppIcons.forgetPass,
-                        imageType: ImageType.png,
-                      ),
-                    ),
-                  ),
-
-                  CustomText(top: 24,bottom: 12, text: "Email".tr),
+                  CustomText(text: "Password".tr,bottom: 12),
 
                   CustomTextField(
-                    hintText: "Enter email".tr,
+                    hintText: "Enter password".tr,
                     fillColor: AppColors.stroke,
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.emailAddress,
+                    isPassword: true,
+                  ),
+
+                  CustomText(text: "Confirm Password".tr,top: 16,bottom: 12),
+
+                  CustomTextField(
+                    hintText: "Confirm Password".tr,
+                    fillColor: AppColors.stroke,
+                    isPassword: true,
                   ),
                 ],
               ),
@@ -70,8 +52,10 @@ class ForgetPassword extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
           physics: const ClampingScrollPhysics(),
           child: CustomButton(
-            onPressed: ()=>Get.toNamed(AppRoute.otpScreen),
-              titleText: "Continue".tr),
+              onPressed: ()
+              {
+                Get.offAllNamed(AppRoute.signInScreen);
+              }, titleText: "Reset Password".tr),
         ),
       ),
     );

@@ -10,14 +10,9 @@ import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
-  @override
-  State<SignInScreen> createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,55 +20,54 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
         extendBody: true,
-        appBar: CustomAppBar(appBarContent: CustomBack(text: "Sign In".tr,isIcon: false)),
+        appBar: CustomAppBar(appBarContent: CustomBack(text: "Sign Up".tr,isIcon: false)),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 24),
               physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(
-                      text: "Email".tr,
-                      textAlign: TextAlign.start,
-                      bottom: 12,
-                      top: 24),
+                  CustomText(text: "Name".tr,bottom: 12,top: 24),
+
+                  CustomTextField(
+                    hintText: "Enter full name".tr,
+                    fillColor: AppColors.stroke,
+                  ),
+
+                  CustomText(text: "Email".tr,top: 16,bottom: 12),
+
                   CustomTextField(
                     hintText: "Enter email".tr,
                     fillColor: AppColors.stroke,
                   ),
-                  CustomText(
-                      text: "Password".tr,
-                      textAlign: TextAlign.start,
-                      top: 16,
-                      bottom: 12),
+
+                  CustomText(text: "Password".tr,top: 16,bottom: 12),
+
                   CustomTextField(
                     hintText: "Enter password".tr,
                     isPassword: true,
                     fillColor: AppColors.stroke,
                   ),
-                  const SizedBox(height: 16),
-                  GestureDetector(
-                    onTap: () => Get.toNamed(AppRoute.forgetPassScreen),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomText(
-                        text: "Forgot Password?".tr,
-                        color: AppColors.primaryOrange,
-                      ),
-                    ),
+
+                  //Confirm password
+                  CustomText(text: "Confirm Password".tr,top: 16,bottom: 12),
+
+                  CustomTextField(
+                    hintText: "Confirm Password".tr,
+                    isPassword: true,
+                    fillColor: AppColors.stroke,
                   ),
+
                   const SizedBox(height: 44),
                   CustomButton(
                       onPressed: () {
-                        Get.offNamed(AppRoute.navBar);
-                      },
-                      titleText: "Sign In".tr),
-                  Align(
-                    alignment: Alignment.center,
-                    child: CustomText(top: 24, bottom: 16, text: "Or Sign in with".tr),
-                  ),
+                        Get.toNamed(AppRoute.signUpContinue);
+                      }, titleText: "Continue".tr),
+
+                  Align(alignment: Alignment.center,child: CustomText(text: "Or Sign in with".tr,top: 24,bottom: 16)),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -104,17 +98,17 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 24.0, top: 40),
-                    child: GestureDetector(
-                      onTap: ()=> Get.toNamed(AppRoute.signUpScreen),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomText(text: "Don’t have an account?  ".tr),
-                          CustomText(
-                              text: "Sign Up".tr,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(text: "Already have an account?  ".tr),
+                        GestureDetector(
+                          onTap: ()=> Get.back(),
+                          child: CustomText(
+                              text: "Sign In".tr,
                               color: AppColors.primaryOrange),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
