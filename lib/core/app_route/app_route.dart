@@ -4,7 +4,9 @@ import 'package:barbar_provider/view/screens/auth/reset_password/reset_password_
 import 'package:barbar_provider/view/screens/auth/sign_in/sign_in_screen.dart';
 import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_continue.dart';
 import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_screen.dart';
+import 'package:barbar_provider/view/screens/make_payment/make_payment_screen.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
+import 'package:barbar_provider/view/screens/notification/notification_screen.dart';
 import 'package:barbar_provider/view/screens/onboarding/onboarding_screen.dart';
 import 'package:barbar_provider/view/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:barbar_provider/view/screens/settings/about_us/about_us_screen.dart';
@@ -36,6 +38,8 @@ class AppRoute {
   static const String termsCondition = "/terms_condition_screen";
   static const String aboutUs = "/about_us_screen";
   static const String subscriptionPlans = "/subscription_plans";
+  static const String makePayment = "/make_payment_screen";
+  static const String notification = "/notification_screen";
 
 
   static List<GetPage> routes = [
@@ -59,5 +63,7 @@ class AppRoute {
     GetPage(name: termsCondition, page: () =>  const TermsCondition()),
     GetPage(name: aboutUs, page: () =>  const AboutUs()),
     GetPage(name: subscriptionPlans, page: () =>  const SubscriptionPlan()),
+    GetPage(name: makePayment, page: () =>  const MakePaymentScreen()),
+    GetPage(name: notification, page: () =>  const NotificationScreen()),
   ];
 }

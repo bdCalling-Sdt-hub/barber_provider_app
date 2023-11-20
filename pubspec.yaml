@@ -40,6 +40,8 @@ dependencies:
   flutter_svg:
   dots_indicator:
   pin_code_fields:
+  carousel_slider:
+  smooth_page_indicator:
 
 dev_dependencies:
   flutter_test:

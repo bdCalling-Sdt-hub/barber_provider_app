@@ -58,6 +58,15 @@ Map<String, String> english = {
   "You have to subscribe for add services as a provider " : "You have to subscribe for add services as a provider ",
   "Purchase Subscription" : "Purchase Subscription",
 
+  //Home Drawer
+  "Booking Request" : "Booking Request",
+  "Approved Bookings" : "Approved Bookings",
+  "Booking History" : "Booking History",
+  "Edit Business Details" : "Edit Business Details",
+  "Categories" : "Categories",
+  "Clients Reviews" : "Clients Reviews",
+
+
 
   //Earnings Screen
   "Earnings" : "Earnings",
@@ -110,5 +119,29 @@ Map<String, String> english = {
   //Subscription plans Screens
   "Subscription plans" : "Subscription plans",
   "Choose your payment method" : "Choose your payment method",
+  "Packages" : "Packages",
+  "Proceed to Payment" : "Proceed to Payment",
+
+
+  //Make payment Screen
+  "Make payment" : "Make payment",
+  "Card Number" : "Card Number",
+  "Enter card number" : "Enter card number",
+  "Expired Date" : "Expired Date",
+  "Enter date" : "Enter date",
+  "CVV/CVV" : "CVV/CVV",
+  "Enter cvv/cvv" : "Enter cvv/cvv",
+  "Card Holder Name" : "Card Holder Name",
+  "Enter card holder" : "Enter card holder",
+  "Amount" : "Amount",
+  "Subscription Completed" : "Subscription Completed",
+  "Your subscription has been successfully purchased." : "Your subscription has been successfully purchased.",
+  "Back to Home" : "Back to Home",
+
+  //Notification
+  "Notification" : "Notification",
+  "Today" : "Today",
+  "Yesterday" : "Yesterday",
+
 
 };

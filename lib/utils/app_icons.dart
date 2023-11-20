@@ -3,8 +3,11 @@ class AppIcons {
   static const String appIcon = "$basePath/app_logo.svg";
   static const String aboutUs = "$basePath/about_us.svg";
   static const String bell = "$basePath/bell.svg";
-  static const String br = "$basePath/br.svg";
-  static const String categories = "$basePath/categories.svg";
+
+  static const String br = "$basePath/br.png";
+  static const String categories = "$basePath/categories.png";
+  static const String reviews = "$basePath/review.png";
+
   static const String changePass = "$basePath/change_pass.svg";
   static const String edit = "$basePath/edit.svg";
   static const String editDetails = "$basePath/edit_details.svg";
@@ -12,7 +15,7 @@ class AppIcons {
   static const String history = "$basePath/history.svg";
   static const String logOut = "$basePath/log_out.svg";
   static const String privacyPolicy = "$basePath/privacy_policy.svg";
-  static const String reviews = "$basePath/reviews.svg";
+
   static const String subscriptionPlan = "$basePath/subscription_plan.svg";
   static const String terms = "$basePath/terms.svg";
   static const String google = "$basePath/google.svg";
