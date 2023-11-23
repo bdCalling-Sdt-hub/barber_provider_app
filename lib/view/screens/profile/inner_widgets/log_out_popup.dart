@@ -1,3 +1,4 @@
+import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
@@ -32,9 +33,9 @@ class LogOutPopUp extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Expanded(child: CustomButton(titleText: "Cancel".tr,buttonColor: AppColors.stroke),),
+                  Expanded(child: CustomButton(titleText: "Cancel".tr,buttonColor: AppColors.stroke,onPressed: () => Get.back(),),),
                   const SizedBox(width: 16),
-                  Expanded(child: CustomButton(titleText: "Confirm".tr),),
+                  Expanded(child: CustomButton(titleText: "Confirm".tr,onPressed: () => Get.offAllNamed(AppRoute.signInScreen),),),
                 ],
               ),
             ),

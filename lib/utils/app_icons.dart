@@ -7,10 +7,11 @@ class AppIcons {
   static const String br = "$basePath/br.png";
   static const String categories = "$basePath/categories.png";
   static const String reviews = "$basePath/review.png";
+  static const String editDetails = "$basePath/edit_details.png";
+
 
   static const String changePass = "$basePath/change_pass.svg";
   static const String edit = "$basePath/edit.svg";
-  static const String editDetails = "$basePath/edit_details.svg";
   static const String filter = "$basePath/filter.svg";
   static const String history = "$basePath/history.svg";
   static const String logOut = "$basePath/log_out.svg";

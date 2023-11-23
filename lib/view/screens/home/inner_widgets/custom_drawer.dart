@@ -1,3 +1,4 @@
+import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/utils/app_images.dart';
@@ -5,6 +6,7 @@ import 'package:barbar_provider/view/screens/home/inner_widgets/drawer_card.dart
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -55,13 +57,13 @@ class CustomDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            const DrawerCard(imageSrc: AppIcons.br, text: "Booking Request", imageType: ImageType.png,colorTrue: true),
+            DrawerCard(imageSrc: AppIcons.br, text: "Booking Request", imageType: ImageType.png,colorTrue: true,onTap: () => Get.toNamed(AppRoute.bookingRequest)),
             const SizedBox(height: 16),
-            const DrawerCard(imageSrc: AppIcons.br, text: "Approved Bookings", imageType: ImageType.png),
+            DrawerCard(imageSrc: AppIcons.br, text: "Approved Bookings", imageType: ImageType.png, onTap: () => Get.toNamed(AppRoute.approvedBooking)),
             const SizedBox(height: 16),
-            const DrawerCard(imageSrc: AppIcons.br, text: "Booking History", imageType: ImageType.png),
+            DrawerCard(imageSrc: AppIcons.br, text: "Booking History", imageType: ImageType.png,onTap: () => Get.toNamed(AppRoute.bookingHistory)),
             const SizedBox(height: 16),
-            const DrawerCard(imageSrc: AppIcons.br, text: "Edit Business Details", imageType: ImageType.png),
+            const DrawerCard(imageSrc: AppIcons.editDetails, text: "Edit Business Details", imageType: ImageType.png),
             const SizedBox(height: 16),
             const DrawerCard(imageSrc: AppIcons.categories, text: "Categories", imageType: ImageType.png),
             const SizedBox(height: 16),

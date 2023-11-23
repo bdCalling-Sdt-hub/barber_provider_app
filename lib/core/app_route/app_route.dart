@@ -1,9 +1,14 @@
+import 'package:barbar_provider/view/screens/approved_booking/approved_booking.dart';
 import 'package:barbar_provider/view/screens/auth/forget_password/forget_password.dart';
 import 'package:barbar_provider/view/screens/auth/otp/otp_screen.dart';
 import 'package:barbar_provider/view/screens/auth/reset_password/reset_password_screen.dart';
 import 'package:barbar_provider/view/screens/auth/sign_in/sign_in_screen.dart';
 import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_continue.dart';
 import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_screen.dart';
+import 'package:barbar_provider/view/screens/booking_history/booking_history.dart';
+import 'package:barbar_provider/view/screens/booking_request/booking_request.dart';
+import 'package:barbar_provider/view/screens/booking_request/booking_request_details/booking_request_details.dart';
+import 'package:barbar_provider/view/screens/booking_request/booking_reschedule/booking_reschedule.dart';
 import 'package:barbar_provider/view/screens/make_payment/make_payment_screen.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
 import 'package:barbar_provider/view/screens/notification/notification_screen.dart';
@@ -40,6 +45,11 @@ class AppRoute {
   static const String subscriptionPlans = "/subscription_plans";
   static const String makePayment = "/make_payment_screen";
   static const String notification = "/notification_screen";
+  static const String bookingRequest = "/booking_request";
+  static const String bookingRequestDetails = "/booking_request_details";
+  static const String bookingReSchedule = "/booking_reschedule";
+  static const String approvedBooking = "/approved_booking";
+  static const String bookingHistory = "/booking_history";
 
 
   static List<GetPage> routes = [
@@ -65,5 +75,10 @@ class AppRoute {
     GetPage(name: subscriptionPlans, page: () =>  const SubscriptionPlan()),
     GetPage(name: makePayment, page: () =>  const MakePaymentScreen()),
     GetPage(name: notification, page: () =>  const NotificationScreen()),
+    GetPage(name: bookingRequest, page: () =>  const BookingsRequest()),
+    GetPage(name: bookingRequestDetails, page: () =>  const BookingRequestDetails()),
+    GetPage(name: bookingReSchedule, page: () =>  const BookingReSchedule()),
+    GetPage(name: approvedBooking, page: () =>  const ApprovedBooking()),
+    GetPage(name: bookingHistory, page: () =>  const BookingHistory()),
   ];
 }

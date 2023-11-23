@@ -19,10 +19,12 @@ class CustomButton extends StatelessWidget {
   final double bottom;
 
   final TextAlign textAlign;
+  final Color borderColor;
 
   const CustomButton(
       {this.textAlign = TextAlign.center,
         this.onPressed,
+        this.borderColor = Colors.transparent,
         required this.titleText,
         this.titleColor = AppColors.white,
         this.buttonColor = AppColors.primaryOrange,
@@ -49,6 +51,7 @@ class CustomButton extends StatelessWidget {
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(buttonRadius),
+              side: BorderSide(color: borderColor,width: 1,style: BorderStyle.solid)
             ),
           ),
           elevation: MaterialStateProperty.all(0),

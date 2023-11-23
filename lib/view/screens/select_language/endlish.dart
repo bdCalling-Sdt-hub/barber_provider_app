@@ -144,4 +144,40 @@ Map<String, String> english = {
   "Yesterday" : "Yesterday",
 
 
+  //Bookings Request Screen
+  "Date:" : "Date:",
+  "Services :" : "Services :",
+  "Total Amount :" : "Total Amount :",
+  "Accept" : "Accept",
+  "Decline" : "Decline",
+
+
+  //Booking Request Details Screen
+  "Booking Request Details" : "Booking Request Details",
+  "Client name :" : "Client name :",
+  "Address :" : "Address :",
+  "Phone number :" : "Phone number :",
+  "Service Type :" : "Service Type :",
+  "Service Duration :" :"Service Duration :",
+  "Received Booking Money :" : "Received Booking Money :",
+  "Payment Method :" : "Payment Method :",
+  "Re-Schedule" : "Re-Schedule",
+  "Appointment booked" : "Appointment booked",
+  "Your booking has been successfully done." : "Your booking has been successfully done.",
+  "Slot Unavailable !" : "Slot Unavailable !",
+  "Sorry, This slot is already booked. Please try another slot" : "Sorry, This slot is already booked. Please try another slot",
+
+
+  //Re-Schedule Appointment Screen
+  "Re-Schedule Appointment" : "Re-Schedule Appointment",
+  "Complete" : "Complete",
+  "Mark as late" : "Mark as late",
+
+  //Booking History Screen
+  "Booking Status :" : "Booking Status :",
+  "Completed" : "Completed",
+  "Marked as late" : "Marked as late",
+  "Cancelled" : "Cancelled",
+
+
 };
