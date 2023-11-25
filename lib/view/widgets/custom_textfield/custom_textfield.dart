@@ -6,6 +6,7 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField({
     this.textEditingController,
     this.focusNode,
+    this.hintColor = AppColors.black60,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.next,
     this.cursorColor = AppColors.paragraph,
@@ -46,6 +47,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
 
   final bool readOnly;
+  final Color hintColor;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -71,7 +73,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.montserrat(color: AppColors.paragraph),
+        hintStyle: GoogleFonts.montserrat(color: widget.hintColor),
         fillColor: widget.fillColor,
         filled: true,
         suffixIcon: widget.isPassword

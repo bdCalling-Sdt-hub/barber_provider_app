@@ -1,3 +1,7 @@
+import 'package:barbar_provider/view/screens/add_new_service/add_service_details.dart';
+import 'package:barbar_provider/view/screens/add_new_service/select_category.dart';
+import 'package:barbar_provider/view/screens/add_new_service/add_photo.dart';
+import 'package:barbar_provider/view/screens/add_new_service/add_provider_details.dart';
 import 'package:barbar_provider/view/screens/approved_booking/approved_booking.dart';
 import 'package:barbar_provider/view/screens/auth/forget_password/forget_password.dart';
 import 'package:barbar_provider/view/screens/auth/otp/otp_screen.dart';
@@ -9,6 +13,7 @@ import 'package:barbar_provider/view/screens/booking_history/booking_history.dar
 import 'package:barbar_provider/view/screens/booking_request/booking_request.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_request_details/booking_request_details.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_reschedule/booking_reschedule.dart';
+import 'package:barbar_provider/view/screens/category/category.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/edit_business_details.dart';
 import 'package:barbar_provider/view/screens/make_payment/make_payment_screen.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
@@ -52,6 +57,11 @@ class AppRoute {
   static const String approvedBooking = "/approved_booking";
   static const String bookingHistory = "/booking_history";
   static const String editBusinessDetails = "/edit_business_details";
+  static const String categoriesScreen = "/category";
+  static const String addNewServiceCategory = "/add_new_service_category";
+  static const String providerDetails = "/add_provider_details";
+  static const String addPhotos = "/add_photo";
+  static const String addServiceDetails = "/add_service_details";
 
 
   static List<GetPage> routes = [
@@ -64,9 +74,7 @@ class AppRoute {
     GetPage(name: signUpScreen, page: () =>  const SignUpScreen()),
     GetPage(name: signUpContinue, page: () =>  const SignUpContinue()),
 
-
     GetPage(name: navBar, page: () =>  const NavBar()),
-
 
     GetPage(name: editProfile, page: () =>  const EditProfile()),
     GetPage(name: settings, page: () =>  const SettingsScreen()),
@@ -83,5 +91,12 @@ class AppRoute {
     GetPage(name: approvedBooking, page: () =>  const ApprovedBooking()),
     GetPage(name: bookingHistory, page: () =>  const BookingHistory()),
     GetPage(name: editBusinessDetails, page: () =>  const EditBusinessDetails()),
+    GetPage(name: categoriesScreen, page: () =>  const CategoryScreen()),
+    GetPage(name: addNewServiceCategory, page: () =>  const SelectCategory()),
+    GetPage(name: providerDetails, page: () =>  const AddProviderDetails()),
+    GetPage(name: addPhotos, page: () =>  const AddPhoto()),
+    GetPage(name: addServiceDetails, page: () =>  const AddServiceDetails()),
+
+
   ];
 }

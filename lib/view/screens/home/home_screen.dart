@@ -84,11 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 24),
               GestureDetector(
                 onTap: () {
-                  showDialog(
+                  //If don't have subscription then this section will show
+                  /*showDialog(
                       context: context,
                       builder: (context) {
                         return const PurchasePopUp();
-                      });
+                      });*/
+                  Get.toNamed(AppRoute.addNewServiceCategory);
                 },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,

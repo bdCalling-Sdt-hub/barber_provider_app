@@ -9,6 +9,7 @@ class AppColors {
   static const Color stroke = Color(0xff535770);
   static const Color bgColor = Color(0xff0E1116);
   static const Color cardBgColor = Color(0xff364153);
+  static const Color black60 = Color(0xff6E7073);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color paragraph = Color(0xFFE9EAEC);

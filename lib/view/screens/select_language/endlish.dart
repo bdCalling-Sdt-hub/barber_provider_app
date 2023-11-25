@@ -184,5 +184,36 @@ Map<String, String> english = {
   "Business Name" :"Business Name",
   "Description" : "Description",
   "Change Cover Photo" : "Change Cover Photo",
+  "Change Picture" : "Change Picture",
+  "Gallery Photo" : "Gallery Photo",
+  "Change Service Hours" : "Change Service Hours",
+
+  //Categories Screens
+  "Search" : "Search",
+  "Select Categories" : "Select Categories",
+
+  //Add Business Screen
+  "Add Provider Details" : "Add Provider Details",
+  "Enter salon name"  : "Enter salon name",
+  "Enter salon address" : "Enter salon address",
+  "Enter salon description" : "Enter salon description",
+  "Available Service Hours" : "Available Service Hours",
+  "Add Photos" : "Add Photos",
+  "Upload Cover Photo" : "Upload Cover Photo",
+
+
+  //Add Service Details
+  "Service name" : "Service name",
+  "Enter service name" : "Enter service name",
+  "Service description" : "Service description",
+  "Service Duration" : "Service Duration",
+  "Enter service duration" : "Enter service duration",
+  "Select service charges" : "Select service charges",
+  "Salon Service Charge" : "Salon Service Charge",
+  "Enter service amount" : "Enter service amount",
+  "Home Service Charge" : "Home Service Charge",
+  "Set booking money" : "Set booking money",
+  "Set Booking money" : "Set Booking money",
+
 
 };

@@ -9,8 +9,8 @@ import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EditBusinessDetails extends StatelessWidget {
-  const EditBusinessDetails({super.key});
+class AddProviderDetails extends StatelessWidget {
+  const AddProviderDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,66 +19,21 @@ class EditBusinessDetails extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
         extendBody: true,
-        appBar: CustomAppBar(
-          appBarContent: CustomBack(
-            text: "Edit Business Details".tr,
-          ),
-        ),
+        appBar: CustomAppBar(appBarContent: CustomBack(text: "Add Provider Details".tr)),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(text: "Business Name".tr, bottom: 12),
-              const CustomTextField(hintText: "Green Apple Salon"),
+              CustomTextField(hintText: "Enter salon name".tr,),
               CustomText(text: "Address".tr, top: 16, bottom: 12),
-              const CustomTextField(hintText: "6391 Elgin St Celina, Delaware"),
+              CustomTextField(hintText: "Enter salon address".tr),
               CustomText(text: "Description".tr, top: 16, bottom: 12),
-              const CustomTextField(
-                hintText:
-                    "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla.",
-                maxLines: 8,
-              ),
-              CustomText(text: "Change Cover Photo".tr,top: 16,bottom: 12),
+              CustomTextField(hintText:"Enter salon description".tr, maxLines: 6),
 
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: AppColors.cardBgColor
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Change Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
-                  ],
-                ),
-              ),
-
-              CustomText(text: "Gallery Photo".tr,top: 16,bottom: 12),
-
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cardBgColor
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Change Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
-                  ],
-                ),
-              ),
-
-              CustomText(text: "Change Service Hours".tr,top: 16,bottom: 12),
+              CustomText(text: "Available Service Hours".tr,top: 16,bottom: 12),
 
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +104,7 @@ class EditBusinessDetails extends StatelessWidget {
 
               const SizedBox(height: 44),
 
-              CustomButton(titleText: "Save".tr,onPressed: () => Get.offAllNamed(AppRoute.navBar)),
+              CustomButton(titleText: "Continue".tr,onPressed: () => Get.offAllNamed(AppRoute.addPhotos)),
 
               const SizedBox(height: 24),
             ],
