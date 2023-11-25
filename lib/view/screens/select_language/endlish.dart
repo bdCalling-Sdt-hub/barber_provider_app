@@ -180,4 +180,9 @@ Map<String, String> english = {
   "Cancelled" : "Cancelled",
 
 
+  //Edit Business Details Screen
+  "Business Name" :"Business Name",
+  "Description" : "Description",
+  "Change Cover Photo" : "Change Cover Photo",
+
 };

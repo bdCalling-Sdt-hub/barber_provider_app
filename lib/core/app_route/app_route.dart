@@ -9,6 +9,7 @@ import 'package:barbar_provider/view/screens/booking_history/booking_history.dar
 import 'package:barbar_provider/view/screens/booking_request/booking_request.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_request_details/booking_request_details.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_reschedule/booking_reschedule.dart';
+import 'package:barbar_provider/view/screens/edit_business_details/edit_business_details.dart';
 import 'package:barbar_provider/view/screens/make_payment/make_payment_screen.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
 import 'package:barbar_provider/view/screens/notification/notification_screen.dart';
@@ -50,6 +51,7 @@ class AppRoute {
   static const String bookingReSchedule = "/booking_reschedule";
   static const String approvedBooking = "/approved_booking";
   static const String bookingHistory = "/booking_history";
+  static const String editBusinessDetails = "/edit_business_details";
 
 
   static List<GetPage> routes = [
@@ -80,5 +82,6 @@ class AppRoute {
     GetPage(name: bookingReSchedule, page: () =>  const BookingReSchedule()),
     GetPage(name: approvedBooking, page: () =>  const ApprovedBooking()),
     GetPage(name: bookingHistory, page: () =>  const BookingHistory()),
+    GetPage(name: editBusinessDetails, page: () =>  const EditBusinessDetails()),
   ];
 }
