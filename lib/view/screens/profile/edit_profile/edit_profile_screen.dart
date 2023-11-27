@@ -44,13 +44,13 @@ class EditProfile extends StatelessWidget {
               ),
 
               CustomText(text: "Name".tr,top: 24,bottom: 12),
-              const CustomTextField(hintText: "Jane Cooper"),
+              const CustomTextField(hintText: "Jane Cooper",hintColor: AppColors.white),
               CustomText(text: "Email".tr,top: 16,bottom: 12),
-              const CustomTextField(hintText: "jane.07@gmail.com"),
+              const CustomTextField(hintText: "jane.07@gmail.com",hintColor: AppColors.white),
               CustomText(text: "Phone Number".tr,top: 16,bottom: 12),
-              const CustomTextField(hintText: "(406) 555-1020"),
+              const CustomTextField(hintText: "(406) 555-1020",hintColor: AppColors.white),
               CustomText(text: "Address".tr,top: 16,bottom: 12),
-              const CustomTextField(hintText: "2972 Westheimer Rd. Santa Ana, Illinois 85486 ",maxLines: 4),
+              const CustomTextField(hintText: "2972 Westheimer Rd. Santa Ana, Illinois 85486 ",maxLines: 4,hintColor: AppColors.white),
               
               const SizedBox(height: 56),
               CustomButton(titleText: "Update Profile".tr,onPressed: ()=> Get.back()),

@@ -74,6 +74,12 @@ Map<String, String> english = {
 
   //Earnings Screen
   "Earnings" : "Earnings",
+  "Wallet Balance" : "Wallet Balance",
+  "Yearly Earnings" : "Yearly Earnings",
+  "Total Earnings" : "Total Earnings",
+  "Monthly Earnings" : "Monthly Earnings",
+  "Weekly Earnings" : "Weekly Earnings",
+  "Daily Earnings" : "Daily Earnings",
 
 
 

@@ -3,6 +3,8 @@ class AppIcons {
   static const String appIcon = "$basePath/app_logo.svg";
   static const String aboutUs = "$basePath/about_us.svg";
   static const String bell = "$basePath/bell.svg";
+  static const String earn = "$basePath/earn.svg";
+  static const String increment = "$basePath/increment.svg";
 
   static const String br = "$basePath/br.png";
   static const String categories = "$basePath/categories.png";
