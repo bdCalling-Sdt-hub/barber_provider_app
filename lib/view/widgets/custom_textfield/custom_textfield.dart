@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
     this.fieldBorderColor = AppColors.stroke,
     this.isPassword = false,
     this.readOnly = false,
+    this.hintFontSize = 16,
     super.key,
   });
 
@@ -45,7 +46,7 @@ class CustomTextField extends StatefulWidget {
   final double fieldBorderRadius;
   final Color fieldBorderColor;
   final bool isPassword;
-
+  final double hintFontSize;
   final bool readOnly;
   final Color hintColor;
 
@@ -73,7 +74,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.montserrat(color: widget.hintColor),
+        hintStyle: GoogleFonts.montserrat(color: widget.hintColor,fontSize: widget.hintFontSize),
         fillColor: widget.fillColor,
         filled: true,
         suffixIcon: widget.isPassword

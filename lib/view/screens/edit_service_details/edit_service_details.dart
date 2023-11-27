@@ -9,8 +9,8 @@ import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EditBusinessDetails extends StatelessWidget {
-  const EditBusinessDetails({super.key});
+class EditServiceDetails extends StatelessWidget {
+  const EditServiceDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,66 +20,59 @@ class EditBusinessDetails extends StatelessWidget {
         backgroundColor: AppColors.bgColor,
         extendBody: true,
         appBar: CustomAppBar(
-          appBarContent: CustomBack(
-            text: "Edit Business Details".tr,
-          ),
-        ),
+            appBarContent: CustomBack(text: "Edit Service Details".tr)),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomText(text: "Business Name".tr, bottom: 12),
-              const CustomTextField(hintText: "Green Apple Salon",hintColor: AppColors.white),
-              CustomText(text: "Address".tr, top: 16, bottom: 12),
-              const CustomTextField(hintText: "6391 Elgin St Celina, Delaware",hintColor: AppColors.white),
-              CustomText(text: "Description".tr, top: 16, bottom: 12),
+              CustomText(text: "Service name".tr, bottom: 12),
               const CustomTextField(
-                hintText:
-                    "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla.",
-                maxLines: 8,hintColor: AppColors.white,
+                hintText: "HeirCut",
+                hintColor: AppColors.white,
               ),
-              CustomText(text: "Change Cover Photo".tr,top: 16,bottom: 12),
-
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: AppColors.cardBgColor
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Change Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
-                  ],
-                ),
-              ),
-
-              CustomText(text: "Gallery Photo".tr,top: 16,bottom: 12),
-
+              CustomText(text: "Service description".tr, bottom: 12, top: 16),
+              CustomTextField(
+                  hintText:
+                      "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla."
+                          .tr,hintColor: AppColors.white,hintFontSize: 14,
+                  maxLines: 5),
+              CustomText(text: "Gallery Photo".tr, bottom: 12, top: 16),
               Container(
                 height: 190,
                 width: double.maxFinite,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cardBgColor
-                ),
+                    color: AppColors.cardBgColor),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Change Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
+                    const Icon(Icons.camera_alt_outlined,
+                        color: AppColors.primaryOrange, size: 64),
+                    CustomText(
+                        text: "Upload Picture".tr,
+                        color: AppColors.primaryOrange,
+                        fontWeight: FontWeight.w500)
                   ],
                 ),
               ),
-
-              CustomText(text: "Change Service Hours".tr,top: 16,bottom: 12),
-
+              CustomText(text: "Service Duration".tr, bottom: 12, top: 16),
+              CustomTextField(hintText: "Enter service duration".tr),
+              CustomText(
+                  text: "Select service charges".tr,
+                  top: 16,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18),
+              CustomText(text: "Salon Service Charge".tr, bottom: 12, top: 16),
+              CustomTextField(hintText: "Enter service amount".tr),
+              CustomText(text: "Home Service Charge".tr, bottom: 12, top: 16),
+              CustomTextField(hintText: "Set booking money".tr),
+              CustomText(text: "Set Booking money".tr, bottom: 12, top: 16),
+              CustomTextField(hintText: "Set Booking money".tr),
+              CustomText(
+                  text: "Available Service Hours".tr, top: 16, bottom: 16),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,11 +139,10 @@ class EditBusinessDetails extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 44),
-
-              CustomButton(titleText: "Save".tr,onPressed: () => Get.offAllNamed(AppRoute.navBar)),
-
+              CustomButton(
+                  titleText: "Save".tr,
+                  onPressed: () => Get.offAllNamed(AppRoute.navBar)),
               const SizedBox(height: 24),
             ],
           ),

@@ -57,6 +57,10 @@ Map<String, String> english = {
   "Home" : "Home",
   "You have to subscribe for add services as a provider " : "You have to subscribe for add services as a provider ",
   "Purchase Subscription" : "Purchase Subscription",
+  "Users won’t see the details before admins approval" : "|Users won’t see the details before admins approval",
+
+
+
 
   //Home Drawer
   "Booking Request" : "Booking Request",
@@ -75,6 +79,8 @@ Map<String, String> english = {
 
   //Booking Screen
   "Bookings" :"Bookings",
+  "Client" : "Client",
+  "Date & Time" : "Date & Time",
 
 
 
@@ -215,5 +221,10 @@ Map<String, String> english = {
   "Set booking money" : "Set booking money",
   "Set Booking money" : "Set Booking money",
 
+
+  //Service Details Screen
+  "Service Details" : "Service Details",
+  "Service Hours" :"Service Hours",
+  "Edit Service Details" : "Edit Service Details",
 
 };

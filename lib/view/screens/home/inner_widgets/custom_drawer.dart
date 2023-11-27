@@ -67,7 +67,7 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(height: 16),
             DrawerCard(imageSrc: AppIcons.categories, text: "Categories", imageType: ImageType.png, onTap: () => Get.toNamed(AppRoute.categoriesScreen)),
             const SizedBox(height: 16),
-            const DrawerCard(imageSrc: AppIcons.reviews, text: "Clients Reviews", imageType: ImageType.png),
+            DrawerCard(imageSrc: AppIcons.reviews, text: "Clients Reviews", imageType: ImageType.png, onTap: () => Get.toNamed(AppRoute.clientsReviews)),
           ],
         ),
       ),
