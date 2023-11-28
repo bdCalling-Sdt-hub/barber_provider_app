@@ -25,7 +25,7 @@ class AboutUs extends StatelessWidget {
             children: [
               CustomText(
                   text: "Lorem ipsum dolor sit amet consectetur",
-                  maxLines: 2,
+                  maxLines: 2,textAlign: TextAlign.start,
                   fontWeight: FontWeight.w600),
               CustomText(
                   text:
