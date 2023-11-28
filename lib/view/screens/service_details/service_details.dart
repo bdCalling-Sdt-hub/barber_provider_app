@@ -38,8 +38,7 @@ class ServiceDetails extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CustomText(
-                      text: "Haircuts", fontWeight: FontWeight.w600),
+                  const CustomText(text: "Haircuts", fontWeight: FontWeight.w600),
                   Container(
                     height: 24,
                     width: 24,
@@ -51,6 +50,7 @@ class ServiceDetails extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 12),
+
               const Row(
                 children: [
                   Icon(Icons.star, size: 16, color: AppColors.primaryOrange),
