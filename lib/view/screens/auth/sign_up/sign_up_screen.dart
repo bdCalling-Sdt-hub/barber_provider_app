@@ -29,7 +29,10 @@ class SignUpScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomText(text: "Name".tr,bottom: 12,top: 24),
+
+                  const Align(alignment: Alignment.center,child: CustomText(text: "Atyose",fontSize: 36,fontWeight: FontWeight.w700,color: AppColors.primaryOrange)),
+
+                  CustomText(text: "Name".tr,bottom: 12,top: 44),
 
                   CustomTextField(
                     hintText: "Enter full name".tr,
