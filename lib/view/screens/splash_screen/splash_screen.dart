@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,11 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomImage(imageSrc: AppIcons.appIcon),
-                SizedBox(height: 24),
-                CustomText(
-                  text: "Atyose",
-                  fontSize: 24,
-                ),
               ],
             ),
           ),
