@@ -74,23 +74,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
       validator: widget.validator,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: GoogleFonts.montserrat(color: widget.hintColor,fontSize: widget.hintFontSize),
+        hintStyle: GoogleFonts.montserrat(
+            color: widget.hintColor, fontSize: widget.hintFontSize),
         fillColor: widget.fillColor,
         filled: true,
         suffixIcon: widget.isPassword
             ? GestureDetector(
-            onTap: toggle,
-            child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: obscureText
-                    ? const Icon(
-                  Icons.visibility_off,
-                  color: AppColors.paragraph,
-                )
-                    : const Icon(
-                  Icons.visibility,
-                  color: AppColors.paragraph,
-                )))
+                onTap: toggle,
+                child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: obscureText
+                        ? const Icon(
+                            Icons.visibility_off,
+                            color: AppColors.paragraph,
+                          )
+                        : const Icon(
+                            Icons.visibility,
+                            color: AppColors.paragraph,
+                          )))
             : widget.suffixIcon,
         suffixIconColor: widget.suffixIconColor,
         border: OutlineInputBorder(
