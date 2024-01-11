@@ -1,9 +1,12 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/core/di_service/dependency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 void main() {
+  Dependancy dI = Dependancy();
+  dI.dependencies();
   runApp(const MyApp());
 }
 

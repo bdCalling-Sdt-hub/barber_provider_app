@@ -1,3 +1,5 @@
+import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +20,24 @@ class SignUpController extends GetxController {
       'email': emailController.text,
       'password': passWordController.text,
       'password_confirmation': confirmPasController.text,
-      "user_type": "",
+      "latitude": "3214",
+      "longitude": "1234",
+      "user_type": "provider",
     };
-
-    var response =
-        await ApiClient.postMultipartData(ApiConstant.register, body);
+   var headers = {
+          'Accept': 'application/json'
+        };
+    var response = await ApiClient.postData(
+      ApiConstant.register,
+      body,headers: headers
+    );
+    if (response.statusCode == 200) {
+      Get.toNamed(
+        AppRoute.otpScreen,
+      );
+    } else {
+      ApiChecker.checkApi(response);
+    }
+    signUpLoading(false);
   }
 }

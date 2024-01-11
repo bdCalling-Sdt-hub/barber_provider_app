@@ -97,7 +97,7 @@ class SignUpContinue extends StatelessWidget {
               CustomButton(
                 titleText: "Sign Up".tr,
                 onPressed: () {
-                  Get.offAllNamed(AppRoute.navBar);
+                  Get.toNamed(AppRoute.otpScreen);
                 },
               ),
               Padding(
@@ -107,10 +107,9 @@ class SignUpContinue extends StatelessWidget {
                   children: [
                     CustomText(text: "Already have an account?  ".tr),
                     GestureDetector(
-                      onTap: ()=> Get.back(),
+                      onTap: () => Get.back(),
                       child: CustomText(
-                          text: "Sign In".tr,
-                          color: AppColors.primaryOrange),
+                          text: "Sign In".tr, color: AppColors.primaryOrange),
                     ),
                   ],
                 ),
