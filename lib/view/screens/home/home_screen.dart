@@ -245,7 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.add_circle_outline, color: AppColors.primaryOrange, size: 16),
+                    const Icon(Icons.add_circle_outline,
+                        color: AppColors.primaryOrange, size: 16),
                     CustomText(
                       text: "Add New Services".tr,
                       maxLines: 2,

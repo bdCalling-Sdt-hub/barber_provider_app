@@ -1,3 +1,4 @@
+import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -8,7 +9,7 @@ class CustomLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitCircle(
-        color: Colors.black87,
+        color: AppColors.primaryOrange,
         size: 60.0,
       ),
     );

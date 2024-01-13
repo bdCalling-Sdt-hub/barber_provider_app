@@ -5,6 +5,7 @@ import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_controller/sig
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
@@ -133,16 +134,18 @@ class SignUpScreen extends StatelessWidget {
                     //Sign Up Button
 
                     const SizedBox(height: 44),
-                    CustomButton(
-                        onPressed: () {
-                          // Get.toNamed(AppRoute.signUpContinue);
-                          // contriller.signUpUser();
+                    controller.signUpLoading
+                        ? const CustomLoader()
+                        : CustomButton(
+                            onPressed: () {
+                              // Get.toNamed(AppRoute.signUpContinue);
+                              // contriller.signUpUser();
 
-                          if (formKey.currentState!.validate()) {
-                            controller.signUpUser();
-                          }
-                        },
-                        titleText: AppStaticStrings.signUp.tr),
+                              if (formKey.currentState!.validate()) {
+                                controller.signUpUser();
+                              }
+                            },
+                            titleText: AppStaticStrings.signUp.tr),
 
                     // Or Sign in with
 

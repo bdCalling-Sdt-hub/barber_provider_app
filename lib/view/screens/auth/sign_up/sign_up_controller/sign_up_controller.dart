@@ -11,10 +11,14 @@ class SignUpController extends GetxController {
   TextEditingController passWordController = TextEditingController();
   TextEditingController confirmPasController = TextEditingController();
 
-  var signUpLoading = false.obs;
+  bool signUpLoading = false;
+
+  String otp = "";
+  var headers = {'Accept': 'application/json'};
 
   signUpUser() async {
-    signUpLoading(true);
+    signUpLoading = true;
+    update();
     Map<String, String> body = {
       'name': nameController.text,
       'email': emailController.text,
@@ -24,13 +28,9 @@ class SignUpController extends GetxController {
       "longitude": "1234",
       "user_type": "provider",
     };
-   var headers = {
-          'Accept': 'application/json'
-        };
-    var response = await ApiClient.postData(
-      ApiConstant.register,
-      body,headers: headers
-    );
+
+    var response =
+        await ApiClient.postData(ApiConstant.register, body, headers: headers);
     if (response.statusCode == 200) {
       Get.toNamed(
         AppRoute.otpScreen,
@@ -38,6 +38,41 @@ class SignUpController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
-    signUpLoading(false);
+    signUpLoading = false;
+    update();
+  }
+
+  resendOTP() async {
+    var body = {
+      "email": emailController.text,
+    };
+    var response = await ApiClient.postData(
+      ApiConstant.resendOtp,
+      body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      Get.offNamed(
+        AppRoute.navBar,
+      );
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  varifyOTP() async {
+    var body = {"email": emailController.text, "otp": otp};
+    var response = await ApiClient.postData(
+      ApiConstant.verified,
+      body,
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      Get.offNamed(
+        AppRoute.navBar,
+      );
+    } else {
+      ApiChecker.checkApi(response);
+    }
   }
 }
