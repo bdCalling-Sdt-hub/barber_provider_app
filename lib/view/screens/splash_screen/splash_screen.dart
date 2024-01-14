@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:barbar_provider/core/app_route/app_route.dart';
-import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,23 +17,18 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void navigate() async {
-    //==================Get Information abount showing onboarding screen==================
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool? isOnboarding = preferences.getBool(AppConstants.onBoard);
 
-    bool? isOnboarding =
-        await PrefsHelper.getBool(SharedPreferenceValue.isOnboarding);
+    print("isOnboarding=======================$isOnboarding");
 
-    //======================If First time opening app goes to onboarding=====================
-
-    // ignore: unnecessary_null_comparison
-    if (isOnboarding == true || isOnboarding == null) {
-      Timer(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (isOnboarding == true || isOnboarding == null) {
         Get.offAllNamed(AppRoute.onboardingScreen);
-      });
-    } else {
-      Future.delayed(const Duration(seconds: 2), () {
+      } else {
         Get.offAllNamed(AppRoute.signInScreen);
-      });
-    }
+      }
+    });
   }
 
   @override

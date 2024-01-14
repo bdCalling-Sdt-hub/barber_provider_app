@@ -5,6 +5,7 @@ import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class SignInController extends GetxController {
 
     if (response.statusCode == 200) {
       PrefsHelper.setString(
-          SharedPreferenceValue.token, response.body["access_token"]);
+          AppConstants.bearerToken, response.body["access_token"]);
       Get.offNamed(
         AppRoute.navBar,
       );
@@ -58,7 +59,7 @@ class SignInController extends GetxController {
       idToken: googleAuth?.idToken,
     );
 
-    print(
+    debugPrint(
         "credential========================$credential============================");
 
     // Once signed in, return the UserCredential

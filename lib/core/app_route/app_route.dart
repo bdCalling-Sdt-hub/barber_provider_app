@@ -1,7 +1,7 @@
-import 'package:barbar_provider/view/screens/add_new_service/add_service_details.dart';
-import 'package:barbar_provider/view/screens/add_new_service/select_category.dart';
-import 'package:barbar_provider/view/screens/add_new_service/add_photo.dart';
-import 'package:barbar_provider/view/screens/add_new_service/add_provider_details.dart';
+import 'package:barbar_provider/view/screens/add_new_service/screens/add_photo.dart';
+import 'package:barbar_provider/view/screens/add_new_service/screens/add_provider_details.dart';
+import 'package:barbar_provider/view/screens/add_new_service/screens/add_service_details.dart';
+import 'package:barbar_provider/view/screens/add_new_service/screens/select_category.dart';
 import 'package:barbar_provider/view/screens/approved_booking/approved_booking.dart';
 import 'package:barbar_provider/view/screens/auth/forget_password/forget_password.dart';
 import 'package:barbar_provider/view/screens/auth/otp/otp_screen.dart';
@@ -42,7 +42,6 @@ class AppRoute {
   static const String signUpScreen = "/sign_up_screen";
   static const String signUpContinue = "/sign_up_continue";
 
-
   static const String navBar = "/nav_bar";
 
   static const String editProfile = "/edit_profile_screen";
@@ -69,43 +68,39 @@ class AppRoute {
   static const String serviceDetails = "/service_details";
   static const String editServiceDetails = "/edit_service_details";
 
-
   static List<GetPage> routes = [
     GetPage(name: splashscreen, page: () => const SplashScreen()),
     GetPage(name: onboardingScreen, page: () => const OnboardingScreen()),
     GetPage(name: signInScreen, page: () => const SignInScreen()),
     GetPage(name: forgetPassScreen, page: () => const ForgetPassword()),
-    GetPage(name: otpScreen, page: () =>  const OtpScreen()),
-    GetPage(name: resetPassword, page: () =>  const ResetPassword()),
-    GetPage(name: signUpScreen, page: () =>  const SignUpScreen()),
-    GetPage(name: signUpContinue, page: () =>  const SignUpContinue()),
-
-    GetPage(name: navBar, page: () =>  const NavBar()),
-
-    GetPage(name: editProfile, page: () =>  const EditProfile()),
-    GetPage(name: settings, page: () =>  const SettingsScreen()),
-    GetPage(name: changePassword, page: () =>  const ChangePasswordScreen()),
-    GetPage(name: privacyPolicy, page: () =>  const PrivacyPolicy()),
-    GetPage(name: termsCondition, page: () =>  const TermsCondition()),
-    GetPage(name: aboutUs, page: () =>  const AboutUs()),
-    GetPage(name: subscriptionPlans, page: () =>  const SubscriptionPlan()),
-    GetPage(name: makePayment, page: () =>  const MakePaymentScreen()),
-    GetPage(name: notification, page: () =>  const NotificationScreen()),
-    GetPage(name: bookingRequest, page: () =>  const BookingsRequest()),
-    GetPage(name: bookingRequestDetails, page: () =>  const BookingRequestDetails()),
-    GetPage(name: bookingReSchedule, page: () =>  const BookingReSchedule()),
-    GetPage(name: approvedBooking, page: () =>  const ApprovedBooking()),
-    GetPage(name: bookingHistory, page: () =>  const BookingHistory()),
-    GetPage(name: editBusinessDetails, page: () =>  const EditBusinessDetails()),
-    GetPage(name: categoriesScreen, page: () =>  const CategoryScreen()),
-    GetPage(name: clientsReviews, page: () =>  const ClientsReviews()),
-    GetPage(name: addNewServiceCategory, page: () =>  const SelectCategory()),
-    GetPage(name: providerDetails, page: () =>  const AddProviderDetails()),
-    GetPage(name: addPhotos, page: () =>  const AddPhoto()),
-    GetPage(name: addServiceDetails, page: () =>  const AddServiceDetails()),
-    GetPage(name: serviceDetails, page: () =>  const ServiceDetails()),
-    GetPage(name: editServiceDetails, page: () =>  const EditServiceDetails()),
-
-
+    GetPage(name: otpScreen, page: () => const OtpScreen()),
+    GetPage(name: resetPassword, page: () => const ResetPassword()),
+    GetPage(name: signUpScreen, page: () => const SignUpScreen()),
+    GetPage(name: signUpContinue, page: () => const SignUpContinue()),
+    GetPage(name: navBar, page: () => const NavBar()),
+    GetPage(name: editProfile, page: () => const EditProfile()),
+    GetPage(name: settings, page: () => const SettingsScreen()),
+    GetPage(name: changePassword, page: () => const ChangePasswordScreen()),
+    GetPage(name: privacyPolicy, page: () => const PrivacyPolicy()),
+    GetPage(name: termsCondition, page: () => const TermsCondition()),
+    GetPage(name: aboutUs, page: () => const AboutUs()),
+    GetPage(name: subscriptionPlans, page: () => const SubscriptionPlan()),
+    GetPage(name: makePayment, page: () => const MakePaymentScreen()),
+    GetPage(name: notification, page: () => const NotificationScreen()),
+    GetPage(name: bookingRequest, page: () => const BookingsRequest()),
+    GetPage(
+        name: bookingRequestDetails, page: () => const BookingRequestDetails()),
+    GetPage(name: bookingReSchedule, page: () => const BookingReSchedule()),
+    GetPage(name: approvedBooking, page: () => const ApprovedBooking()),
+    GetPage(name: bookingHistory, page: () => const BookingHistory()),
+    GetPage(name: editBusinessDetails, page: () => const EditBusinessDetails()),
+    GetPage(name: categoriesScreen, page: () => const CategoryScreen()),
+    GetPage(name: clientsReviews, page: () => const ClientsReviews()),
+    GetPage(name: addNewServiceCategory, page: () => const SelectCategory()),
+    GetPage(name: providerDetails, page: () => const AddProviderDetails()),
+    GetPage(name: addPhotos, page: () => const AddPhoto()),
+    GetPage(name: addServiceDetails, page: () => const AddServiceDetails()),
+    GetPage(name: serviceDetails, page: () => const ServiceDetails()),
+    GetPage(name: editServiceDetails, page: () => const EditServiceDetails()),
   ];
 }

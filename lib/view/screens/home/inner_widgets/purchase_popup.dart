@@ -12,16 +12,31 @@ class PurchasePopUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: AppColors.primaryOrange,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 16),
-
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       content: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Column(
           children: [
-            CustomText(text: "You have to subscribe for add services as a provider ".tr,maxLines: 4,fontWeight: FontWeight.w500),
-            CustomText(text: "Please purchase a subscription for adding services for your business.".tr,maxLines: 5,top: 12,color: AppColors.paragraph,bottom: 24),
-            CustomButton(titleText: "Purchase Subscription".tr,buttonHeight: 44,buttonColor: AppColors.white,titleColor: AppColors.primaryOrange,onPressed: () => Get.toNamed(AppRoute.subscriptionPlans))
+            CustomText(
+                text:
+                    "You have to subscribe for add services as a provider ".tr,
+                maxLines: 4,
+                fontWeight: FontWeight.w500),
+            CustomText(
+                text:
+                    "Please purchase a subscription for adding services for your business."
+                        .tr,
+                maxLines: 5,
+                top: 12,
+                color: AppColors.paragraph,
+                bottom: 24),
+            CustomButton(
+                titleText: "Purchase Subscription".tr,
+                buttonHeight: 44,
+                buttonColor: AppColors.white,
+                titleColor: AppColors.primaryOrange,
+                onPressed: () => Get.toNamed(AppRoute.subscriptionPlans))
           ],
         ),
       ),

@@ -10,4 +10,6 @@ class ApiConstant {
   //=========Sign IN==========
   static const login = "/login";
 
+  //===================Home Screen=========================
+  static const showCategory = "/show-category";
 }

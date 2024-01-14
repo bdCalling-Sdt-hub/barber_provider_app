@@ -1,6 +1,7 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/app_images.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
@@ -21,7 +22,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void initState() {
-    PrefsHelper.setBool(SharedPreferenceValue.isOnboarding, false);
+    PrefsHelper.setBool(AppConstants.onBoard, false);
     super.initState();
   }
 

@@ -1,11 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferenceValue {
-  static const String token = "";
-  static const String email = "";
-  static const String isRemember = "";
-  static const String isOnboarding = "";
-}
+// class SharedPreferenceValue {
+//   static const String token = "token";
+//   static const String email = "email";
+//   static const String isRemember = "isRemember";
+//   static const String isOnboarding = "isOnboarding";
+// }
 
 class PrefsHelper {
   //===========================Get Data From Shared Preference===================

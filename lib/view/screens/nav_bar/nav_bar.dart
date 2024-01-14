@@ -2,7 +2,7 @@ import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/screens/bookings/bookings_screen.dart';
 import 'package:barbar_provider/view/screens/earnings/earnings_screen.dart';
-import 'package:barbar_provider/view/screens/home/home_screen.dart';
+import 'package:barbar_provider/view/screens/home/home_routes.dart';
 import 'package:barbar_provider/view/screens/profile/profile_screen.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
@@ -20,7 +20,7 @@ class _NavBarState extends State<NavBar> {
   int selectedIndex = 0;
 
   static const List<Widget> screens = <Widget>[
-    HomeScreen(),
+    HomeRoutes(),
     EarningsScreen(),
     BookingsScreen(),
     ProfileScreen()
@@ -110,17 +110,18 @@ class MenuBarItems extends StatelessWidget {
           child: Row(
             children: [
               CustomImage(
-                size: 24,
+                  size: 24,
                   imageColor: index != selectedIndex
                       ? AppColors.paragraph
                       : AppColors.primaryOrange,
                   imageSrc: image),
               if (index == selectedIndex)
                 CustomText(
-                  fontSize: 12,fontWeight: FontWeight.w600,
-                  text: text,left: 4,
-                  color: AppColors.primaryOrange
-                ),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    text: text,
+                    left: 4,
+                    color: AppColors.primaryOrange),
             ],
           ),
         ),
