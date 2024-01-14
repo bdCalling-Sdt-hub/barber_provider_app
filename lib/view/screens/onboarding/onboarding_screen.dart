@@ -1,4 +1,5 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_images.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
@@ -17,6 +18,12 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentIndex = 0;
   final PageController controller = PageController();
+
+  @override
+  void initState() {
+    PrefsHelper.setBool(SharedPreferenceValue.isOnboarding, false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

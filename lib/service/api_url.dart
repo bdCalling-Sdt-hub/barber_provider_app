@@ -6,4 +6,8 @@ class ApiConstant {
   static const register = "/register";
   static const verified = "/verified";
   static const resendOtp = "/resendOtp";
+
+  //=========Sign IN==========
+  static const login = "/login";
+
 }

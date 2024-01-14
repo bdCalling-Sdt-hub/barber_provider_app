@@ -1,17 +1,33 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+class SharedPreferenceValue {
+  static const String token = "";
+  static const String email = "";
+  static const String isRemember = "";
+  static const String isOnboarding = "";
+}
+
 class PrefsHelper {
+  //===========================Get Data From Shared Preference===================
+
   static Future<String> getString(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     return preferences.getString(key) ?? "";
   }
 
-  static Future<bool> getBool(String key) async {
+  static Future<bool?> getBool(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    return preferences.getBool(key) ?? false;
+    return preferences.getBool(key);
   }
+
+  static Future<int> getInt(String key) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getInt(key) ?? (-1);
+  }
+
+//===========================Save Data To Shared Preference===================
 
   static Future setString(String key, value) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -28,10 +44,7 @@ class PrefsHelper {
     await preferences.setInt(key, value);
   }
 
-  static Future<int> getInt(String key) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getInt(key) ?? (-1);
-  }
+//===========================Remove Value===================
 
   static Future remove(String key) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();

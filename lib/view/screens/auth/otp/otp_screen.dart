@@ -1,17 +1,52 @@
+import 'dart:async';
+
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreen extends StatelessWidget {
+class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
+
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  int _secondsRemaining = 120;
+  late Timer _timer;
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_secondsRemaining > 0) {
+          _secondsRemaining--;
+        } else {
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +134,24 @@ class OtpScreen extends StatelessWidget {
 
                     //====================> Resend OTP Button <=====================
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        if (_secondsRemaining == 0) {
+                          _secondsRemaining = 120;
+                          startTimer();
+                          controller.resendOTP().then((value) {
+                            if (value == false) {
+                              setState(() {
+                                _timer.cancel();
+                                _secondsRemaining = 0;
+                              });
+                            }
+                          });
+                        }
+                      },
                       child: CustomText(
-                          text: "Resend OTP".tr,
+                          text: _secondsRemaining == 0
+                              ? "Resend OTP".tr
+                              : "Resend SMS $_secondsRemaining",
                           color: AppColors.primaryOrange,
                           fontWeight: FontWeight.w600),
                     ),
@@ -117,12 +167,14 @@ class OtpScreen extends StatelessWidget {
           bottomNavigationBar: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             physics: const ClampingScrollPhysics(),
-            child: CustomButton(
-                onPressed: () {
-                  // Get.toNamed(AppRoute.resetPassword);
-                  controller.varifyOTP();
-                },
-                titleText: "Verify".tr),
+            child: controller.signUpLoading
+                ? const CustomLoader()
+                : CustomButton(
+                    onPressed: () {
+                      // Get.toNamed(AppRoute.resetPassword);
+                      controller.varifyOTP();
+                    },
+                    titleText: "Verify".tr),
           ),
         );
       }),

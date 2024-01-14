@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
@@ -14,15 +15,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void navigate() async {
+    //==================Get Information abount showing onboarding screen==================
+
+    bool? isOnboarding =
+        await PrefsHelper.getBool(SharedPreferenceValue.isOnboarding);
+
+    //======================If First time opening app goes to onboarding=====================
+
+    // ignore: unnecessary_null_comparison
+    if (isOnboarding == true || isOnboarding == null) {
+      Timer(const Duration(seconds: 2), () {
+        Get.offAllNamed(AppRoute.onboardingScreen);
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.offAllNamed(AppRoute.signInScreen);
+      });
+    }
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 3),(){
-      //Navigator.pushNamed(context, AppRoute.onboardingScreen);
-      Get.offAllNamed(AppRoute.onboardingScreen);
-    });
+    navigate();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
         backgroundColor: AppColors.bgColor,
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) =>
-          const Center(
+              const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

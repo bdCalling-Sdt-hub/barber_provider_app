@@ -42,7 +42,7 @@ class SignUpController extends GetxController {
     update();
   }
 
-  resendOTP() async {
+  Future<bool> resendOTP() async {
     var body = {
       "email": emailController.text,
     };
@@ -52,15 +52,16 @@ class SignUpController extends GetxController {
       headers: headers,
     );
     if (response.statusCode == 200) {
-      Get.offNamed(
-        AppRoute.navBar,
-      );
+      return true;
     } else {
       ApiChecker.checkApi(response);
+      return false;
     }
   }
 
   varifyOTP() async {
+    signUpLoading = true;
+    update();
     var body = {"email": emailController.text, "otp": otp};
     var response = await ApiClient.postData(
       ApiConstant.verified,
@@ -74,5 +75,7 @@ class SignUpController extends GetxController {
     } else {
       ApiChecker.checkApi(response);
     }
+    signUpLoading = false;
+    update();
   }
 }
