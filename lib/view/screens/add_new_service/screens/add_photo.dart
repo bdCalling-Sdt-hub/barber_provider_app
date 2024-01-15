@@ -1,5 +1,6 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
@@ -18,53 +19,75 @@ class AddPhoto extends StatelessWidget {
         backgroundColor: AppColors.bgColor,
         extendBody: true,
         appBar: CustomAppBar(appBarContent: CustomBack(text: "Add Photos".tr)),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(text: "Upload Cover Photo".tr,bottom: 16,fontWeight: FontWeight.w500),
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cardBgColor
+        body: GetBuilder<AddProviderController>(builder: (controller) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //================================Upload Cover Photo==============================
+
+                CustomText(
+                    text: "Upload Cover Photo".tr,
+                    bottom: 16,
+                    fontWeight: FontWeight.w500),
+                Container(
+                  height: 190,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.cardBgColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.camera_alt_outlined,
+                          color: AppColors.primaryOrange, size: 64),
+                      CustomText(
+                          text: "Upload Picture".tr,
+                          color: AppColors.primaryOrange,
+                          fontWeight: FontWeight.w500)
+                    ],
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Upload Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
-                  ],
+
+                //================================Upload Cover Photo==============================
+
+                CustomText(
+                    text: "Gallery Photo".tr,
+                    top: 24,
+                    bottom: 16,
+                    fontWeight: FontWeight.w500),
+                Container(
+                  height: 190,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.cardBgColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.camera_alt_outlined,
+                          color: AppColors.primaryOrange, size: 64),
+                      CustomText(
+                          text: "Upload Picture".tr,
+                          color: AppColors.primaryOrange,
+                          fontWeight: FontWeight.w500)
+                    ],
+                  ),
                 ),
-              ),
-              CustomText(text: "Gallery Photo".tr,top: 24,bottom: 16,fontWeight: FontWeight.w500),
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cardBgColor
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.camera_alt_outlined,color: AppColors.primaryOrange,size: 64),
-                    CustomText(text: "Upload Picture".tr,color: AppColors.primaryOrange,fontWeight: FontWeight.w500)
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+              ],
+            ),
+          );
+        }),
         bottomNavigationBar: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
-          child: CustomButton(titleText: "Continue".tr,onPressed: () => Get.toNamed(AppRoute.addServiceDetails)),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+          child: CustomButton(
+              titleText: "Continue".tr,
+              onPressed: () => Get.toNamed(AppRoute.addServiceDetails)),
         ),
       ),
     );

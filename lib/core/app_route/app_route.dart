@@ -97,7 +97,7 @@ class AppRoute {
     GetPage(name: categoriesScreen, page: () => const CategoryScreen()),
     GetPage(name: clientsReviews, page: () => const ClientsReviews()),
     GetPage(name: addNewServiceCategory, page: () => const SelectCategory()),
-    GetPage(name: providerDetails, page: () => const AddProviderDetails()),
+    GetPage(name: providerDetails, page: () =>  AddProviderDetails()),
     GetPage(name: addPhotos, page: () => const AddPhoto()),
     GetPage(name: addServiceDetails, page: () => const AddServiceDetails()),
     GetPage(name: serviceDetails, page: () => const ServiceDetails()),

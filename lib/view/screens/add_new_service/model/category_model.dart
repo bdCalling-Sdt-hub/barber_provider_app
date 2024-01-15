@@ -1,13 +1,4 @@
-// To parse this JSON data, do
-//
-//     final category = categoryFromJson(jsonString);
-
 import 'dart:convert';
-
-CategoryModel categoryFromJson(String str) =>
-    CategoryModel.fromJson(json.decode(str));
-
-String categoryToJson(CategoryModel data) => json.encode(data.toJson());
 
 class CategoryModel {
   String? status;
@@ -17,6 +8,11 @@ class CategoryModel {
     this.status,
     this.message,
   });
+
+  factory CategoryModel.fromRawJson(String str) =>
+      CategoryModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
         status: json["status"],
@@ -38,30 +34,26 @@ class Message {
   int? id;
   String? categoryName;
   String? categoryImage;
-  dynamic createdAt;
-  dynamic updatedAt;
 
   Message({
     this.id,
     this.categoryName,
     this.categoryImage,
-    this.createdAt,
-    this.updatedAt,
   });
+
+  factory Message.fromRawJson(String str) => Message.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
         id: json["id"],
         categoryName: json["category_name"],
         categoryImage: json["category_image"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "category_name": categoryName,
         "category_image": categoryImage,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
       };
 }

@@ -1,9 +1,9 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/utils/app_images.dart';
-import 'package:barbar_provider/view/screens/add_new_service/controller/add_service_controller.dart';
+import 'package:barbar_provider/view/screens/add_new_service/controllers/category_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
@@ -11,6 +11,7 @@ import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SelectCategory extends StatelessWidget {
@@ -33,8 +34,7 @@ class SelectCategory extends StatelessWidget {
     //   "Facial"
     // ];
 
-    AddNewServiceController addNewServiceController =
-        Get.put(AddNewServiceController());
+    CategoryController addNewServiceController = Get.put(CategoryController());
 
     return SafeArea(
       top: true,
@@ -53,7 +53,7 @@ class SelectCategory extends StatelessWidget {
               case Status.error:
                 return GeneralErrorScreen(
                   onTap: () {
-                    addNewServiceController.categoryModel();
+                    addNewServiceController.getCategory();
                   },
                 );
 
@@ -110,8 +110,8 @@ class SelectCategory extends StatelessWidget {
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 24,
                                   mainAxisExtent: 120),
-                          itemCount: addNewServiceController
-                              .categoryModel.value.categoryImage!.length,
+                          itemCount:
+                              addNewServiceController.categoryList.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
@@ -121,19 +121,19 @@ class SelectCategory extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
+                                    height: 85.w,
+                                    width: 85.w,
                                     decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                "${ApiConstant.baseUrl}${addNewServiceController.categoryList[index].categoryImage!}")),
                                         borderRadius:
                                             BorderRadius.circular(12)),
-                                    child: const CustomImage(
-                                        imageSrc: AppImages.service,
-                                        imageType: ImageType.png,
-                                        size: 85,
-                                        fit: BoxFit.fill),
                                   ),
                                   CustomText(
                                       text: addNewServiceController
-                                              .categoryModel
-                                              .value
+                                              .categoryList[index]
                                               .categoryName ??
                                           "",
                                       fontSize: 14,
