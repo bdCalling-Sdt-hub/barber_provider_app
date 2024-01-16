@@ -12,4 +12,13 @@ class ApiConstant {
 
   //===================Home Screen=========================
   static const showCategory = "api/show-category";
+
+  //===================Provider=========================
+  static const addProvider = "api/post/provider";
+
+  //===================Post Service=========================
+  static const postService = "api/post/service?";
+
+  //===================Post Catalouge=========================
+  static const postCatalouge = "api/post/catalouge";
 }

@@ -2,7 +2,6 @@ class AppConstants {
   static String bearerToken = "BearerToken";
   static String userId = "UserId";
   static String onBoard = "Onboard";
-  static String subscriptionType = "SubscriptionType";
 
   /// <-------------- All Response Message Static---------->
   static String successfull = "Request Successfull";

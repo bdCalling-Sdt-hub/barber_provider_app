@@ -1,3 +1,4 @@
+import 'package:barbar_provider/view/screens/add_new_service/screens/add_catalouge_details.dart';
 import 'package:barbar_provider/view/screens/add_new_service/screens/add_photo.dart';
 import 'package:barbar_provider/view/screens/add_new_service/screens/add_provider_details.dart';
 import 'package:barbar_provider/view/screens/add_new_service/screens/add_service_details.dart';
@@ -43,6 +44,8 @@ class AppRoute {
   static const String signUpContinue = "/sign_up_continue";
 
   static const String navBar = "/nav_bar";
+
+  static const String addCatalouge = "/add_catalouge";
 
   static const String editProfile = "/edit_profile_screen";
   static const String settings = "/settings_screen";
@@ -97,10 +100,11 @@ class AppRoute {
     GetPage(name: categoriesScreen, page: () => const CategoryScreen()),
     GetPage(name: clientsReviews, page: () => const ClientsReviews()),
     GetPage(name: addNewServiceCategory, page: () => const SelectCategory()),
-    GetPage(name: providerDetails, page: () =>  AddProviderDetails()),
+    GetPage(name: providerDetails, page: () => const AddProviderDetails()),
     GetPage(name: addPhotos, page: () => const AddPhoto()),
     GetPage(name: addServiceDetails, page: () => const AddServiceDetails()),
     GetPage(name: serviceDetails, page: () => const ServiceDetails()),
     GetPage(name: editServiceDetails, page: () => const EditServiceDetails()),
+    GetPage(name: addCatalouge, page: () => const AddCatalougeDetails()),
   ];
 }

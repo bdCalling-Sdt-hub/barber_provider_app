@@ -1,25 +1,25 @@
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
-import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
+import 'package:barbar_provider/view/screens/add_new_service/controllers/add_catalouge_controller.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
-import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AddServiceDetails extends StatefulWidget {
-  const AddServiceDetails({super.key});
+class AddCatalougeDetails extends StatefulWidget {
+  const AddCatalougeDetails({super.key});
 
   @override
-  State<AddServiceDetails> createState() => _AddServiceDetailsState();
+  State<AddCatalougeDetails> createState() => _AddCatalougeDetailsState();
 }
 
-class _AddServiceDetailsState extends State<AddServiceDetails> {
+class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
+  int serviceId = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,9 +27,9 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
         extendBody: true,
-        appBar: CustomAppBar(
-            appBarContent: CustomBack(text: "Add Service Details".tr)),
-        body: GetBuilder<AddServiceController>(builder: (controller) {
+        appBar:
+            CustomAppBar(appBarContent: CustomBack(text: "Add Catalouge".tr)),
+        body: GetBuilder<AddCatalougeController>(builder: (controller) {
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             physics: const BouncingScrollPhysics(),
@@ -249,13 +249,11 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
 
                 //================================Save Button=============================
 
-                controller.isLoading
-                    ? const CustomLoader()
-                    : CustomButton(
-                        titleText: "Save".tr,
-                        onPressed: () {
-                          controller.addService();
-                        }),
+                CustomButton(
+                    titleText: "Save".tr,
+                    onPressed: () {
+                      controller.addCatalouge(id: serviceId.toString());
+                    }),
                 const SizedBox(height: 24),
               ],
             ),

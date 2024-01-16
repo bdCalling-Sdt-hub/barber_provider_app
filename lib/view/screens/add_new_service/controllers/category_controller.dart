@@ -16,12 +16,14 @@ class CategoryController extends GetxController with GetxServiceMixin {
   getCategory() async {
     categoryList = [];
     setRxRequestStatus(Status.loading);
+
     var response = await ApiClient.getData(ApiConstant.showCategory);
 
     if (response.statusCode == 200) {
       categoryModel = CategoryModel.fromJson(response.body);
 
       List<Message>? rawData = categoryModel.message;
+      
       if (rawData != null && rawData.isNotEmpty) {
         categoryList.addAll(rawData);
       }

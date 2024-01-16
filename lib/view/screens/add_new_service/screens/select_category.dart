@@ -65,7 +65,11 @@ class SelectCategory extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
+
                       //==============================Search Field==============================
+
+                      
                       Container(
                         padding: const EdgeInsets.all(16),
                         margin: const EdgeInsets.only(bottom: 24),
@@ -113,9 +117,12 @@ class SelectCategory extends StatelessWidget {
                           itemCount:
                               addNewServiceController.categoryList.length,
                           itemBuilder: (context, index) {
+                            var data =
+                                addNewServiceController.categoryList[index];
                             return GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoute.providerDetails);
+                                Get.toNamed(AppRoute.providerDetails,
+                                    arguments: data.id);
                               },
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,15 +134,12 @@ class SelectCategory extends StatelessWidget {
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
-                                                "${ApiConstant.baseUrl}${addNewServiceController.categoryList[index].categoryImage!}")),
+                                                "${ApiConstant.baseUrl}${data.categoryImage!}")),
                                         borderRadius:
                                             BorderRadius.circular(12)),
                                   ),
                                   CustomText(
-                                      text: addNewServiceController
-                                              .categoryList[index]
-                                              .categoryName ??
-                                          "",
+                                      text: data.categoryName ?? "",
                                       fontSize: 14,
                                       top: 8)
                                 ],

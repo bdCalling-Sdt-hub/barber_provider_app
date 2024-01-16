@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:mime/mime.dart';
 import '../helper/prefs_helper.dart';
 import '../model/error_response.dart';
 import '../utils/app_constent.dart';
@@ -77,7 +78,7 @@ class ApiClient extends GetxService {
       bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
 
       var mainHeaders = {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
         'Authorization': 'Bearer $bearerToken'
       };
 
@@ -105,26 +106,35 @@ class ApiClient extends GetxService {
         multipartBody.forEach((element) async {
           debugPrint("path : ${element.file.path}");
 
-          if (element.file.path.contains(".mp4")) {
-            debugPrint("media type mp4 ==== ${element.file.path}");
-            request.files.add(http.MultipartFile(
-              element.key,
-              element.file.readAsBytes().asStream(),
-              element.file.lengthSync(),
-              filename: 'video.mp4',
-              contentType: MediaType('video', 'mp4'),
-            ));
-          } else if (element.file.path.contains(".png")) {
-            debugPrint("media type png ==== ${element.file.path}");
-            request.files.add(http.MultipartFile(
-              element.key,
-              element.file.readAsBytes().asStream(),
-              element.file.lengthSync(),
-              filename: 'image.png',
-              contentType: MediaType('image', 'png'),
-            ));
-          }
+          var mimeType = lookupMimeType(element.file.path);
 
+          debugPrint("MimeType================$mimeType");
+
+          // if (element.file.path.contains(".mp4")) {
+          //   debugPrint("media type mp4 ==== ${element.file.path}");
+          //   request.files.add(http.MultipartFile(
+          //     element.key,
+          //     element.file.readAsBytes().asStream(),
+          //     element.file.lengthSync(),
+          //     filename: 'video.mp4',
+          //     contentType: MediaType('video', 'mp4'),
+          //   ));
+          // } else if (element.file.path.contains(".png")) {
+          //   debugPrint("media type png ==== ${element.file.path}");
+          //   request.files.add(http.MultipartFile(
+          //     element.key,
+          //     element.file.readAsBytes().asStream(),
+          //     element.file.lengthSync(),
+          //     filename: 'image.png',
+          //     contentType: MediaType('image', 'png'),
+          //   ));
+          // }
+          var multipartImg = await http.MultipartFile.fromPath(
+            element.key,
+            element.file.path,
+            contentType: MediaType.parse(mimeType!),
+          );
+          request.files.add(multipartImg);
           //request.files.add(await http.MultipartFile.fromPath(element.key, element.file.path,contentType: MediaType('video', 'mp4')));
         });
       }
