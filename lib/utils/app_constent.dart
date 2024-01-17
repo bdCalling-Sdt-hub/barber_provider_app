@@ -6,8 +6,11 @@ class AppConstants {
   /// <-------------- All Response Message Static---------->
   static String successfull = "Request Successfull";
   static String error = "Oops, something went wrong";
-  static String secretKey =
-      "sk_test_51NiWAKHloEqm4Hcr2bW9Od8OZL1ySHO48NmyqgylSNkvRfp3GRAtAPcgr0EldrlZQ5QbnrdPDOTlI8UmIGxv11di00HWChl1wB";
+  static String catID = "Request Successfull";
+  static String profileID = "profileID";
+
+  static String onlineImage =
+      "https://img.freepik.com/free-photo/user-sign-icon-front-side-with-white-background_187299-40022.jpg?w=740&t=st=1705481431~exp=1705482031~hmac=89e2b2de749a608d27e73991f06a1e449c6e4ab8f8e9c74465b18ec415db010f";
 }
 
 /// otp screen type

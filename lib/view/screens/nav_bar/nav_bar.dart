@@ -19,10 +19,10 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int selectedIndex = 0;
 
-  static const List<Widget> screens = <Widget>[
-    HomeRoutes(),
-    EarningsScreen(),
-    BookingsScreen(),
+  static List<Widget> screens = <Widget>[
+    const HomeRoutes(),
+    const EarningsScreen(),
+    const BookingsScreen(),
     ProfileScreen()
   ];
 

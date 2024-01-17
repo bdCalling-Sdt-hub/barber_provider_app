@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //   static const String isOnboarding = "isOnboarding";
 // }
 
-class PrefsHelper {
+class SharePrefsHelper {
   //===========================Get Data From Shared Preference===================
 
   static Future<String> getString(String key) async {

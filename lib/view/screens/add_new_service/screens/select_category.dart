@@ -65,11 +65,8 @@ class SelectCategory extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
-
                       //==============================Search Field==============================
 
-                      
                       Container(
                         padding: const EdgeInsets.all(16),
                         margin: const EdgeInsets.only(bottom: 24),

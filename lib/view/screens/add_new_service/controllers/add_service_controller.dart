@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -82,11 +84,14 @@ class AddServiceController extends GetxController {
   addService() async {
     isLoading = true;
     getServiceTime();
+    //=======================Get Catagory ID=====================
+
+    String catIDShaPre = await SharePrefsHelper.getString(AppConstants.catID);
     update();
 
     if (galleryPhoto != null) {
       var body = {
-        "catId": "5",
+        "catId": catIDShaPre,
         "serviceName": serviceNameController.text,
         "description": serviceDesController.text,
         "serviceOur": serviceDurationController.text,

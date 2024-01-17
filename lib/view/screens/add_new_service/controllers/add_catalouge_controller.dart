@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
+import 'package:barbar_provider/utils/snack_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,27 +83,31 @@ class AddCatalougeController extends GetxController {
     getServiceTime();
     update();
 
-    var body = {
-      "catId": "5",
-      "serviceName": serviceNameController.text,
-      "description": serviceDesController.text,
-      "serviceOur": serviceDurationController.text,
-      "serviceCharge": salonSerChargeController.text,
-      "homServiceCharge": homeSerChargeController.text,
-      "bookingMony": setBookingController.text,
-      "serviceHour": jsonEncode(selectedServiceHours),
-    };
+    if (galleryPhoto != null) {
+      var body = {
+        "serviceId": id,
+        "catalougName": serviceNameController.text,
+        "description": serviceDesController.text,
+        "serviceDuration": serviceDurationController.text,
+        "serviceCharge": salonSerChargeController.text,
+        "bookingMoney": setBookingController.text,
+        "serviceHoure": jsonEncode(selectedServiceHours),
+        "homeServiceCharge": homeSerChargeController.text,
+      };
 
-    var response = await ApiClient.postMultipartData(
-        ApiConstant.postService, body,
-        multipartBody: [
-          MultipartBody("servicePhotoGellary[]", galleryPhoto!),
-        ]);
+      var response = await ApiClient.postMultipartData(
+          ApiConstant.postCatalouge, body,
+          multipartBody: [
+            MultipartBody("catalougPhoto", galleryPhoto!),
+          ]);
 
-    if (response.statusCode == 200) {
-      Get.offNamed(AppRoute.addCatalouge);
+      if (response.statusCode == 200) {
+        Get.offNamed(AppRoute.navBar);
+      } else {
+        ApiChecker.checkApi(response);
+      }
     } else {
-      ApiChecker.checkApi(response);
+      showCustomSnackBar("Pick image");
     }
 
     isLoading = false;

@@ -33,7 +33,7 @@ class SignInController extends GetxController {
         headers: headers);
 
     if (response.statusCode == 200) {
-      PrefsHelper.setString(
+      SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["access_token"]);
       Get.offNamed(
         AppRoute.navBar,

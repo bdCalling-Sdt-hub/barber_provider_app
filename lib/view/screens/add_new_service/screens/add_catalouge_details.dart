@@ -5,6 +5,7 @@ import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -249,11 +250,13 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 //================================Save Button=============================
 
-                CustomButton(
-                    titleText: "Save".tr,
-                    onPressed: () {
-                      controller.addCatalouge(id: serviceId.toString());
-                    }),
+                controller.isLoading
+                    ? const CustomLoader()
+                    : CustomButton(
+                        titleText: "Save".tr,
+                        onPressed: () {
+                          controller.addCatalouge(id: serviceId.toString());
+                        }),
                 const SizedBox(height: 24),
               ],
             ),

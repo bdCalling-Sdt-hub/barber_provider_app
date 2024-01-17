@@ -22,7 +22,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   void initState() {
-    PrefsHelper.setBool(AppConstants.onBoard, false);
+    SharePrefsHelper.setBool(AppConstants.onBoard, false);
     super.initState();
   }
 

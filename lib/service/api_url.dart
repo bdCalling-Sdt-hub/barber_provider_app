@@ -21,4 +21,11 @@ class ApiConstant {
 
   //===================Post Catalouge=========================
   static const postCatalouge = "api/post/catalouge";
+
+  //===================Profile=========================
+  static const getProfile = "api/profile";
+  static const profileUpdate = "api/profileUpdate";
+
+  //===================Post Catalouge=========================
+  static const home = "api/get/provider";
 }

@@ -245,6 +245,8 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                     ),
                   ],
                 ),
+              
+              
                 const SizedBox(height: 44),
 
                 //================================Save Button=============================
@@ -253,7 +255,9 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                     ? const CustomLoader()
                     : CustomButton(
                         titleText: "Save".tr,
-                        onPressed: () {
+                        onPressed: () async {
+                          //===========================Add Service================================
+
                           controller.addService();
                         }),
                 const SizedBox(height: 24),
