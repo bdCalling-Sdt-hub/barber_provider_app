@@ -8,6 +8,7 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,6 +51,8 @@ class AddServiceController extends GetxController {
 
   bool isLoading = false;
 
+  HomeController homeController = Get.find<HomeController>();
+
   void openGallery() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -87,6 +90,9 @@ class AddServiceController extends GetxController {
     //=======================Get Catagory ID=====================
 
     String catIDShaPre = await SharePrefsHelper.getString(AppConstants.catID);
+    String providerID =
+        await SharePrefsHelper.getString(AppConstants.providerID);
+
     update();
 
     if (galleryPhoto != null) {
@@ -99,6 +105,7 @@ class AddServiceController extends GetxController {
         "homServiceCharge": homeSerChargeController.text,
         "bookingMony": setBookingController.text,
         "serviceHour": jsonEncode(selectedServiceHours),
+        "providerId": providerID
       };
 
       var response = await ApiClient.postMultipartData(
@@ -108,9 +115,13 @@ class AddServiceController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        debugPrint("catIDShaPre========================$catIDShaPre");
+        debugPrint(
+            "selectedServiceHours========================$selectedServiceHours");
         var jSON = jsonDecode(response.body);
 
         Get.offNamed(AppRoute.addCatalouge, arguments: jSON["message"]["id"]);
+        homeController.homeData();
       } else {
         ApiChecker.checkApi(response);
       }

@@ -14,7 +14,12 @@ class HomeController extends GetxController with GetxServiceMixin {
 
   List<Provider> provider = [];
 
+  bool routeLoading = false;
+
   homeData() async {
+    routeLoading = true;
+    provider = [];
+    update();
     setRxRequestStatus(Status.loading);
     var response = await ApiClient.getData(ApiConstant.home);
 
@@ -38,6 +43,9 @@ class HomeController extends GetxController with GetxServiceMixin {
       }
       ApiChecker.checkApi(response);
     }
+
+    routeLoading = false;
+    update();
   }
 
   @override

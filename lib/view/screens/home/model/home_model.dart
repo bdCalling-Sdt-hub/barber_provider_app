@@ -123,8 +123,8 @@ class Provider {
 
 class AvailableServiceOur {
   String? day;
-  Time? startTime;
-  Time? endTime;
+  String? startTime;
+  String? endTime;
 
   AvailableServiceOur({
     this.day,
@@ -140,20 +140,16 @@ class AvailableServiceOur {
   factory AvailableServiceOur.fromJson(Map<String, dynamic> json) =>
       AvailableServiceOur(
         day: json["Day"],
-        startTime: timeValues.map[json["Start Time"]]!,
-        endTime: timeValues.map[json["End Time"]]!,
+        startTime: json["Start Time"],
+        endTime: json["End Time"],
       );
 
   Map<String, dynamic> toJson() => {
         "Day": day,
-        "Start Time": timeValues.reverse[startTime],
-        "End Time": timeValues.reverse[endTime],
+        "Start Time": startTime,
+        "End Time": endTime,
       };
 }
-
-enum Time { THE_1403, THE_1456 }
-
-final timeValues = EnumValues({"14:03": Time.THE_1403, "14:56": Time.THE_1456});
 
 class SalonDetail {
   int? id;
@@ -226,16 +222,4 @@ class SalonDetail {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

@@ -2,7 +2,6 @@ import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/utils/app_images.dart';
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/screens/home/inner_widgets/custom_drawer.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
@@ -22,20 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<String> category = [
-    "Spa",
-    "Nails",
-    "Barber",
-    "Salon",
-    "Women’s",
-    "Men’s",
-    "Massage",
-    "Piercing",
-    "Skin care",
-    "Hair Care",
-    "Makeover",
-    "Facial"
-  ];
+  HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,193 +79,223 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         drawer: const CustomDrawer(),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: GetBuilder<HomeController>(builder: (controller) {
-            var data = controller.provider[0];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //=================================Banner image=============================
+        body: RefreshIndicator(
+          backgroundColor: AppColors.cardBgColor,
+          color: AppColors.primaryOrange,
+          onRefresh: () async {
+            homeController.homeData();
+          },
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: GetBuilder<HomeController>(builder: (controller) {
+              var data = controller.provider[0];
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //=================================Banner image=============================
 
-                Container(
-                  height: 200.h,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "${ApiConstant.baseUrl}images/${data.coverPhoto}"),
-                          fit: BoxFit.fill)),
-                ),
-
-                //=================================Business Name=============================
-                CustomText(
-                    text: data.businessName!,
-                    fontWeight: FontWeight.w600,
-                    top: 16,
-                    bottom: 12),
-                Row(
-                  children: [
-                    const Icon(Icons.location_on_rounded,
-                        color: AppColors.primaryOrange, size: 16),
-                    CustomText(text: data.address!, fontSize: 14, left: 12)
-                  ],
-                ),
-
-                //=================================Description=============================
-
-                CustomText(
-                  text: "Description".tr,
-                  fontWeight: FontWeight.w600,
-                  top: 24,
-                  bottom: 16,
-                ),
-                CustomText(
-                  text: data.description!,
-                  fontSize: 14,
-                  maxLines: 5,
-                  textAlign: TextAlign.start,
-                ),
-
-                //=================================Services=============================
-
-                CustomText(
-                  text: "Services".tr,
-                  fontWeight: FontWeight.w600,
-                  top: 24,
-                  bottom: 16,
-                ),
-                SizedBox(
-                  height: 130.h,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: data.salonDetails!.length,
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(AppRoute.serviceDetails),
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //=================================Services Image=============================
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto}"))),
-                              ),
-                              //=================================Services Text=============================
-
-                              CustomText(
-                                  text: data.salonDetails![index].serviceName!)
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                  Container(
+                    height: 240.h,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                                "${ApiConstant.baseUrl}images/${data.coverPhoto}"),
+                            fit: BoxFit.cover)),
                   ),
-                ),
 
-                //=================================Available Service Hours=============================
-                CustomText(
-                    text: "Available Service Hours".tr,
+                  //=================================Business Name=============================
+                  CustomText(
+                      text: data.businessName!,
+                      fontWeight: FontWeight.w600,
+                      top: 16,
+                      bottom: 12),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on_rounded,
+                          color: AppColors.primaryOrange, size: 16),
+                      CustomText(text: data.address!, fontSize: 14, left: 12)
+                    ],
+                  ),
+
+                  //=================================Description=============================
+
+                  CustomText(
+                    text: "Description".tr,
                     fontWeight: FontWeight.w600,
                     top: 24,
-                    bottom: 16),
-                const RowText(field: "Sun :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Mon :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Tue :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Wed :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Thu :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Fri :", value: "8.00 AM - 10 PM"),
-                const SizedBox(height: 12),
-                const RowText(field: "Sat :", value: "8.00 AM - 10 PM"),
-
-                //=================================Gallery=============================
-
-                CustomText(
-                  text: "Gallery".tr,
-                  fontWeight: FontWeight.w600,
-                  top: 24,
-                  bottom: 16,
-                ),
-                SizedBox(
-                  height: 80,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 80,
-                        width: 80,
-                        margin: const EdgeInsets.only(right: 16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const CustomImage(
-                          imageSrc: AppImages.service,
-                          imageType: ImageType.png,
-                          fit: BoxFit.fill,
-                        ),
-                      );
-                    },
+                    bottom: 16,
                   ),
-                ),
-                const SizedBox(height: 24),
-                //This Section is shows when first time add ane business then need the permission from the admin to add new service.
-                /*Row(crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.error_outline,size: 20,color: AppColors.white),
-                      Flexible(child: CustomText(text: "Users won’t see the details before admins approval".tr,maxLines: 2,textAlign: TextAlign.start,left: 8,fontSize: 14,fontWeight: FontWeight.w500),),
-                    ],
-                  ),*/
+                  CustomText(
+                    text: data.description!,
+                    fontSize: 14,
+                    maxLines: 5,
+                    textAlign: TextAlign.start,
+                  ),
 
-                GestureDetector(
-                  onTap: () {
-                    //If don't have subscription then this section will show
-                    /*showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const PurchasePopUp();
-                          });*/
-                    Get.toNamed(AppRoute.addServiceDetails);
-                  },
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.add_circle_outline,
-                          color: AppColors.primaryOrange, size: 16),
-                      CustomText(
-                        text: "Add New Services".tr,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        left: 16,
-                        color: AppColors.primaryOrange,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                  //=================================Services=============================
+
+                  if (data.salonDetails!.isNotEmpty)
+                    CustomText(
+                      text: "Services".tr,
+                      fontWeight: FontWeight.w600,
+                      top: 24,
+                      bottom: 16,
+                    ),
+                  if (data.salonDetails!.isNotEmpty)
+                    SizedBox(
+                      height: 130.h,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: data.salonDetails!.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => Get.toNamed(AppRoute.serviceDetails,
+                                arguments: data.salonDetails![index]),
+                            child: Column(
+                              //crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                //=================================Services Image=============================
+                                Container(
+                                  margin: EdgeInsets.only(right: 16.w),
+                                  height: 90.w,
+                                  width: 90.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                              "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto}"))),
+                                ),
+                                //=================================Services Text=============================
+
+                                CustomText(
+                                    textAlign: TextAlign.center,
+                                    text:
+                                        data.salonDetails![index].serviceName!)
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                    ],
+                    ),
+
+                  //=================================Available Service Hours=============================
+                  if (data.availableServiceOur!.isNotEmpty)
+                    CustomText(
+                        text: "Available Service Hours".tr,
+                        fontWeight: FontWeight.w600,
+                        top: 24,
+                        bottom: 16),
+
+                  if (data.availableServiceOur!.isNotEmpty)
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 7,
+                      itemBuilder: (context, index) {
+                        return RowText(
+                          field:
+                              data.availableServiceOur![index].day.toString(),
+                          value:
+                              "${data.availableServiceOur![index].startTime}-${data.availableServiceOur![index].endTime}",
+                        );
+                      },
+                    ),
+
+                  //=================================Gallery=============================
+
+                  if (data.salonDetails!.isNotEmpty)
+                    CustomText(
+                      text: "Gallery".tr,
+                      fontWeight: FontWeight.w600,
+                      top: 24,
+                      bottom: 16,
+                    ),
+
+                  if (data.salonDetails!.isNotEmpty)
+                    // SizedBox(
+                    //   height: 95.h,
+                    //   child: ListView.builder(
+                    //     shrinkWrap: true,
+                    //     itemCount: data.length,
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemBuilder: (context, index) {
+                    //       return Container(
+                    //         height: 80.w,
+                    //         width: 88.w,
+                    //         margin: const EdgeInsets.only(right: 16),
+                    //         decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(8),
+                    //             image: DecorationImage(
+                    //                 fit: BoxFit.cover,
+                    //                 image: NetworkImage(
+                    //                     "${ApiConstant.baseUrl}images/${data.gallaryPhoto}"))),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
+                    Container(
+                      height: 90.w,
+                      width: 90.w,
+                      margin: const EdgeInsets.only(right: 16),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  "${ApiConstant.baseUrl}images/${data.gallaryPhoto}"))),
+                    ),
+                  const SizedBox(height: 24),
+                  //This Section is shows when first time add ane business then need the permission from the admin to add new service.
+                  /*Row(crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.error_outline,size: 20,color: AppColors.white),
+                        Flexible(child: CustomText(text: "Users won’t see the details before admins approval".tr,maxLines: 2,textAlign: TextAlign.start,left: 8,fontSize: 14,fontWeight: FontWeight.w500),),
+                      ],
+                    ),*/
+
+                  //=================================Add New Services=============================
+
+                  GestureDetector(
+                    onTap: () {
+                      //If don't have subscription then this section will show
+                      /*showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const PurchasePopUp();
+                            });*/
+                      Get.toNamed(AppRoute.addServiceDetails);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.add_circle_outline,
+                            color: AppColors.primaryOrange, size: 16),
+                        CustomText(
+                          text: "Add New Services".tr,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          left: 16,
+                          color: AppColors.primaryOrange,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-              ],
-            );
-          }),
+                  const SizedBox(height: 24),
+                ],
+              );
+            }),
+          ),
         ),
       ),
     );

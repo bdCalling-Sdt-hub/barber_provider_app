@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/screens/profile/controller/profile_controller.dart';
-import 'package:barbar_provider/view/screens/profile/model/profile_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,6 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfileModel profileModel = Get.arguments;
     return SafeArea(
       top: true,
       child: Scaffold(
@@ -37,15 +38,32 @@ class EditProfile extends StatelessWidget {
                   child: Column(
                     children: [
                       //==========================Profile Image=====================
-                      Container(
-                        height: 120,
-                        width: 120,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: NetworkImage(profileModel.image != null
-                                    ? "${ApiConstant.baseUrl}${profileModel.image}"
-                                    : AppConstants.onlineImage))),
+                      GestureDetector(
+                        onTap: () {
+                          controller.openGallery();
+                        },
+                        child: Container(
+                          height: 120,
+                          width: 120,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: controller.proImage == null
+                                  ?
+                                  //=====================Image from server======================
+                                  DecorationImage(
+                                      image: NetworkImage(controller
+                                                  .proImgURL !=
+                                              null
+                                          ? "${ApiConstant.baseUrl}${controller.proImgURL}"
+                                          : AppConstants.onlineImage))
+                                  :
+                                  //=====================Image from File======================
+
+                                  DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: FileImage(
+                                          File(controller.proImage!.path)))),
+                        ),
                       ),
                       CustomText(
                           text: "Update Picture".tr,
@@ -60,26 +78,24 @@ class EditProfile extends StatelessWidget {
 
                 CustomText(text: "Name".tr, top: 24, bottom: 12),
                 CustomTextField(
-                    textEditingController: controller.nameController =
-                        TextEditingController(text: profileModel.name),
-                    hintText: profileModel.name.toString(),
+                    textEditingController: controller.nameController,
+                    hintText: "Enter name",
                     hintColor: AppColors.white),
 
                 //==========================Email=====================
 
                 CustomText(text: "Email".tr, top: 16, bottom: 12),
                 CustomTextField(
-                    textEditingController: controller.emailController =
-                        TextEditingController(text: profileModel.email),
-                    hintText: "jane.07@gmail.com",
+                    readOnly: true,
+                    textEditingController: controller.emailController,
+                    hintText: "Enter email",
                     hintColor: AppColors.white),
 
                 //==========================Phone Number=====================
 
                 CustomText(text: "Phone Number".tr, top: 16, bottom: 12),
                 CustomTextField(
-                    textEditingController: controller.phoneController =
-                        TextEditingController(text: profileModel.phoneNumber),
+                    textEditingController: controller.phoneController,
                     hintText: "Enter phone number",
                     hintColor: AppColors.white),
 
@@ -87,16 +103,19 @@ class EditProfile extends StatelessWidget {
 
                 CustomText(text: "Address".tr, top: 16, bottom: 12),
                 CustomTextField(
-                    textEditingController: controller.addressController =
-                        TextEditingController(text: profileModel.address),
+                    textEditingController: controller.addressController,
                     hintText: "Enter Address",
                     maxLines: 4,
                     hintColor: AppColors.white),
 
                 const SizedBox(height: 56),
-                CustomButton(
-                    titleText: "Update Profile".tr,
-                    onPressed: () => Get.back()),
+                controller.profileUpdateLoading
+                    ? const CustomLoader()
+                    : CustomButton(
+                        titleText: "Update Profile".tr,
+                        onPressed: () {
+                          controller.updateProfile();
+                        }),
               ],
             );
           }),

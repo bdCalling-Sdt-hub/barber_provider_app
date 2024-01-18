@@ -71,7 +71,7 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                     controller.openGallery();
                   },
                   child: Container(
-                    height: 220.h,
+                    height: 240.h,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -245,8 +245,7 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                     ),
                   ],
                 ),
-              
-              
+
                 const SizedBox(height: 44),
 
                 //================================Save Button=============================

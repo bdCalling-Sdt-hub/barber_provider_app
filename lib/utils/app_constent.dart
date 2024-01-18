@@ -6,7 +6,9 @@ class AppConstants {
   /// <-------------- All Response Message Static---------->
   static String successfull = "Request Successfull";
   static String error = "Oops, something went wrong";
-  static String catID = "Request Successfull";
+  static String catID = "catID";
+  static String providerID = "providerID";
+
   static String profileID = "profileID";
 
   static String onlineImage =

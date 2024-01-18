@@ -72,7 +72,7 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                     controller.openGallery();
                   },
                   child: Container(
-                    height: 220.h,
+                    height: 240.h,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),

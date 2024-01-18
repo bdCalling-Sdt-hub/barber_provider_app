@@ -65,6 +65,8 @@ class ApiClient extends GetxService {
           .timeout(const Duration(seconds: timeoutInSeconds));
       return handleResponse(response, uri);
     } catch (e) {
+      debugPrint('------------${e.toString()}');
+
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
@@ -151,6 +153,8 @@ class ApiClient extends GetxService {
           statusText: noInternetMessage,
           body: content);
     } catch (e) {
+      debugPrint('------------${e.toString()}');
+
       return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }

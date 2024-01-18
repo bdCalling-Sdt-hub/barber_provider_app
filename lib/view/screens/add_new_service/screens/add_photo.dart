@@ -39,7 +39,7 @@ class AddPhoto extends StatelessWidget {
                     controller.openGallery(isCoverPhoto: true);
                   },
                   child: Container(
-                    height: 220.h,
+                    height: 240.h,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -75,7 +75,7 @@ class AddPhoto extends StatelessWidget {
                     controller.openGallery(isCoverPhoto: false);
                   },
                   child: Container(
-                    height: 220.h,
+                    height: 240.h,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),

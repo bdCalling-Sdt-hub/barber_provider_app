@@ -103,7 +103,7 @@ class AppRoute {
     GetPage(name: providerDetails, page: () => const AddProviderDetails()),
     GetPage(name: addPhotos, page: () => const AddPhoto()),
     GetPage(name: addServiceDetails, page: () => const AddServiceDetails()),
-    GetPage(name: serviceDetails, page: () => const ServiceDetails()),
+    GetPage(name: serviceDetails, page: () => ServiceDetails()),
     GetPage(name: editServiceDetails, page: () => const EditServiceDetails()),
     GetPage(name: addCatalouge, page: () => const AddCatalougeDetails()),
   ];

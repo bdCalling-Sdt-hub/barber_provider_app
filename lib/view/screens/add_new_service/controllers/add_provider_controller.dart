@@ -7,6 +7,7 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class AddProviderController extends GetxController {
       text: kDebugMode
           ? "Moye Moye Salon, Very Cheap. The place you get your hair cut. A salon is a good place to get a perm or highlights, to get your nails painted, or just to get a trim. A salon is like a barber shop, only fancier"
           : "");
-
+  HomeController homeController = Get.find<HomeController>();
   List<Map<String, dynamic>> selectedServiceHours = [];
   File? coverPhoto;
   File? galleryPhoto;
@@ -58,7 +59,9 @@ class AddProviderController extends GetxController {
     update();
   }
 
-  getServiceDate({required String getCatId}) {
+  getServiceDate({
+    required String getCatId,
+  }) {
     Get.toNamed(AppRoute.addPhotos);
 
     //======================Formatting the time======================
@@ -79,6 +82,7 @@ class AddProviderController extends GetxController {
     }
 
     catId = getCatId;
+
     update();
 
     debugPrint("Selected Service Hours=========$selectedServiceHours");
@@ -106,7 +110,19 @@ class AddProviderController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        homeController.homeData();
+
+        var jSONData = jsonDecode(response.body);
+        debugPrint(
+            "Provider ID========================${jSONData["message"]["id"]}");
         SharePrefsHelper.setString(AppConstants.catID, catId);
+        SharePrefsHelper.setString(
+            AppConstants.providerID, jSONData["message"]["id"].toString());
+
+        debugPrint(
+            "selectedServiceHours========================$selectedServiceHours");
+        debugPrint("catIDShaPre========================$catId");
+
         Get.offAllNamed(AppRoute.addServiceDetails);
       } else {
         ApiChecker.checkApi(response);

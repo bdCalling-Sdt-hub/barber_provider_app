@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
@@ -8,6 +9,7 @@ import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/screens/profile/model/profile_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileController extends GetxController with GetxServiceMixin {
   TextEditingController nameController = TextEditingController();
@@ -23,6 +25,32 @@ class ProfileController extends GetxController with GetxServiceMixin {
   bool profileUpdateLoading = false;
 
   File? proImage;
+  String? proImgURL = "";
+
+  updateProfileControllerValue(ProfileModel profileModel) {
+    nameController = TextEditingController(text: profileModel.name);
+    emailController = TextEditingController(text: profileModel.email);
+    phoneController =
+        TextEditingController(text: profileModel.phoneNumber ?? "");
+    addressController = TextEditingController(text: profileModel.address ?? "");
+    proImgURL = profileModel.image;
+    update();
+
+    Get.toNamed(
+      AppRoute.editProfile,
+    );
+  }
+
+  void openGallery() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (pickedFile != null) {
+      proImage = File(pickedFile.path);
+      update();
+    }
+  }
 
   saveProfileID({required int iD}) {
     SharePrefsHelper.setInt(AppConstants.profileID, iD);
@@ -56,16 +84,19 @@ class ProfileController extends GetxController with GetxServiceMixin {
     var body = {
       "name": nameController.text,
       "email": emailController.text,
-      "id": nameController.text,
-      "phone_number": nameController.text,
-      "address": nameController.text,
+      "phone_number": phoneController.text,
+      "address": addressController.text,
     };
 
-    var response = await ApiClient.postMultipartData(
-        ApiConstant.postCatalouge, body,
-        multipartBody: [
-          MultipartBody("UserImage", proImage!),
-        ]);
+    var response = proImgURL!.isNotEmpty
+        ? await ApiClient.postData(
+            ApiConstant.profileUpdate,
+            body,
+          )
+        : await ApiClient.postMultipartData(ApiConstant.profileUpdate, body,
+            multipartBody: [
+                MultipartBody("UserImage", proImage!),
+              ]);
 
     if (response.statusCode == 200) {
       getProfileInfo();

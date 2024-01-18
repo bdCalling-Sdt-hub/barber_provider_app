@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //============================Profile Image=================
+                            //============================Profile Image=======================
 
                             Container(
                               height: 64.w,
@@ -82,7 +82,7 @@ class ProfileScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  //============================Profile Name=================
+                                  //============================Profile Name====================
 
                                   CustomText(
                                       fontSize: 16.w,
@@ -107,13 +107,16 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 24),
 
-                            //============================Edit Button=================
+                            //============================Edit Button=====================
 
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed(AppRoute.editProfile,
-                                    arguments:
-                                        profileController.profileModel.value);
+                                // Get.toNamed(AppRoute.editProfile,
+                                //     arguments:
+                                //         profileController.profileModel.value);
+
+                                profileController.updateProfileControllerValue(
+                                    profileController.profileModel.value);
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(

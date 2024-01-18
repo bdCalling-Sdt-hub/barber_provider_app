@@ -5,6 +5,7 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class AddCatalougeController extends GetxController {
     {"day": "Fri", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
     {"day": "Sat", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
   ];
+  HomeController homeController = Get.find<HomeController>();
 
   TextEditingController serviceNameController =
       TextEditingController(text: kDebugMode ? "Hair Cut" : "");
@@ -102,6 +104,10 @@ class AddCatalougeController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
+        homeController.homeData();
+        debugPrint("serviceId========================$id");
+        debugPrint(
+            "selectedServiceHours========================$selectedServiceHours");
         Get.offNamed(AppRoute.navBar);
       } else {
         ApiChecker.checkApi(response);
