@@ -147,4 +147,35 @@ class Authcontroller extends GetxController {
     loading = false;
     update();
   }
+
+  resetPassword() async {
+    loading = true;
+
+    var bearerToken =
+        await SharePrefsHelper.getString(AppConstants.bearerToken);
+    update();
+
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $bearerToken'
+    };
+
+    var body = {
+      "password": passWordController.text,
+      "password_confirmation": confirmPasController.text
+    };
+
+    var response = await ApiClient.postData(ApiConstant.resetPassword, body,
+        headers: headers);
+
+    if (response.statusCode == 200) {
+      Get.snackbar("Done", "Successfully updated");
+      Get.offNamed(AppRoute.signInScreen);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+
+    loading = false;
+    update();
+  }
 }

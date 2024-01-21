@@ -9,6 +9,7 @@ class ApiConstant {
 
   //=========Sign IN==========
   static const login = "api/login";
+  static const resetPassword = "api/reset-password";
 
   //===================Home Screen=========================
   static const showCategory = "api/show-category";

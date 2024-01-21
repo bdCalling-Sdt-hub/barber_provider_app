@@ -77,7 +77,7 @@ class AppRoute {
     GetPage(name: signInScreen, page: () => const SignInScreen()),
     GetPage(name: forgetPassScreen, page: () => const ForgetPassword()),
     GetPage(name: otpScreen, page: () => const OtpScreen()),
-    GetPage(name: resetPassword, page: () => const ResetPassword()),
+    GetPage(name: resetPassword, page: () => ResetPassword()),
     GetPage(name: signUpScreen, page: () => const SignUpScreen()),
     GetPage(name: signUpContinue, page: () => const SignUpContinue()),
     GetPage(name: navBar, page: () => const NavBar()),
