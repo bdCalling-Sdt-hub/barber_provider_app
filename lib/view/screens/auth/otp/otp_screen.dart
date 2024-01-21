@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
+import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
@@ -36,8 +36,10 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
+  bool? forgetPass = false;
   @override
   void initState() {
+    forgetPass = Get.arguments;
     startTimer();
     super.initState();
   }
@@ -54,7 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
     return SafeArea(
       top: true,
-      child: GetBuilder<SignUpController>(builder: (controller) {
+      child: GetBuilder<Authcontroller>(builder: (controller) {
         return Scaffold(
           backgroundColor: AppColors.bgColor,
           appBar: CustomAppBar(appBarContent: CustomBack(text: "OTP".tr)),
@@ -167,12 +169,12 @@ class _OtpScreenState extends State<OtpScreen> {
           bottomNavigationBar: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             physics: const ClampingScrollPhysics(),
-            child: controller.signUpLoading
+            child: controller.loading
                 ? const CustomLoader()
                 : CustomButton(
                     onPressed: () {
                       // Get.toNamed(AppRoute.resetPassword);
-                      controller.varifyOTP();
+                      controller.varifyOTP(forgetPass: forgetPass!);
                     },
                     titleText: "Verify".tr),
           ),

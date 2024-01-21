@@ -99,7 +99,7 @@ class AddProviderController extends GetxController {
         "businessName": buisnessNameController.text,
         "address": addressController.text,
         "description": descriptionController.text,
-        "serviceOur": jsonEncode(selectedServiceHours),
+        "serviceOur": selectedServiceHours.toString(),
       };
 
       var response = await ApiClient.postMultipartData(

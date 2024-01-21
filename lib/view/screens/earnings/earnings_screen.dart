@@ -16,35 +16,34 @@ class EarningsScreen extends StatefulWidget {
 class _EarningsScreenState extends State<EarningsScreen> {
   @override
   Widget build(BuildContext context) {
-
     List<dynamic> data = [
       {
-        "size" : 100.0,
-        "title" : "Sun",
+        "size": 100.0,
+        "title": "Sun",
       },
       {
-        "size" : 110.0,
-        "title" : "Mon",
+        "size": 110.0,
+        "title": "Mon",
       },
       {
-        "size" : 150.0,
-        "title" : "Tue",
+        "size": 150.0,
+        "title": "Tue",
       },
       {
-        "size" : 140.0,
-        "title" : "Wed",
+        "size": 140.0,
+        "title": "Wed",
       },
       {
-        "size" : 115.0,
-        "title" : "Thu",
+        "size": 115.0,
+        "title": "Thu",
       },
       {
-        "size" : 70.0,
-        "title" : "Fri",
+        "size": 70.0,
+        "title": "Fri",
       },
       {
-        "size" : 120.0,
-        "title" : "Sat",
+        "size": 120.0,
+        "title": "Sat",
       },
     ];
 
@@ -89,7 +88,8 @@ class _EarningsScreenState extends State<EarningsScreen> {
               ),
               Container(
                 width: double.maxFinite,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 margin: const EdgeInsets.only(bottom: 24),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
@@ -114,7 +114,8 @@ class _EarningsScreenState extends State<EarningsScreen> {
                           ],
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               color: AppColors.white),
@@ -127,7 +128,8 @@ class _EarningsScreenState extends State<EarningsScreen> {
                                   fontSize: 12,
                                   color: AppColors.black80,
                                   right: 8),
-                              const Icon(Icons.keyboard_arrow_down_sharp, size: 24, color: AppColors.black80)
+                              const Icon(Icons.keyboard_arrow_down_sharp,
+                                  size: 24, color: AppColors.black80)
                             ],
                           ),
                         ),
@@ -153,16 +155,23 @@ class _EarningsScreenState extends State<EarningsScreen> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-
                                   Container(
-                                    height: data[index]["size"],width: 30,
+                                    height: data[index]["size"],
+                                    width: 30,
                                     margin: const EdgeInsets.only(top: 8),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: selectedIndex == index ? AppColors.primaryOrange : AppColors.primaryLightOrange
-                                    ),
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: selectedIndex == index
+                                            ? AppColors.primaryOrange
+                                            : AppColors.primaryLightOrange),
                                   ),
-                                  CustomText(text: "${data[index]["title"]}",fontSize: 10,top: 12,fontWeight: selectedIndex== index ? FontWeight.w600 : FontWeight.w400)
+                                  CustomText(
+                                      text: "${data[index]["title"]}",
+                                      fontSize: 10,
+                                      top: 12,
+                                      fontWeight: selectedIndex == index
+                                          ? FontWeight.w600
+                                          : FontWeight.w400)
                                 ],
                               ),
                             ),
@@ -173,16 +182,30 @@ class _EarningsScreenState extends State<EarningsScreen> {
                   ],
                 ),
               ),
-
-              RowText(field: "Total Earnings".tr, value: "\$ 5500",color: AppColors.primaryOrange),
+              RowText(
+                  field: "Total Earnings".tr,
+                  value: "\$ 5500",
+                  color: AppColors.primaryOrange),
               const SizedBox(height: 16),
-              RowText(field: "Yearly Earnings".tr, value: "\$ 5500",color: AppColors.primaryOrange),
+              RowText(
+                  field: "Yearly Earnings".tr,
+                  value: "\$ 5500",
+                  color: AppColors.primaryOrange),
               const SizedBox(height: 16),
-              RowText(field: "Monthly Earnings".tr, value: "\$ 1500",color: AppColors.primaryOrange),
+              RowText(
+                  field: "Monthly Earnings".tr,
+                  value: "\$ 1500",
+                  color: AppColors.primaryOrange),
               const SizedBox(height: 16),
-              RowText(field: "Weekly Earnings".tr, value: "\$ 500",color: AppColors.primaryOrange),
+              RowText(
+                  field: "Weekly Earnings".tr,
+                  value: "\$ 500",
+                  color: AppColors.primaryOrange),
               const SizedBox(height: 16),
-              RowText(field: "Daily Earnings".tr, value: "\$ 500",color: AppColors.primaryOrange),
+              RowText(
+                  field: "Daily Earnings".tr,
+                  value: "\$ 500",
+                  color: AppColors.primaryOrange),
             ],
           ),
         ),

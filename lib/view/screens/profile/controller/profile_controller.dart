@@ -64,6 +64,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
       profileModel.value = ProfileModel.fromJson(response.body);
       saveProfileID(iD: profileModel.value.id!);
       setRxRequestStatus(Status.completed);
+      update();
 
       debugPrint(
           "Profile Body====================${profileModel.value.address}");
@@ -79,8 +80,15 @@ class ProfileController extends GetxController with GetxServiceMixin {
 
   updateProfile() async {
     profileUpdateLoading = true;
+
+    var bearerToken =
+        await SharePrefsHelper.getString(AppConstants.bearerToken);
     update();
 
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $bearerToken'
+    };
     var body = {
       "name": nameController.text,
       "email": emailController.text,
@@ -88,17 +96,21 @@ class ProfileController extends GetxController with GetxServiceMixin {
       "address": addressController.text,
     };
 
-    var response = proImgURL!.isNotEmpty
+    var response = proImage == null
         ? await ApiClient.postData(
+            headers: headers,
             ApiConstant.profileUpdate,
             body,
           )
         : await ApiClient.postMultipartData(ApiConstant.profileUpdate, body,
+            headers: headers,
             multipartBody: [
                 MultipartBody("UserImage", proImage!),
               ]);
 
     if (response.statusCode == 200) {
+      proImgURL = "";
+
       getProfileInfo();
       navigator!.pop();
     } else {

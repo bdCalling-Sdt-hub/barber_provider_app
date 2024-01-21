@@ -1,7 +1,7 @@
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/view/screens/auth/sign_up/sign_up_controller/sign_up_controller.dart';
+import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
@@ -27,7 +27,7 @@ class SignUpScreen extends StatelessWidget {
         //App Bar
         appBar: CustomAppBar(
             appBarContent: CustomBack(text: "Sign Up".tr, isIcon: false)),
-        body: GetBuilder<SignUpController>(
+        body: GetBuilder<Authcontroller>(
           builder: (controller) {
             return SingleChildScrollView(
               padding:
@@ -134,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                     //Sign Up Button
 
                     const SizedBox(height: 44),
-                    controller.signUpLoading
+                    controller.loading
                         ? const CustomLoader()
                         : CustomButton(
                             onPressed: () {
