@@ -64,7 +64,7 @@ class AddProviderController extends GetxController {
   }) {
     Get.toNamed(AppRoute.addPhotos);
 
-    //======================Formatting the time======================
+    // debugPrint("Selected Service Hours=========$days");
 
     String formatTimeOfDay(TimeOfDay time) {
       final hour = time.hour.toString().padLeft(2, '0');
@@ -85,7 +85,8 @@ class AddProviderController extends GetxController {
 
     update();
 
-    debugPrint("Selected Service Hours=========$selectedServiceHours");
+    debugPrint(
+        "Selected Service Hours=========${jsonEncode(selectedServiceHours)}");
     debugPrint("Cat Id=========$catId");
   }
 
@@ -99,7 +100,7 @@ class AddProviderController extends GetxController {
         "businessName": buisnessNameController.text,
         "address": addressController.text,
         "description": descriptionController.text,
-        "serviceOur": selectedServiceHours.toString(),
+        "serviceOur": jsonEncode(selectedServiceHours),
       };
 
       var response = await ApiClient.postMultipartData(
@@ -110,18 +111,15 @@ class AddProviderController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
-        homeController.homeData();
+        //  homeController.homeData();
 
         var jSONData = jsonDecode(response.body);
+        debugPrint("catIDShaPre========================$catId");
         debugPrint(
             "Provider ID========================${jSONData["message"]["id"]}");
         SharePrefsHelper.setString(AppConstants.catID, catId);
         SharePrefsHelper.setString(
             AppConstants.providerID, jSONData["message"]["id"].toString());
-
-        debugPrint(
-            "selectedServiceHours========================$selectedServiceHours");
-        debugPrint("catIDShaPre========================$catId");
 
         Get.offAllNamed(AppRoute.addServiceDetails);
       } else {

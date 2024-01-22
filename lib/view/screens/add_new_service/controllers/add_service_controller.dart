@@ -80,7 +80,8 @@ class AddServiceController extends GetxController {
         "End Time": formatTimeOfDay(data["end"]),
       });
     }
-    debugPrint("Service Time===================>>>>>>>$selectedServiceHours");
+    debugPrint(
+        "Service Time===================>>>>>>>${jsonEncode(selectedServiceHours)}");
     update();
   }
 
@@ -92,6 +93,11 @@ class AddServiceController extends GetxController {
     String catIDShaPre = await SharePrefsHelper.getString(AppConstants.catID);
     String providerID =
         await SharePrefsHelper.getString(AppConstants.providerID);
+
+    debugPrint("=====================$providerID===========================");
+    debugPrint("catIDShaPre========================$catIDShaPre");
+    debugPrint(
+        "selectedServiceHours========================${jsonEncode(selectedServiceHours)}");
 
     update();
 
@@ -105,7 +111,7 @@ class AddServiceController extends GetxController {
         "homServiceCharge": homeSerChargeController.text,
         "bookingMony": setBookingController.text,
         "serviceHour": jsonEncode(selectedServiceHours),
-        "providerId": providerID
+        "providerid": providerID
       };
 
       var response = await ApiClient.postMultipartData(

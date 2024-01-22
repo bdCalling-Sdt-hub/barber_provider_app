@@ -25,6 +25,7 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.hintFontSize = 16,
     super.key,
+    this.prefixIcon,
   });
 
   final TextEditingController? textEditingController;
@@ -43,6 +44,8 @@ class CustomTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? suffixIconColor;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
+
   final double fieldBorderRadius;
   final Color fieldBorderColor;
   final bool isPassword;
@@ -78,6 +81,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             color: widget.hintColor, fontSize: widget.hintFontSize),
         fillColor: widget.fillColor,
         filled: true,
+        prefixIcon: widget.prefixIcon,
         suffixIcon: widget.isPassword
             ? GestureDetector(
                 onTap: toggle,

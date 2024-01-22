@@ -19,25 +19,37 @@ class SettingsScreen extends StatelessWidget {
         extendBody: true,
         appBar: CustomAppBar(appBarContent: CustomBack(text: "Settings".tr)),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              ProfileCards(imageSrc: AppIcons.changePass, text: "Change Password".tr, onTap: (){
-                Get.toNamed(AppRoute.changePassword);
-              }),
+              ProfileCards(
+                  imageSrc: AppIcons.changePass,
+                  text: "Change Password".tr,
+                  onTap: () {
+                    Get.toNamed(AppRoute.changePassword);
+                  }),
               const SizedBox(height: 16),
-              ProfileCards(imageSrc: AppIcons.privacyPolicy, text: "Privacy Policy".tr, onTap: (){
-                Get.toNamed(AppRoute.privacyPolicy);
-              }),
+              ProfileCards(
+                  imageSrc: AppIcons.privacyPolicy,
+                  text: "Privacy Policy".tr,
+                  onTap: () {
+                    Get.toNamed(AppRoute.privacyPolicy);
+                  }),
               const SizedBox(height: 16),
-              ProfileCards(imageSrc: AppIcons.terms, text: "Terms & Conditions".tr, onTap: (){
-                Get.toNamed(AppRoute.termsCondition);
-              }),
+              ProfileCards(
+                  imageSrc: AppIcons.terms,
+                  text: "Terms & Conditions".tr,
+                  onTap: () {
+                    Get.toNamed(AppRoute.termsCondition);
+                  }),
               const SizedBox(height: 16),
-              ProfileCards(imageSrc: AppIcons.aboutUs, text: "About Us".tr, onTap: (){
-                Get.toNamed(AppRoute.aboutUs);
-              }),
+              ProfileCards(
+                  imageSrc: AppIcons.aboutUs,
+                  text: "About Us".tr,
+                  onTap: () {
+                    Get.toNamed(AppRoute.aboutUs);
+                  }),
             ],
           ),
         ),

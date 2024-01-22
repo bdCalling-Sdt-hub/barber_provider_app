@@ -39,7 +39,7 @@ class Provider {
   String? description;
   List<AvailableServiceOur>? availableServiceOur;
   String? coverPhoto;
-  String? gallaryPhoto;
+  List<String>? gallaryPhoto;
   int? status;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -82,7 +82,9 @@ class Provider {
             : List<AvailableServiceOur>.from(json["available_service_our"]!
                 .map((x) => AvailableServiceOur.fromJson(x))),
         coverPhoto: json["cover_photo"],
-        gallaryPhoto: json["gallary_photo"],
+        gallaryPhoto: json["gallary_photo"] == null
+            ? []
+            : List<String>.from(json["gallary_photo"]!.map((x) => x)),
         status: json["status"],
         createdAt: json["created_at"] == null
             ? null
@@ -109,7 +111,9 @@ class Provider {
             ? []
             : List<dynamic>.from(availableServiceOur!.map((x) => x.toJson())),
         "cover_photo": coverPhoto,
-        "gallary_photo": gallaryPhoto,
+        "gallary_photo": gallaryPhoto == null
+            ? []
+            : List<dynamic>.from(gallaryPhoto!.map((x) => x)),
         "status": status,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
@@ -126,30 +130,38 @@ class AvailableServiceOur {
   String? startTime;
   String? endTime;
 
-  AvailableServiceOur({
-    this.day,
-    this.startTime,
-    this.endTime,
-  });
+  AvailableServiceOur({this.day, this.startTime, this.endTime});
 
-  factory AvailableServiceOur.fromRawJson(String str) =>
-      AvailableServiceOur.fromJson(json.decode(str));
+  AvailableServiceOur.fromJson(Map<String, dynamic> json) {
+    day = json['Day'];
+    startTime = json['Start Time'];
+    endTime = json['End Time'];
+  }
 
-  String toRawJson() => json.encode(toJson());
-
-  factory AvailableServiceOur.fromJson(Map<String, dynamic> json) =>
-      AvailableServiceOur(
-        day: json["Day"],
-        startTime: json["Start Time"],
-        endTime: json["End Time"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "Day": day,
-        "Start Time": startTime,
-        "End Time": endTime,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Day'] = day;
+    data['Start Time'] = startTime;
+    data['End Time'] = endTime;
+    return data;
+  }
 }
+
+enum Day { FRI, MON, SAT, SUN, THU, TUE, WED }
+
+final dayValues = EnumValues({
+  "Fri": Day.FRI,
+  "Mon": Day.MON,
+  "Sat": Day.SAT,
+  "Sun": Day.SUN,
+  "Thu": Day.THU,
+  "Tue": Day.TUE,
+  "Wed": Day.WED
+});
+
+enum Time { THE_1036, THE_1438 }
+
+final timeValues = EnumValues({"10:36": Time.THE_1036, "14:38": Time.THE_1438});
 
 class SalonDetail {
   int? id;
@@ -157,12 +169,12 @@ class SalonDetail {
   int? providerId;
   String? serviceName;
   String? serviceDescription;
-  String? gallaryPhoto;
+  List<String>? gallaryPhoto;
   String? serviceDuration;
   String? salonServiceCharge;
   String? homeServiceCharge;
   String? setBookingMony;
-  String? availableServiceOur;
+  List<AvailableServiceOur>? availableServiceOur;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -193,12 +205,17 @@ class SalonDetail {
         providerId: json["provider_id"],
         serviceName: json["service_name"],
         serviceDescription: json["service_description"],
-        gallaryPhoto: json["gallary_photo"],
+        gallaryPhoto: json["gallary_photo"] == null
+            ? []
+            : List<String>.from(json["gallary_photo"]!.map((x) => x)),
         serviceDuration: json["service_duration"],
         salonServiceCharge: json["salon_service_charge"],
         homeServiceCharge: json["home_service_charge"],
         setBookingMony: json["set_booking_mony"],
-        availableServiceOur: json["available_service_our"],
+        availableServiceOur: json["available_service_our"] == null
+            ? []
+            : List<AvailableServiceOur>.from(json["available_service_our"]!
+                .map((x) => AvailableServiceOur.fromJson(x))),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -213,13 +230,29 @@ class SalonDetail {
         "provider_id": providerId,
         "service_name": serviceName,
         "service_description": serviceDescription,
-        "gallary_photo": gallaryPhoto,
+        "gallary_photo": gallaryPhoto == null
+            ? []
+            : List<dynamic>.from(gallaryPhoto!.map((x) => x)),
         "service_duration": serviceDuration,
         "salon_service_charge": salonServiceCharge,
         "home_service_charge": homeServiceCharge,
         "set_booking_mony": setBookingMony,
-        "available_service_our": availableServiceOur,
+        "available_service_our": availableServiceOur == null
+            ? []
+            : List<dynamic>.from(availableServiceOur!.map((x) => x.toJson())),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

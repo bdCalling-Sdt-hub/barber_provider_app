@@ -1,6 +1,8 @@
+import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 void showCustomSnackBar(String? message,
@@ -34,4 +36,14 @@ void showCustomSnackBar(String? message,
       ));
     }
   }
+}
+
+void toastMessage({required String message}) {
+  Fluttertoast.showToast(
+    msg: message,
+    backgroundColor: AppColors.white,
+    textColor: AppColors.cardBgColor,
+    gravity: ToastGravity.BOTTOM,
+    toastLength: Toast.LENGTH_LONG,
+  );
 }

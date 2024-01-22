@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool? isOnboarding = preferences.getBool(AppConstants.onBoard);
 
-    print("isOnboarding=======================$isOnboarding");
+    debugPrint("isOnboarding=======================$isOnboarding");
 
     Future.delayed(const Duration(seconds: 2), () {
       if (isOnboarding == true || isOnboarding == null) {

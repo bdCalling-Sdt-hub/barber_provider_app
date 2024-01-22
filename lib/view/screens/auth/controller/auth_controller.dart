@@ -178,4 +178,6 @@ class Authcontroller extends GetxController {
     loading = false;
     update();
   }
+
+
 }

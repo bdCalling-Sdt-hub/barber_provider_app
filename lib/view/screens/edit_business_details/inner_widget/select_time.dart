@@ -30,7 +30,8 @@ class SelectTime extends StatelessWidget {
         if (time != null && onTimeSelected != null) {
           onTimeSelected!(time);
           String period = time.period == DayPeriod.am ? 'AM' : 'PM';
-          print("Selected Time: ${time.hourOfPeriod}:${time.minute} $period");
+          debugPrint(
+              "Selected Time: ${time.hourOfPeriod}:${time.minute} $period");
         }
       },
       child: Container(

@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       image: DecorationImage(
                                           fit: BoxFit.cover,
                                           image: NetworkImage(
-                                              "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto}"))),
+                                              "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto![0]}"))),
                                 ),
                                 //=================================Services Text=============================
 
@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           field:
                               data.availableServiceOur![index].day.toString(),
                           value:
-                              "${data.availableServiceOur![index].startTime}-${data.availableServiceOur![index].endTime}",
+                              "${data.availableServiceOur![index].startTime} - ${data.availableServiceOur![index].endTime}",
                         );
                       },
                     ),
@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  "${ApiConstant.baseUrl}images/${data.gallaryPhoto}"))),
+                                  "${ApiConstant.baseUrl}images/${data.gallaryPhoto![0]}"))),
                     ),
                   const SizedBox(height: 24),
                   //This Section is shows when first time add ane business then need the permission from the admin to add new service.

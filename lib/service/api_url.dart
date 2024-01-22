@@ -1,7 +1,7 @@
 class ApiConstant {
   static const baseUrl = "http://192.168.10.121:8000/";
 
-  //===================Auth=========================
+  //===================Auth===============================
   //=========Sign UP==========
   static const register = "api/register";
   static const verified = "api/verified";
@@ -18,7 +18,7 @@ class ApiConstant {
   static const addProvider = "api/post/provider";
 
   //===================Post Service=========================
-  static const postService = "api/post/service?";
+  static const postService = "api/post/service";
 
   //===================Post Catalouge=========================
   static const postCatalouge = "api/post/catalouge";
@@ -29,4 +29,8 @@ class ApiConstant {
 
   //===================Post Catalouge=========================
   static const home = "api/get/provider";
+
+  //===================Settings=========================
+  static const logOut = "api/logout";
+  static const changePassword = "api/change-password";
 }

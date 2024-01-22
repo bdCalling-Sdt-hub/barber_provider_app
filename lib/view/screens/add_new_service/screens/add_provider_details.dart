@@ -178,6 +178,9 @@ class _AddProviderDetailsState extends State<AddProviderDetails> {
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
                           controller.getServiceDate(getCatId: catID.toString());
+
+                          // debugPrint(
+                          //     "Date============================${controller.selectedServiceHours}");
                         }
                       }),
                   const SizedBox(height: 24),

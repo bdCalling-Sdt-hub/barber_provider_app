@@ -1,12 +1,11 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
-import 'package:barbar_provider/utils/app_images.dart';
 import 'package:barbar_provider/view/screens/home/model/home_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
-import 'package:barbar_provider/view/widgets/image/custom_image.dart';
+import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -43,7 +42,7 @@ class ServiceDetails extends StatelessWidget {
                     image: DecorationImage(
                         fit: BoxFit.cover,
                         image: NetworkImage(
-                            "${ApiConstant.baseUrl}images/${salonDetail.gallaryPhoto}"))),
+                            "${ApiConstant.baseUrl}images/${salonDetail.gallaryPhoto![0]}"))),
               ),
 
               //==========================================Cover Image=================================
@@ -68,10 +67,9 @@ class ServiceDetails extends StatelessWidget {
 
               //==========================================Reviews=================================
 
-              Row(
+              const Row(
                 children: [
-                  const Icon(Icons.star,
-                      size: 16, color: AppColors.primaryOrange),
+                  Icon(Icons.star, size: 16, color: AppColors.primaryOrange),
                   CustomText(
                       text: "Review",
                       fontSize: 14,
@@ -102,15 +100,16 @@ class ServiceDetails extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   top: 24,
                   bottom: 16),
-              const CustomText(
-                text:
-                    "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla.",
+              CustomText(
+                text: salonDetail.serviceDescription!,
                 maxLines: 5,
                 textAlign: TextAlign.start,
                 fontSize: 14,
                 color: AppColors.paragraph,
                 overflow: TextOverflow.ellipsis,
               ),
+
+              //================================Gallery Image============================
 
               CustomText(
                 text: "Gallery".tr,
@@ -122,7 +121,7 @@ class ServiceDetails extends StatelessWidget {
                 height: 80,
                 child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 10,
+                  itemCount: salonDetail.gallaryPhoto!.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Container(
@@ -130,13 +129,15 @@ class ServiceDetails extends StatelessWidget {
                       width: 80,
                       margin: const EdgeInsets.only(right: 16),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const CustomImage(
-                        imageSrc: AppImages.service,
-                        imageType: ImageType.png,
-                        fit: BoxFit.fill,
-                      ),
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  "${ApiConstant.baseUrl}images/${salonDetail.gallaryPhoto![0]}"))),
+                      // child: const CustomImage(
+                      //   imageSrc: AppImages.service,
+                      //   imageType: ImageType.png,
+                      //   fit: BoxFit.fill,
+                      // ),
                     );
                   },
                 ),
@@ -146,19 +147,19 @@ class ServiceDetails extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   top: 24,
                   bottom: 16),
-              // ListView.builder(
-              //         physics: const NeverScrollableScrollPhysics(),
-              //         shrinkWrap: true,
-              //         itemCount: 7,
-              //         itemBuilder: (context, index) {
-              //           return RowText(
-              //             field:
-              //                 salonDetail.availableServiceOur![index].day.toString(),
-              //             value:
-              //                 "${data.availableServiceOur![index].startTime}-${data.availableServiceOur![index].endTime}",
-              //           );
-              //         },
-              //       ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 7,
+                itemBuilder: (context, index) {
+                  return RowText(
+                    field:
+                        salonDetail.availableServiceOur![index].day.toString(),
+                    value:
+                        "${salonDetail.availableServiceOur![index].startTime} - ${salonDetail.availableServiceOur![index].endTime}",
+                  );
+                },
+              ),
             ],
           ),
         ),
