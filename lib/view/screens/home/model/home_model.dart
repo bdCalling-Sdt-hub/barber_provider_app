@@ -147,22 +147,6 @@ class AvailableServiceOur {
   }
 }
 
-enum Day { FRI, MON, SAT, SUN, THU, TUE, WED }
-
-final dayValues = EnumValues({
-  "Fri": Day.FRI,
-  "Mon": Day.MON,
-  "Sat": Day.SAT,
-  "Sun": Day.SUN,
-  "Thu": Day.THU,
-  "Tue": Day.TUE,
-  "Wed": Day.WED
-});
-
-enum Time { THE_1036, THE_1438 }
-
-final timeValues = EnumValues({"10:36": Time.THE_1036, "14:38": Time.THE_1438});
-
 class SalonDetail {
   int? id;
   int? categoryId;

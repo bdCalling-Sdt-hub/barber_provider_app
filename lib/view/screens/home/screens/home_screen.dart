@@ -155,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () => Get.toNamed(AppRoute.serviceDetails,
-                                arguments: data.salonDetails![index]),
+                                arguments:
+                                    data.salonDetails![index].id.toString()),
                             child: Column(
                               //crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,27 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                   if (data.salonDetails!.isNotEmpty)
-                    // SizedBox(
-                    //   height: 95.h,
-                    //   child: ListView.builder(
-                    //     shrinkWrap: true,
-                    //     itemCount: data.length,
-                    //     scrollDirection: Axis.horizontal,
-                    //     itemBuilder: (context, index) {
-                    //       return Container(
-                    //         height: 80.w,
-                    //         width: 88.w,
-                    //         margin: const EdgeInsets.only(right: 16),
-                    //         decoration: BoxDecoration(
-                    //             borderRadius: BorderRadius.circular(8),
-                    //             image: DecorationImage(
-                    //                 fit: BoxFit.cover,
-                    //                 image: NetworkImage(
-                    //                     "${ApiConstant.baseUrl}images/${data.gallaryPhoto}"))),
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
                     Container(
                       height: 90.w,
                       width: 90.w,
@@ -251,47 +231,61 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: NetworkImage(
                                   "${ApiConstant.baseUrl}images/${data.gallaryPhoto![0]}"))),
                     ),
-                  const SizedBox(height: 24),
-                  //This Section is shows when first time add ane business then need the permission from the admin to add new service.
-                  /*Row(crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.error_outline,size: 20,color: AppColors.white),
-                        Flexible(child: CustomText(text: "Users won’t see the details before admins approval".tr,maxLines: 2,textAlign: TextAlign.start,left: 8,fontSize: 14,fontWeight: FontWeight.w500),),
-                      ],
-                    ),*/
+                  SizedBox(height: 26.h),
 
-                  //=================================Add New Services=============================
+                  //================================waiting for admin approval========================================-
 
-                  GestureDetector(
-                    onTap: () {
-                      //If don't have subscription then this section will show
-                      /*showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const PurchasePopUp();
-                            });*/
-                      Get.toNamed(AppRoute.addServiceDetails);
-                    },
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.add_circle_outline,
-                            color: AppColors.primaryOrange, size: 16),
-                        CustomText(
-                          text: "Add New Services".tr,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          left: 16,
-                          color: AppColors.primaryOrange,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                  data.status == 0
+                      ? Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error_outline,
+                                size: 20.r, color: AppColors.white),
+                            CustomText(
+                                text:
+                                    "Users won’t see the details before admins approval"
+                                        .tr,
+                                maxLines: 2,
+                                textAlign: TextAlign.start,
+                                left: 8,
+                                fontSize: 12.w,
+                                fontWeight: FontWeight.w500),
+                          ],
+                        )
+                      :
+
+                      //=================================Add New Services=============================
+
+                      GestureDetector(
+                          onTap: () {
+                            //If don't have subscription then this section will show
+                            /*showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const PurchasePopUp();
+                                });*/
+                            Get.toNamed(AppRoute.addServiceDetails);
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.add_circle_outline,
+                                  color: AppColors.primaryOrange, size: 16),
+                              CustomText(
+                                text: "Add New Services".tr,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                left: 16,
+                                color: AppColors.primaryOrange,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 26.h),
                 ],
               );
             }),

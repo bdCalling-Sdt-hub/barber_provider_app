@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddProviderController extends GetxController {
   List<Map<String, dynamic>> days = [
@@ -130,6 +131,19 @@ class AddProviderController extends GetxController {
     }
 
     isLoading = false;
+    update();
+  }
+
+  updateProvider() async {
+    isLoading = true;
+    getServiceDate(getCatId: "");
+    String providerID =
+        await SharePrefsHelper.getString(AppConstants.providerID);
+    String catID = await SharePrefsHelper.getString(AppConstants.catID);
+
+    debugPrint("providerID============================>>>>>>>>>>>>$providerID");
+    debugPrint("catID============================>>>>>>>>>>>>$catID");
+
     update();
   }
 }

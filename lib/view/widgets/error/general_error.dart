@@ -10,6 +10,7 @@ class GeneralErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.bgColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +21,10 @@ class GeneralErrorScreen extends StatelessWidget {
             ),
             Text(
               "Something wrong!",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16.sp),
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16.sp,
+                  color: AppColors.white),
             ),
             SizedBox(
               height: 20.h,

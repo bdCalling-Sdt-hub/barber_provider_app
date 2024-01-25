@@ -3,6 +3,7 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/screens/home/model/home_model.dart';
+import 'package:barbar_provider/view/screens/service_details/model/salon_details_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
@@ -46,6 +47,25 @@ class HomeController extends GetxController with GetxServiceMixin {
 
     routeLoading = false;
     update();
+  }
+
+  ServiceDetailsModel serviceDetailsModel = ServiceDetailsModel();
+
+  getServiceDetails({required String salonID}) async {
+    setRxRequestStatus(Status.loading);
+    var response =
+        await ApiClient.getData("${ApiConstant.serviceDetails}$salonID");
+    if (response.statusCode == 200) {
+      serviceDetailsModel = ServiceDetailsModel.fromJson(response.body);
+      setRxRequestStatus(Status.completed);
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
   }
 
   @override

@@ -1,4 +1,6 @@
-import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'dart:io';
+
+import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
@@ -8,10 +10,18 @@ import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class EditBusinessDetails extends StatelessWidget {
+class EditBusinessDetails extends StatefulWidget {
   const EditBusinessDetails({super.key});
+
+  @override
+  State<EditBusinessDetails> createState() => _EditBusinessDetailsState();
+}
+
+class _EditBusinessDetailsState extends State<EditBusinessDetails> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,165 +31,236 @@ class EditBusinessDetails extends StatelessWidget {
         backgroundColor: AppColors.bgColor,
         extendBody: true,
         appBar: CustomAppBar(
-          appBarContent: CustomBack(
-            text: "Edit Business Details".tr,
-          ),
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          physics: const BouncingScrollPhysics(),
-          child: GetBuilder<AddProviderController>(builder: (context) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //==============================Business Name==========================
+            appBarContent: CustomBack(text: "Edit Provider Details".tr)),
+        body: GetBuilder<AddProviderController>(builder: (controller) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //================================Business Name=============================
+                  CustomText(text: "Business Name".tr, bottom: 12),
+                  CustomTextField(
+                    validator: (value) {
+                      if (value == null || value.toString().isEmpty) {
+                        return AppStaticStrings.fieldCantBeEmpty;
+                      }
+                      return null;
+                    },
+                    textEditingController: controller.buisnessNameController,
+                    hintText: "Enter salon name".tr,
+                  ),
 
-                CustomText(text: "Business Name".tr, bottom: 12),
-                const CustomTextField(
-                    hintText: "Green Apple Salon", hintColor: AppColors.white),
+                  //================================Address=============================
 
-                //==============================Address==========================
+                  CustomText(text: "Address".tr, top: 16, bottom: 12),
+                  CustomTextField(
+                      validator: (value) {
+                        if (value == null || value.toString().isEmpty) {
+                          return AppStaticStrings.fieldCantBeEmpty;
+                        }
+                        return null;
+                      },
+                      textEditingController: controller.addressController,
+                      hintText: "Enter salon address".tr),
 
-                CustomText(text: "Address".tr, top: 16, bottom: 12),
-                const CustomTextField(
-                    hintText: "6391 Elgin St Celina, Delaware",
-                    hintColor: AppColors.white),
+                  //================================Description=============================
 
-                //==============================Description==========================
+                  CustomText(text: "Description".tr, top: 16, bottom: 12),
+                  CustomTextField(
+                      validator: (value) {
+                        if (value == null || value.toString().isEmpty) {
+                          return AppStaticStrings.fieldCantBeEmpty;
+                        }
+                        return null;
+                      },
+                      textEditingController: controller.descriptionController,
+                      hintText: "Enter salon description".tr,
+                      maxLines: 6),
 
-                CustomText(text: "Description".tr, top: 16, bottom: 12),
-                const CustomTextField(
-                  hintText:
-                      "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla.",
-                  maxLines: 8,
-                  hintColor: AppColors.white,
-                ),
+                  //================================Upload Cover Photo==============================
 
-                //==============================Cover Photo==========================
+                  CustomText(
+                      text: "Upload Cover Photo".tr,
+                      bottom: 16,
+                      top: 16,
+                      fontWeight: FontWeight.w500),
+                  GestureDetector(
+                    onTap: () {
+                      controller.openGallery(isCoverPhoto: true);
+                    },
+                    child: Container(
+                      height: 240.h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBgColor),
+                      child: controller.coverPhoto == null
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.camera_alt_outlined,
+                                    color: AppColors.primaryOrange, size: 64),
+                                CustomText(
+                                    text: "Upload Picture".tr,
+                                    color: AppColors.primaryOrange,
+                                    fontWeight: FontWeight.w500)
+                              ],
+                            )
+                          : Image.file(
+                              fit: BoxFit.cover,
+                              File(controller.coverPhoto!.path)),
+                    ),
+                  ),
 
-                CustomText(text: "Change Cover Photo".tr, top: 16, bottom: 12),
-                Container(
-                  height: 190,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.cardBgColor),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  //================================Upload Cover Photo==============================
+
+                  CustomText(
+                      text: "Gallery Photo".tr,
+                      top: 24,
+                      bottom: 16,
+                      fontWeight: FontWeight.w500),
+                  GestureDetector(
+                    onTap: () {
+                      controller.openGallery(isCoverPhoto: false);
+                    },
+                    child: Container(
+                      height: 240.h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBgColor),
+                      child: controller.galleryPhoto == null
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.camera_alt_outlined,
+                                    color: AppColors.primaryOrange, size: 64),
+                                CustomText(
+                                    text: "Upload Picture".tr,
+                                    color: AppColors.primaryOrange,
+                                    fontWeight: FontWeight.w500)
+                              ],
+                            )
+                          : Image.file(
+                              fit: BoxFit.cover,
+                              File(controller.galleryPhoto!.path)),
+                    ),
+                  ),
+
+                  //================================Available Service Hours=============================
+
+                  CustomText(
+                      text: "Available Service Hours".tr, top: 16, bottom: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.camera_alt_outlined,
-                          color: AppColors.primaryOrange, size: 64),
-                      CustomText(
-                          text: "Change Picture".tr,
-                          color: AppColors.primaryOrange,
-                          fontWeight: FontWeight.w500)
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.days.length,
+                              itemBuilder: (context, index) {
+                                var data2 = controller.days[index];
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          child: Column(
+                                        children: [
+                                          if (index == 0)
+                                            CustomText(
+                                                bottom: 16.h, text: "Day"),
+                                          CustomText(text: data2["day"])
+                                        ],
+                                      )),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          children: [
+                                            if (index == 0)
+                                              CustomText(
+                                                  bottom: 16.h,
+                                                  text: "Start Time"),
+                                            SelectTime(
+                                              onTimeSelected: (time) {
+                                                setState(() {
+                                                  controller.days[index]
+                                                      ["start"] = time;
+                                                });
+                                              },
+                                              initialTime: controller
+                                                  .days[index]["start"],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          children: [
+                                            if (index == 0)
+                                              CustomText(
+                                                  bottom: 16.h,
+                                                  text: "End Time"),
+                                            SelectTime(
+                                              onTimeSelected: (time) {
+                                                setState(() {
+                                                  controller.days[index]
+                                                      ["end"] = time;
+                                                });
+                                              },
+                                              initialTime:
+                                                  controller.days[index]["end"],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 44),
 
-                //==============================Gallery Photo==========================
+                  //================================Continue Button=============================
 
-                CustomText(text: "Gallery Photo".tr, top: 16, bottom: 12),
-                Container(
-                  height: 190,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.cardBgColor),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.camera_alt_outlined,
-                          color: AppColors.primaryOrange, size: 64),
-                      CustomText(
-                          text: "Change Picture".tr,
-                          color: AppColors.primaryOrange,
-                          fontWeight: FontWeight.w500)
-                    ],
-                  ),
-                ),
+                  CustomButton(
+                      titleText: "Continue".tr,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          controller.updateProvider();
 
-                //==============================Change Service Hours==========================
-
-                CustomText(
-                    text: "Change Service Hours".tr, top: 16, bottom: 12),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(text: "Day"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Sun"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Mon"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Tue"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Wed"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Thu"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Fri"),
-                        SizedBox(height: 26),
-                        CustomText(text: "Sat"),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Open Time"),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Closed Time"),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                        SizedBox(height: 16),
-                        SelectTime(),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 44),
-                CustomButton(
-                    titleText: "Save".tr,
-                    onPressed: () => Get.offAllNamed(AppRoute.navBar)),
-                const SizedBox(height: 24),
-              ],
-            );
-          }),
-        ),
+                          // debugPrint(
+                          //     "Date============================${controller.selectedServiceHours}");
+                        }
+                      }),
+                  const SizedBox(height: 24),
+                ],
+              ),
+            ),
+          );
+        }),
       ),
     );
   }
