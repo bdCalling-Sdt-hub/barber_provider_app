@@ -12,11 +12,14 @@ class CategoryController extends GetxController with GetxServiceMixin {
   CategoryModel categoryModel = CategoryModel();
   List<Message> categoryList = [];
 
-  getCategory() async {
+  var clearSearch = true.obs;
+
+  getCategory({String search = ""}) async {
     categoryList = [];
     setRxRequestStatus(Status.loading);
 
-    var response = await ApiClient.getData(ApiConstant.showCategory);
+    var response =
+        await ApiClient.getData("${ApiConstant.showCategory}$search");
 
     if (response.statusCode == 200) {
       categoryModel = CategoryModel.fromJson(response.body);
@@ -25,6 +28,11 @@ class CategoryController extends GetxController with GetxServiceMixin {
 
       if (rawData != null && rawData.isNotEmpty) {
         categoryList.addAll(rawData);
+
+        if (search.isNotEmpty) {
+          clearSearch.value = false;
+          refresh();
+        }
       }
 
       setRxRequestStatus(Status.completed);

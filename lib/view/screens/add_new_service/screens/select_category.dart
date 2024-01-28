@@ -8,6 +8,7 @@ import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
+import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
@@ -19,21 +20,6 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<String> category = [
-    //   "Spa",
-    //   "Nails",
-    //   "Barber",
-    //   "Salon",
-    //   "Women’s",
-    //   "Men’s",
-    //   "Massage",
-    //   "Piercing",
-    //   "Skin care",
-    //   "Hair Care",
-    //   "Makeover",
-    //   "Facial"
-    // ];
-
     CategoryController addNewServiceController = Get.put(CategoryController());
 
     return SafeArea(
@@ -67,36 +53,29 @@ class SelectCategory extends StatelessWidget {
                     children: [
                       //==============================Search Field==============================
 
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        margin: const EdgeInsets.only(bottom: 24),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: AppColors.cardBgColor,
+                      CustomTextField(
+                        hintText: "Search".tr,
+                        hintColor: AppColors.white,
+                        fillColor: AppColors.stroke,
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          size: 24,
+                          color: AppColors.white,
                         ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  const Icon(Icons.search,
-                                      size: 18, color: AppColors.paragraph),
-                                  CustomText(
-                                      text: "Search".tr,
-                                      color: AppColors.paragraph,
-                                      fontSize: 14,
-                                      left: 12),
-                                ],
-                              ),
-                            ),
-                            const CustomImage(
+                        suffixIcon: GestureDetector(
+                          onTap: () {},
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: CustomImage(
                               imageSrc: AppIcons.filter,
-                              size: 18,
+                              size: 12,
                               imageColor: AppColors.paragraph,
                             ),
-                          ],
+                          ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 24.h,
                       ),
 
                       //==============================Cetegorys==============================

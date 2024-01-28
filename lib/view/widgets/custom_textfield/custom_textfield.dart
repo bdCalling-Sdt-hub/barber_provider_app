@@ -29,6 +29,7 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.textInputFormatter,
     List<TextInputFormatter>? inputFormatters,
+    this.onFieldSubmitted,
   });
 
   final TextEditingController? textEditingController;
@@ -55,6 +56,7 @@ class CustomTextField extends StatefulWidget {
   final double hintFontSize;
   final bool readOnly;
   final Color hintColor;
+  final void Function(String)? onFieldSubmitted;
 
   final List<TextInputFormatter>? textInputFormatter;
 
@@ -78,6 +80,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorColor: widget.cursorColor,
       style: GoogleFonts.montserrat(color: AppColors.white),
       onChanged: widget.onChanged,
+      onFieldSubmitted: widget.onFieldSubmitted,
+      onSaved: (newValue) {},
       maxLines: widget.maxLines,
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,

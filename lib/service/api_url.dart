@@ -12,7 +12,7 @@ class ApiConstant {
   static const resetPassword = "api/reset-password";
 
   //===================Home Screen=========================
-  static const showCategory = "api/show-category";
+  static const showCategory = "api/category-search/";
 
   //===================Provider=========================
   static const addProvider = "api/post/provider";
