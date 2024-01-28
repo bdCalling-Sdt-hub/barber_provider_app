@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/time_converter.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
@@ -62,12 +63,6 @@ class AddCatalougeController extends GetxController {
   }
 
   getServiceTime() {
-    String formatTimeOfDay(TimeOfDay time) {
-      final hour = time.hour.toString().padLeft(2, '0');
-      final minute = time.minute.toString().padLeft(2, '0');
-      return '$hour:$minute';
-    }
-
     //======================Getting the Json of Date======================
     for (var data in days) {
       selectedServiceHours.add({

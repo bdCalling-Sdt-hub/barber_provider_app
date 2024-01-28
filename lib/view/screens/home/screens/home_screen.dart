@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 arguments:
                                     data.salonDetails![index].id.toString()),
                             child: Column(
-                              //crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 //=================================Services Image=============================
@@ -177,6 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                 CustomText(
                                     textAlign: TextAlign.center,
+                                    right: 16.w,
                                     text:
                                         data.salonDetails![index].serviceName!)
                               ],

@@ -1,12 +1,15 @@
 import 'dart:io';
-
+import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
+import 'package:barbar_provider/view/screens/home/model/home_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +25,25 @@ class EditBusinessDetails extends StatefulWidget {
 
 class _EditBusinessDetailsState extends State<EditBusinessDetails> {
   final formKey = GlobalKey<FormState>();
+
+  HomeController homeController = Get.find<HomeController>();
+
+  List<Provider> provider = [];
+  List<Map<String, dynamic>> convertedServiceHour = [];
+
+  @override
+  void initState() {
+    provider = homeController.provider;
+    convertedServiceHour = homeController.convertedServiceHour;
+
+    debugPrint(
+        "Provider Info===============================${provider.length}");
+
+    debugPrint(
+        "ServiceHour Info===============================$convertedServiceHour");
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +72,8 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                       }
                       return null;
                     },
-                    textEditingController: controller.buisnessNameController,
+                    textEditingController: controller.buisnessNameController =
+                        TextEditingController(text: provider[0].businessName),
                     hintText: "Enter salon name".tr,
                   ),
 
@@ -64,7 +87,8 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                         }
                         return null;
                       },
-                      textEditingController: controller.addressController,
+                      textEditingController: controller.addressController =
+                          TextEditingController(text: provider[0].address),
                       hintText: "Enter salon address".tr),
 
                   //================================Description=============================
@@ -77,7 +101,8 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                         }
                         return null;
                       },
-                      textEditingController: controller.descriptionController,
+                      textEditingController: controller.descriptionController =
+                          TextEditingController(text: provider[0].description),
                       hintText: "Enter salon description".tr,
                       maxLines: 6),
 
@@ -99,17 +124,9 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                           borderRadius: BorderRadius.circular(8),
                           color: AppColors.cardBgColor),
                       child: controller.coverPhoto == null
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.camera_alt_outlined,
-                                    color: AppColors.primaryOrange, size: 64),
-                                CustomText(
-                                    text: "Upload Picture".tr,
-                                    color: AppColors.primaryOrange,
-                                    fontWeight: FontWeight.w500)
-                              ],
+                          ? Image.network(
+                              "${ApiConstant.baseUrl}images/${provider[0].coverPhoto!}",
+                              fit: BoxFit.cover,
                             )
                           : Image.file(
                               fit: BoxFit.cover,
@@ -135,17 +152,9 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                           borderRadius: BorderRadius.circular(8),
                           color: AppColors.cardBgColor),
                       child: controller.galleryPhoto == null
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.camera_alt_outlined,
-                                    color: AppColors.primaryOrange, size: 64),
-                                CustomText(
-                                    text: "Upload Picture".tr,
-                                    color: AppColors.primaryOrange,
-                                    fontWeight: FontWeight.w500)
-                              ],
+                          ? Image.network(
+                              "${ApiConstant.baseUrl}images/${provider[0].gallaryPhoto![0]}",
+                              fit: BoxFit.cover,
                             )
                           : Image.file(
                               fit: BoxFit.cover,
@@ -168,24 +177,28 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.days.length,
+                              itemCount: convertedServiceHour.length,
                               itemBuilder: (context, index) {
-                                var data2 = controller.days[index];
+                                var value = convertedServiceHour[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      //===============================Show Days==========================
                                       Expanded(
                                           child: Column(
                                         children: [
                                           if (index == 0)
                                             CustomText(
                                                 bottom: 16.h, text: "Day"),
-                                          CustomText(text: data2["day"])
+                                          CustomText(text: value["day"])
                                         ],
                                       )),
+
+                                      //===============================Show Start Time==========================
+
                                       Expanded(
                                         flex: 2,
                                         child: Column(
@@ -197,12 +210,10 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                                             SelectTime(
                                               onTimeSelected: (time) {
                                                 setState(() {
-                                                  controller.days[index]
-                                                      ["start"] = time;
+                                                  value["start"] = time;
                                                 });
                                               },
-                                              initialTime: controller
-                                                  .days[index]["start"],
+                                              initialTime: value["start"],
                                             ),
                                           ],
                                         ),
@@ -210,6 +221,9 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                                       SizedBox(
                                         width: 5.w,
                                       ),
+
+                                      //===============================Show End Time==========================
+
                                       Expanded(
                                         flex: 2,
                                         child: Column(
@@ -221,12 +235,10 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
                                             SelectTime(
                                               onTimeSelected: (time) {
                                                 setState(() {
-                                                  controller.days[index]
-                                                      ["end"] = time;
+                                                  value["end"] = time;
                                                 });
                                               },
-                                              initialTime:
-                                                  controller.days[index]["end"],
+                                              initialTime: value["end"],
                                             ),
                                           ],
                                         ),
@@ -245,16 +257,19 @@ class _EditBusinessDetailsState extends State<EditBusinessDetails> {
 
                   //================================Continue Button=============================
 
-                  CustomButton(
-                      titleText: "Continue".tr,
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          controller.updateProvider();
+                  controller.isLoading
+                      ? const CustomLoader()
+                      : CustomButton(
+                          titleText: "Continue".tr,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              controller.updateProvider(
+                                  updatedServiceHours: convertedServiceHour);
 
-                          // debugPrint(
-                          //     "Date============================${controller.selectedServiceHours}");
-                        }
-                      }),
+                              // debugPrint(
+                              //     "Date============================$convertedServiceHour");
+                            }
+                          }),
                   const SizedBox(height: 24),
                 ],
               ),

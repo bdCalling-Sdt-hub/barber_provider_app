@@ -16,9 +16,11 @@ class ApiConstant {
 
   //===================Provider=========================
   static const addProvider = "api/post/provider";
+  static const updateProvider = "api/update/provider";
 
   //===================Post Service=========================
   static const postService = "api/post/service";
+  static const updateService = "api/post/update/service";
 
   //===================Post Catalouge=========================
   static const postCatalouge = "api/post/catalouge";

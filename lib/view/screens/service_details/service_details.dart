@@ -40,11 +40,16 @@ class _ServiceDetailsState extends State<ServiceDetails> {
       child: Scaffold(
         backgroundColor: AppColors.bgColor,
         extendBody: true,
+
+        //==================================Edit Button==================================
+
         appBar: CustomAppBar(
             appBarContent: CustomBack(
                 text: "Service Details".tr,
                 isEdit: true,
-                onPressed: () => Get.toNamed(AppRoute.editServiceDetails))),
+                onPressed: () => Get.toNamed(AppRoute.editServiceDetails,
+                    arguments:
+                        homeController.serviceDetailsModel.serviceDetails))),
         body: Obx(() {
           switch (homeController.rxRequestStatus.value) {
             case Status.loading:
@@ -78,7 +83,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   "${ApiConstant.baseUrl}images/${data!.gallaryPhoto![0]}"))),
                     ),
 
-                    //==========================================Cover Image=================================
+                    //==========================================Service Name=================================
 
                     CustomText(
                         text: data.serviceName!, fontWeight: FontWeight.w600),
@@ -152,6 +157,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 image: DecorationImage(
+                                    fit: BoxFit.cover,
                                     image: NetworkImage(
                                         "${ApiConstant.baseUrl}images/${data.gallaryPhoto![0]}"))),
                           );

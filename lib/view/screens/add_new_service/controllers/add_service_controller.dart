@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
+import 'package:barbar_provider/helper/time_converter.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
@@ -52,6 +53,7 @@ class AddServiceController extends GetxController {
   bool isLoading = false;
 
   HomeController homeController = Get.find<HomeController>();
+  //=================================Open Gallary for image==============================
 
   void openGallery() async {
     final pickedFile = await ImagePicker().pickImage(
@@ -65,13 +67,8 @@ class AddServiceController extends GetxController {
     update();
   }
 
+//=================================Get the Service hour Details==============================
   getServiceTime() {
-    String formatTimeOfDay(TimeOfDay time) {
-      final hour = time.hour.toString().padLeft(2, '0');
-      final minute = time.minute.toString().padLeft(2, '0');
-      return '$hour:$minute';
-    }
-
     //======================Getting the Json of Date======================
     for (var data in days) {
       selectedServiceHours.add({
@@ -84,6 +81,8 @@ class AddServiceController extends GetxController {
         "Service Time===================>>>>>>>${jsonEncode(selectedServiceHours)}");
     update();
   }
+
+  //=================================Add Service==============================
 
   addService() async {
     isLoading = true;
@@ -133,6 +132,56 @@ class AddServiceController extends GetxController {
       }
     } else {
       showCustomSnackBar("Pick image");
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  //=================================Update Service==============================
+
+  updateService(
+      {required String serviceID,
+      required List<Map<String, dynamic>> updatedServiceHours}) async {
+    isLoading = true;
+
+    //==================================Get CatID and Provider ID===============================
+
+    String catIDShaPre = await SharePrefsHelper.getString(AppConstants.catID);
+    String providerID =
+        await SharePrefsHelper.getString(AppConstants.providerID);
+
+    update();
+
+    var body = {
+      "id": serviceID,
+      "catId": catIDShaPre,
+      "serviceName": serviceNameController.text,
+      "description": serviceDesController.text,
+      "serviceOur": serviceDurationController.text,
+      "serviceCharge": salonSerChargeController.text,
+      "homServiceCharge": homeSerChargeController.text,
+      "bookingMony": setBookingController.text,
+      "serviceHour":
+          jsonEncode(timeDateToString(response: updatedServiceHours)),
+      "providerId": providerID
+    };
+
+    var response = galleryPhoto != null
+        ? await ApiClient.postMultipartData(
+            multipartBody: [
+              MultipartBody("servicePhotoGellary[]", galleryPhoto!),
+            ],
+            ApiConstant.updateService,
+            body,
+          )
+        : await ApiClient.postData(ApiConstant.updateService, body);
+
+    if (response.statusCode == 200) {
+      homeController.homeData();
+      Get.offAllNamed(AppRoute.navBar);
+    } else {
+      ApiChecker.checkApi(response);
     }
 
     isLoading = false;

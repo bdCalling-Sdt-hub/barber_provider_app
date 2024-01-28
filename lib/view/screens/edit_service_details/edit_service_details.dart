@@ -1,16 +1,41 @@
-import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/time_converter.dart';
+import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
+import 'package:barbar_provider/view/screens/service_details/model/salon_details_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class EditServiceDetails extends StatelessWidget {
+class EditServiceDetails extends StatefulWidget {
   const EditServiceDetails({super.key});
+
+  @override
+  State<EditServiceDetails> createState() => _EditServiceDetailsState();
+}
+
+class _EditServiceDetailsState extends State<EditServiceDetails> {
+  List<Map<String, dynamic>> convertedServiceHour = [];
+  HomeController homeController = Get.find<HomeController>();
+
+  ServiceDetails serviceDetails = ServiceDetails();
+
+  @override
+  void initState() {
+    serviceDetails = Get.arguments;
+    convertedServiceHour = stringToTimeDate(serviceDetails.availableServiceOur);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,128 +49,226 @@ class EditServiceDetails extends StatelessWidget {
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(text: "Service name".tr, bottom: 12),
-              const CustomTextField(
-                hintText: "HeirCut",
-                hintColor: AppColors.white,
-              ),
-              CustomText(text: "Service description".tr, bottom: 12, top: 16),
-              CustomTextField(
-                  hintText:
-                      "Lorem ipsum dolor sit amet consectetur. Tortor nec lectus lectus felis odio. Quis accumsan adipiscing massa leo urna tincidunt at. Eleifend in rutrum in scelerisque faucibus sem imperdiet. Nisi pharetra aliquam nunc pellentesque habitasse donec nulla."
-                          .tr,hintColor: AppColors.white,hintFontSize: 14,
-                  maxLines: 5),
-              CustomText(text: "Gallery Photo".tr, bottom: 12, top: 16),
-              Container(
-                height: 190,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: AppColors.cardBgColor),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+          child: GetBuilder<AddServiceController>(builder: (controller) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //===================================Service name=========================
+                CustomText(text: "Service name".tr, bottom: 12),
+                CustomTextField(
+                  textEditingController: controller.serviceNameController =
+                      TextEditingController(text: serviceDetails.serviceName),
+                  hintColor: AppColors.white,
+                ),
+
+                //===================================Service description=========================
+
+                CustomText(text: "Service description".tr, bottom: 12, top: 16),
+                CustomTextField(
+                    textEditingController: controller.serviceDesController =
+                        TextEditingController(
+                            text: serviceDetails.serviceDescription),
+                    maxLines: 5),
+
+                //===================================Gallery Photo=========================
+
+                CustomText(text: "Gallery Photo".tr, bottom: 12, top: 16),
+
+                Container(
+                  height: 240.h,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.cardBgColor),
+                  child: serviceDetails.gallaryPhoto!.isNotEmpty
+                      ? Image.network(
+                          "${ApiConstant.baseUrl}images/${serviceDetails.gallaryPhoto![0]}",
+                          fit: BoxFit.cover,
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.camera_alt_outlined,
+                                color: AppColors.primaryOrange, size: 64),
+                            CustomText(
+                                text: "Upload Picture".tr,
+                                color: AppColors.primaryOrange,
+                                fontWeight: FontWeight.w500)
+                          ],
+                        ),
+                ),
+
+                //===================================Service Duration==========================
+
+                CustomText(
+                    text: "Service Duration (min)".tr, bottom: 12, top: 16),
+                CustomTextField(
+                    textInputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
+                    textEditingController:
+                        controller.serviceDurationController =
+                            TextEditingController(
+                                text: serviceDetails.serviceDuration),
+                    hintText: "Enter service duration".tr),
+
+                CustomText(
+                    text: "Select service charges".tr,
+                    top: 16,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18),
+
+                //===================================Salon Service Charge==========================
+
+                CustomText(
+                    text: "Salon Service Charge".tr, bottom: 12, top: 16),
+                CustomTextField(
+                    textInputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
+                    textEditingController: controller.salonSerChargeController =
+                        TextEditingController(
+                            text: serviceDetails.salonServiceCharge),
+                    hintText: "Enter service amount".tr),
+
+                //===================================Home Service Charge=============================
+
+                CustomText(text: "Home Service Charge".tr, bottom: 12, top: 16),
+                CustomTextField(
+                    textInputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
+                    textEditingController: controller.homeSerChargeController =
+                        TextEditingController(
+                            text: serviceDetails.homeServiceCharge),
+                    hintText: "Set booking money".tr),
+
+                //===================================Set Booking money==========================
+
+                CustomText(text: "Set Booking money".tr, bottom: 12, top: 16),
+                CustomTextField(
+                    textInputFormatter: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
+                    textEditingController: controller.setBookingController =
+                        TextEditingController(
+                            text: serviceDetails.setBookingMony),
+                    hintText: "Set Booking money".tr),
+
+                //===================================Available Service Hours==========================
+
+                CustomText(
+                    text: "Available Service Hours".tr, top: 16, bottom: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.camera_alt_outlined,
-                        color: AppColors.primaryOrange, size: 64),
-                    CustomText(
-                        text: "Upload Picture".tr,
-                        color: AppColors.primaryOrange,
-                        fontWeight: FontWeight.w500)
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: convertedServiceHour.length,
+                            itemBuilder: (context, index) {
+                              var value = convertedServiceHour[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    //==================================Show Days===============================
+
+                                    Expanded(
+                                        child: Column(
+                                      children: [
+                                        if (index == 0)
+                                          CustomText(bottom: 16.h, text: "Day"),
+                                        CustomText(text: value["day"])
+                                      ],
+                                    )),
+
+                                    //===============================Show Start Time==========================
+
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        children: [
+                                          if (index == 0)
+                                            CustomText(
+                                                bottom: 16.h,
+                                                text: "Start Time"),
+                                          SelectTime(
+                                            onTimeSelected: (time) {
+                                              setState(() {
+                                                value["start"] = time;
+                                              });
+                                            },
+                                            initialTime: value["start"],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+
+                                    //===============================Show End Time==========================
+
+                                    Expanded(
+                                      flex: 2,
+                                      child: Column(
+                                        children: [
+                                          if (index == 0)
+                                            CustomText(
+                                                bottom: 16.h, text: "End Time"),
+                                          SelectTime(
+                                            onTimeSelected: (time) {
+                                              setState(() {
+                                                value["end"] = time;
+                                              });
+                                            },
+                                            initialTime: value["end"],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              CustomText(text: "Service Duration".tr, bottom: 12, top: 16),
-              CustomTextField(hintText: "Enter service duration".tr),
-              CustomText(
-                  text: "Select service charges".tr,
-                  top: 16,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18),
-              CustomText(text: "Salon Service Charge".tr, bottom: 12, top: 16),
-              CustomTextField(hintText: "Enter service amount".tr),
-              CustomText(text: "Home Service Charge".tr, bottom: 12, top: 16),
-              CustomTextField(hintText: "Set booking money".tr),
-              CustomText(text: "Set Booking money".tr, bottom: 12, top: 16),
-              CustomTextField(hintText: "Set Booking money".tr),
-              CustomText(
-                  text: "Available Service Hours".tr, top: 16, bottom: 16),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(text: "Day"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Sun"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Mon"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Tue"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Wed"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Thu"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Fri"),
-                      SizedBox(height: 26),
-                      CustomText(text: "Sat"),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomText(text: "Open Time"),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CustomText(text: "Closed Time"),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                      SizedBox(height: 16),
-                      SelectTime(),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(height: 44),
-              CustomButton(
-                  titleText: "Save".tr,
-                  onPressed: () => Get.offAllNamed(AppRoute.navBar)),
-              const SizedBox(height: 24),
-            ],
-          ),
+                const SizedBox(height: 44),
+
+                //==================================Save Button=========================
+                controller.isLoading
+                    ? const CustomLoader()
+                    : CustomButton(
+                        titleText: "Save".tr,
+                        onPressed: () {
+                          controller.updateService(
+                              serviceID: serviceDetails.id.toString(),
+                              updatedServiceHours: convertedServiceHour);
+                        }),
+                const SizedBox(height: 24),
+              ],
+            );
+          }),
         ),
       ),
     );

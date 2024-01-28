@@ -76,7 +76,6 @@ class ApiClient extends GetxService {
   static Future<Response> postMultipartData(
       String uri, Map<String, String> body,
       {List<MultipartBody>? multipartBody,
-      List<MultipartListBody>? multipartListBody,
       Map<String, String>? headers}) async {
     try {
       bearerToken = await SharePrefsHelper.getString(AppConstants.bearerToken);
@@ -113,26 +112,6 @@ class ApiClient extends GetxService {
           var mimeType = lookupMimeType(element.file.path);
 
           debugPrint("MimeType================$mimeType");
-
-          // if (element.file.path.contains(".mp4")) {
-          //   debugPrint("media type mp4 ==== ${element.file.path}");
-          //   request.files.add(http.MultipartFile(
-          //     element.key,
-          //     element.file.readAsBytes().asStream(),
-          //     element.file.lengthSync(),
-          //     filename: 'video.mp4',
-          //     contentType: MediaType('video', 'mp4'),
-          //   ));
-          // } else if (element.file.path.contains(".png")) {
-          //   debugPrint("media type png ==== ${element.file.path}");
-          //   request.files.add(http.MultipartFile(
-          //     element.key,
-          //     element.file.readAsBytes().asStream(),
-          //     element.file.lengthSync(),
-          //     filename: 'image.png',
-          //     contentType: MediaType('image', 'png'),
-          //   ));
-          // }
 
           var multipartImg = await http.MultipartFile.fromPath(
             element.key,

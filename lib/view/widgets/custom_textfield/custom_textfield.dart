@@ -1,5 +1,6 @@
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -26,6 +27,8 @@ class CustomTextField extends StatefulWidget {
     this.hintFontSize = 16,
     super.key,
     this.prefixIcon,
+    this.textInputFormatter,
+    List<TextInputFormatter>? inputFormatters,
   });
 
   final TextEditingController? textEditingController;
@@ -53,6 +56,8 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final Color hintColor;
 
+  final List<TextInputFormatter>? textInputFormatter;
+
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -63,6 +68,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      inputFormatters: widget.textInputFormatter,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       readOnly: widget.readOnly,
       controller: widget.textEditingController,

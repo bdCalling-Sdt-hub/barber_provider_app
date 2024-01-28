@@ -47,7 +47,7 @@ class ServiceDetails {
   String? salonServiceCharge;
   String? homeServiceCharge;
   String? setBookingMony;
-  List<AvailableServiceOur>? availableServiceOur;
+  List<AvailableServiceOurServiceDetails>? availableServiceOur;
   DateTime? createdAt;
   DateTime? updatedAt;
   List<dynamic>? serviceRating;
@@ -89,8 +89,9 @@ class ServiceDetails {
         setBookingMony: json["set_booking_mony"],
         availableServiceOur: json["available_service_our"] == null
             ? []
-            : List<AvailableServiceOur>.from(json["available_service_our"]!
-                .map((x) => AvailableServiceOur.fromJson(x))),
+            : List<AvailableServiceOurServiceDetails>.from(
+                json["available_service_our"]!
+                    .map((x) => AvailableServiceOurServiceDetails.fromJson(x))),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -126,14 +127,14 @@ class ServiceDetails {
       };
 }
 
-class AvailableServiceOur {
+class AvailableServiceOurServiceDetails {
   String? day;
   String? startTime;
   String? endTime;
 
-  AvailableServiceOur({this.day, this.startTime, this.endTime});
+  AvailableServiceOurServiceDetails({this.day, this.startTime, this.endTime});
 
-  AvailableServiceOur.fromJson(Map<String, dynamic> json) {
+  AvailableServiceOurServiceDetails.fromJson(Map<String, dynamic> json) {
     day = json['Day'];
     startTime = json['Start Time'];
     endTime = json['End Time'];

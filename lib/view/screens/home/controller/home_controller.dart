@@ -1,10 +1,11 @@
+import 'package:barbar_provider/helper/prefs_helper.dart';
+import 'package:barbar_provider/helper/time_converter.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/screens/home/model/home_model.dart';
 import 'package:barbar_provider/view/screens/service_details/model/salon_details_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController with GetxServiceMixin {
@@ -14,6 +15,8 @@ class HomeController extends GetxController with GetxServiceMixin {
   HomeModel homeModel = HomeModel();
 
   List<Provider> provider = [];
+
+  List<Map<String, dynamic>> convertedServiceHour = [];
 
   bool routeLoading = false;
 
@@ -31,7 +34,13 @@ class HomeController extends GetxController with GetxServiceMixin {
       if (rawData.isNotEmpty) {
         provider.addAll(rawData);
 
-        debugPrint("Lenght=================${provider.length}");
+        convertedServiceHour = stringToTimeDate(rawData[0].availableServiceOur);
+
+        SharePrefsHelper.setString(
+            AppConstants.catID, provider[0].categoryId.toString());
+        SharePrefsHelper.setString(
+            AppConstants.providerID, provider[0].id.toString());
+
         update();
       }
 
@@ -57,6 +66,10 @@ class HomeController extends GetxController with GetxServiceMixin {
         await ApiClient.getData("${ApiConstant.serviceDetails}$salonID");
     if (response.statusCode == 200) {
       serviceDetailsModel = ServiceDetailsModel.fromJson(response.body);
+
+      // convertedServiceHour =
+      //     stringToTimeDate(serviceDetailsModel.serviceDetails!.availableServiceOur);
+
       setRxRequestStatus(Status.completed);
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {

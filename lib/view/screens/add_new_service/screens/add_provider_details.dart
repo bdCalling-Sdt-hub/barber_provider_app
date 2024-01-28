@@ -1,3 +1,4 @@
+import 'package:barbar_provider/helper/time_converter.dart';
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
@@ -96,9 +97,9 @@ class _AddProviderDetailsState extends State<AddProviderDetails> {
                             ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.days.length,
+                              itemCount: serviceHours.length,
                               itemBuilder: (context, index) {
-                                var data2 = controller.days[index];
+                                var data2 = serviceHours[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
@@ -125,12 +126,12 @@ class _AddProviderDetailsState extends State<AddProviderDetails> {
                                             SelectTime(
                                               onTimeSelected: (time) {
                                                 setState(() {
-                                                  controller.days[index]
-                                                      ["start"] = time;
+                                                  serviceHours[index]["start"] =
+                                                      time;
                                                 });
                                               },
-                                              initialTime: controller
-                                                  .days[index]["start"],
+                                              initialTime: serviceHours[index]
+                                                  ["start"],
                                             ),
                                           ],
                                         ),
@@ -149,12 +150,12 @@ class _AddProviderDetailsState extends State<AddProviderDetails> {
                                             SelectTime(
                                               onTimeSelected: (time) {
                                                 setState(() {
-                                                  controller.days[index]
-                                                      ["end"] = time;
+                                                  serviceHours[index]["end"] =
+                                                      time;
                                                 });
                                               },
-                                              initialTime:
-                                                  controller.days[index]["end"],
+                                              initialTime: serviceHours[index]
+                                                  ["end"],
                                             ),
                                           ],
                                         ),
@@ -177,7 +178,8 @@ class _AddProviderDetailsState extends State<AddProviderDetails> {
                       titleText: "Continue".tr,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          controller.getServiceDate(getCatId: catID.toString());
+                          controller.getServiceDate(
+                              getCatId: catID.toString(), navigateScreen: true);
 
                           // debugPrint(
                           //     "Date============================${controller.selectedServiceHours}");

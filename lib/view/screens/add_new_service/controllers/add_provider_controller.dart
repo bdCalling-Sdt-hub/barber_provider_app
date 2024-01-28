@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
+import 'package:barbar_provider/helper/time_converter.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
@@ -12,18 +13,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AddProviderController extends GetxController {
-  List<Map<String, dynamic>> days = [
-    {"day": "Sun", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Mon", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Tue", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Wed", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Thu", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Fri", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-    {"day": "Sat", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
-  ];
   TextEditingController buisnessNameController =
       TextEditingController(text: kDebugMode ? "Shanto Salon" : "");
   TextEditingController addressController =
@@ -38,11 +29,12 @@ class AddProviderController extends GetxController {
   File? galleryPhoto;
 
   String catId = "";
-
-  // final rxRequestStatus = Status.loading.obs;
-  // void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  String providerID = "";
 
   bool isLoading = false;
+
+  //=================================Open Gallary for image==============================
+
   void openGallery({required bool isCoverPhoto}) async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -60,21 +52,17 @@ class AddProviderController extends GetxController {
     update();
   }
 
-  getServiceDate({
-    required String getCatId,
-  }) {
-    Get.toNamed(AppRoute.addPhotos);
+  //=================================Get the Service hour Details==============================
+
+  getServiceDate({required String getCatId, required bool navigateScreen}) {
+    if (navigateScreen == true) {
+      Get.toNamed(AppRoute.addPhotos);
+    }
 
     // debugPrint("Selected Service Hours=========$days");
 
-    String formatTimeOfDay(TimeOfDay time) {
-      final hour = time.hour.toString().padLeft(2, '0');
-      final minute = time.minute.toString().padLeft(2, '0');
-      return '$hour:$minute';
-    }
-
     //======================Getting the Json of Date======================
-    for (var data in days) {
+    for (var data in serviceHours) {
       selectedServiceHours.add({
         "Day": data["day"],
         "Start Time": formatTimeOfDay(data["start"]),
@@ -90,6 +78,8 @@ class AddProviderController extends GetxController {
         "Selected Service Hours=========${jsonEncode(selectedServiceHours)}");
     debugPrint("Cat Id=========$catId");
   }
+
+  //=================================Add Provider==============================
 
   addProvider() async {
     isLoading = true;
@@ -112,12 +102,13 @@ class AddProviderController extends GetxController {
           ]);
 
       if (response.statusCode == 200) {
-        //  homeController.homeData();
+        homeController.homeData();
 
         var jSONData = jsonDecode(response.body);
         debugPrint("catIDShaPre========================$catId");
         debugPrint(
             "Provider ID========================${jSONData["message"]["id"]}");
+
         SharePrefsHelper.setString(AppConstants.catID, catId);
         SharePrefsHelper.setString(
             AppConstants.providerID, jSONData["message"]["id"].toString());
@@ -134,16 +125,45 @@ class AddProviderController extends GetxController {
     update();
   }
 
-  updateProvider() async {
+  List<MultipartBody> photoList = [];
+
+  //=================================Update Provider==============================
+
+  updateProvider(
+      {required List<Map<String, dynamic>> updatedServiceHours}) async {
     isLoading = true;
-    getServiceDate(getCatId: "");
-    String providerID =
-        await SharePrefsHelper.getString(AppConstants.providerID);
-    String catID = await SharePrefsHelper.getString(AppConstants.catID);
 
-    debugPrint("providerID============================>>>>>>>>>>>>$providerID");
-    debugPrint("catID============================>>>>>>>>>>>>$catID");
+    update();
 
+    var body = {
+      "catId": catId,
+      "businessName": buisnessNameController.text,
+      "address": addressController.text,
+      "description": descriptionController.text,
+      "serviceOur": jsonEncode(timeDateToString(response: updatedServiceHours)),
+    };
+
+    var response = coverPhoto != null || galleryPhoto != null
+        ? await ApiClient.postMultipartData(
+            multipartBody: [
+              if (coverPhoto != null) MultipartBody("coverPhoto", coverPhoto!),
+              if (galleryPhoto != null)
+                MultipartBody("photoGellary[]", galleryPhoto!),
+            ],
+            ApiConstant.updateProvider,
+            body,
+          )
+        : await ApiClient.postData(ApiConstant.updateProvider, body);
+
+    if (response.statusCode == 200) {
+      homeController.homeData();
+
+      navigator!.pop();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+
+    isLoading = false;
     update();
   }
 }
