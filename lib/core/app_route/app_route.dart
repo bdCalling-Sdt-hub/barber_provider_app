@@ -30,7 +30,8 @@ import 'package:barbar_provider/view/screens/settings/privacy_policy/privacy_pol
 import 'package:barbar_provider/view/screens/settings/settings_screen.dart';
 import 'package:barbar_provider/view/screens/settings/terms_conditions/terms_condition_screen.dart';
 import 'package:barbar_provider/view/screens/splash_screen/splash_screen.dart';
-import 'package:barbar_provider/view/screens/subscription_plan/subscription_plan.dart';
+import 'package:barbar_provider/view/screens/makePayment/subscription_plan.dart';
+import 'package:barbar_provider/view/screens/subscription_plans/subscription_plans.dart';
 import 'package:get/get.dart';
 
 class AppRoute {
@@ -53,8 +54,8 @@ class AppRoute {
   static const String privacyPolicy = "/privacy_policy_screen";
   static const String termsCondition = "/terms_condition_screen";
   static const String aboutUs = "/about_us_screen";
-  static const String subscriptionPlans = "/subscription_plans";
-  static const String makePayment = "/make_payment_screen";
+  static const String makePayments = "/makePayments";
+  static const String paymentInfo = "/paymentInfo";
   static const String notification = "/notification_screen";
   static const String bookingRequest = "/booking_request";
   static const String bookingRequestDetails = "/booking_request_details";
@@ -70,6 +71,7 @@ class AppRoute {
   static const String addServiceDetails = "/add_service_details";
   static const String serviceDetails = "/service_details";
   static const String editServiceDetails = "/edit_service_details";
+  static const String subscriptionPlans = "/subscriptionPlans";
 
   static List<GetPage> routes = [
     GetPage(name: splashscreen, page: () => const SplashScreen()),
@@ -87,8 +89,8 @@ class AppRoute {
     GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
     GetPage(name: termsCondition, page: () => TermsCondition()),
     GetPage(name: aboutUs, page: () => AboutUs()),
-    GetPage(name: subscriptionPlans, page: () => const SubscriptionPlan()),
-    GetPage(name: makePayment, page: () => const MakePaymentScreen()),
+    GetPage(name: makePayments, page: () => const MakePayment()),
+    GetPage(name: paymentInfo, page: () => const MakePaymentScreen()),
     GetPage(name: notification, page: () => const NotificationScreen()),
     GetPage(name: bookingRequest, page: () => const BookingsRequest()),
     GetPage(
@@ -103,8 +105,9 @@ class AppRoute {
     GetPage(name: providerDetails, page: () => const AddProviderDetails()),
     GetPage(name: addPhotos, page: () => const AddPhoto()),
     GetPage(name: addServiceDetails, page: () => const AddServiceDetails()),
-    GetPage(name: serviceDetails, page: () => ServiceDetails()),
+    GetPage(name: serviceDetails, page: () => const ServiceDetails()),
     GetPage(name: editServiceDetails, page: () => const EditServiceDetails()),
     GetPage(name: addCatalouge, page: () => const AddCatalougeDetails()),
+    GetPage(name: subscriptionPlans, page: () => SubscriptionPlans()),
   ];
 }

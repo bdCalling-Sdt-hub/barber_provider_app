@@ -39,4 +39,7 @@ class ApiConstant {
 
   //===================Service Details=========================
   static const serviceDetails = "api/service/details/";
+
+  //===================Service Details=========================
+  static const showPackage = "api/show-package";
 }

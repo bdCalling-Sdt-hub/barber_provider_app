@@ -35,24 +35,29 @@ class CustomDrawer extends StatelessWidget {
             GetBuilder<ProfileController>(builder: (controller) {
               var data = controller.profileModel.value;
               return Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+                margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     //====================Image================
                     Container(
-                      height: 48,
-                      width: 48,
+                      height: 48.w,
+                      width: 48.w,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: data.image!.isNotEmpty
                               ? DecorationImage(
+                                  fit: BoxFit.cover,
                                   image: NetworkImage(
                                       "${ApiConstant.baseUrl}${controller.profileModel.value.image!}"))
                               : const DecorationImage(
                                   image: NetworkImage(AppImages.salonImg))),
                     ),
-                    const SizedBox(width: 16),
+
+                    SizedBox(
+                      width: 10.w,
+                    ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -7,6 +7,7 @@ import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dar
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/screens/profile/controller/profile_controller.dart';
 import 'package:barbar_provider/view/screens/settings/controller/settings_controller.dart';
+import 'package:barbar_provider/view/screens/subscription_plans/controller/subscription_controller.dart';
 import 'package:get/get.dart';
 
 class Dependancy extends Bindings {
@@ -30,5 +31,9 @@ class Dependancy extends Bindings {
     //============================Settings=======================
 
     Get.lazyPut(() => SettingsController(), fenix: true);
+
+    //============================Subscription=======================
+
+    Get.lazyPut(() => SubscriptionController(), fenix: true);
   }
 }
