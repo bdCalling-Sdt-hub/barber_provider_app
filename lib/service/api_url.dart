@@ -35,6 +35,7 @@ class ApiConstant {
   //===================Settings=========================
   static const logOut = "api/logout";
   static const changePassword = "api/change-password";
+  static const aboutPrivacyTerms = "api/show-website-pages";
 
   //===================Service Details=========================
   static const serviceDetails = "api/service/details/";

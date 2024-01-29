@@ -1,7 +1,9 @@
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/settings/model/about_privacy_terms_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +13,12 @@ class SettingsController extends GetxController with GetxServiceMixin {
   TextEditingController confirmPassController = TextEditingController();
 
   bool loading = false;
+
+  final rxRequestStatus = Status.loading.obs;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  Rx<AboutPrivacyTermsModel> aboutPrivacyTermsModel =
+      AboutPrivacyTermsModel().obs;
 
   //=======================Change Password==========================
 
@@ -35,5 +43,30 @@ class SettingsController extends GetxController with GetxServiceMixin {
 
     loading = false;
     update();
+  }
+
+  aboutPrivacyTerms() async {
+    setRxRequestStatus(Status.loading);
+    var response = await ApiClient.getData(ApiConstant.aboutPrivacyTerms);
+
+    if (response.statusCode == 200) {
+      aboutPrivacyTermsModel.value =
+          AboutPrivacyTermsModel.fromJson(response.body);
+
+      setRxRequestStatus(Status.completed);
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
+  }
+
+  @override
+  void onInit() {
+    aboutPrivacyTerms();
+    super.onInit();
   }
 }

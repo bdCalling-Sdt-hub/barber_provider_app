@@ -51,6 +51,7 @@ class EditProfile extends StatelessWidget {
                                   ?
                                   //=====================Image from server======================
                                   DecorationImage(
+                                      fit: BoxFit.cover,
                                       image: NetworkImage(controller
                                                   .proImgURL !=
                                               null
@@ -65,11 +66,16 @@ class EditProfile extends StatelessWidget {
                                           File(controller.proImage!.path)))),
                         ),
                       ),
-                      CustomText(
-                          text: "Update Picture".tr,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primaryOrange,
-                          top: 16)
+                      GestureDetector(
+                        onTap: () {
+                          controller.openGallery();
+                        },
+                        child: CustomText(
+                            text: "Update Picture".tr,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primaryOrange,
+                            top: 16),
+                      )
                     ],
                   ),
                 ),

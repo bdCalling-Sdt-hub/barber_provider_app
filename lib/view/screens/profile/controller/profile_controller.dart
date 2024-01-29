@@ -27,6 +27,8 @@ class ProfileController extends GetxController with GetxServiceMixin {
   File? proImage;
   String? proImgURL = "";
 
+//=============================When Edit profile, get previous data===========================
+
   updateProfileControllerValue(ProfileModel profileModel) {
     nameController = TextEditingController(text: profileModel.name);
     emailController = TextEditingController(text: profileModel.email);
@@ -41,6 +43,8 @@ class ProfileController extends GetxController with GetxServiceMixin {
     );
   }
 
+//=============================Picking Image===========================
+
   void openGallery() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -52,9 +56,13 @@ class ProfileController extends GetxController with GetxServiceMixin {
     }
   }
 
+//=============================Save Profile Unique ID===========================
+
   saveProfileID({required int iD}) {
     SharePrefsHelper.setInt(AppConstants.profileID, iD);
   }
+
+//=============================Get Profile Info===========================
 
   getProfileInfo() async {
     setRxRequestStatus(Status.loading);
@@ -78,6 +86,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
     }
   }
 
+//=============================Update Profile===========================
   updateProfile() async {
     profileUpdateLoading = true;
 
@@ -105,7 +114,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
         : await ApiClient.postMultipartData(ApiConstant.profileUpdate, body,
             headers: headers,
             multipartBody: [
-                MultipartBody("UserImage", proImage!),
+                MultipartBody("image", proImage!),
               ]);
 
     if (response.statusCode == 200) {

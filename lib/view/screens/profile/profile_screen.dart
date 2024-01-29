@@ -71,6 +71,7 @@ class ProfileScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
+                                      fit: BoxFit.cover,
                                       image: NetworkImage(profileController
                                                   .profileModel.value.image ==
                                               null
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                                   //============================Profile Name====================
 
                                   CustomText(
-                                      fontSize: 16.w,
+                                      fontSize: 14.w,
                                       text: profileController
                                           .profileModel.value.name
                                           .toString(),
@@ -95,7 +96,7 @@ class ProfileScreen extends StatelessWidget {
                                   //============================Profile gmail=================
 
                                   CustomText(
-                                      fontSize: 14.w,
+                                      fontSize: 12.w,
                                       text: profileController
                                           .profileModel.value.email
                                           .toString(),
