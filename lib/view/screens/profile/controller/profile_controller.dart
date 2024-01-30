@@ -6,6 +6,7 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/view/screens/profile/model/my_package_model.dart';
 import 'package:barbar_provider/view/screens/profile/model/profile_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -72,6 +73,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
       profileModel.value = ProfileModel.fromJson(response.body);
       saveProfileID(iD: profileModel.value.id!);
       setRxRequestStatus(Status.completed);
+      getMyPlan();
       update();
 
       debugPrint(
@@ -130,9 +132,31 @@ class ProfileController extends GetxController with GetxServiceMixin {
     update();
   }
 
+//============================================Get My Plan===================================
+
+  MyPackage myPackage = MyPackage();
+
+  Package packageInfo = Package();
+
+  getMyPlan() async {
+    var response = await ApiClient.getData(ApiConstant.myPlan);
+
+    if (response.statusCode == 200) {
+      myPackage = MyPackage.fromJson(response.body);
+      Package? rawdata = myPackage.data![0].package;
+      if (rawdata != null) {
+        packageInfo = rawdata;
+      }
+      update();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
+
   @override
   void onInit() {
     getProfileInfo();
+
     super.onInit();
   }
 }

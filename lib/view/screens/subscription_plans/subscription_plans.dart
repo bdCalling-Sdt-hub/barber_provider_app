@@ -58,16 +58,19 @@ class SubscriptionPlans extends StatelessWidget {
 
                       //===================================Custom Package Design===========================
 
-                      return SubscriptionPlanCard(
-                        packageFeatures: data.packageFeatures!,
-                        ontap: () {
-                          Get.toNamed(AppRoute.makePayments, arguments: data);
-                        },
-                        color: AppColors.cardBgColor,
-                        months: data.packageDuration!,
-                        price: data.price.toString(),
-                        buttonText: "Purchase Now",
-                        title: data.packageName!,
+                      return Padding(
+                        padding: EdgeInsets.only(right: 20.w),
+                        child: SubscriptionPlanCard(
+                          packageFeatures: data.packageFeatures!,
+                          ontap: () {
+                            Get.toNamed(AppRoute.makePayments, arguments: data);
+                          },
+                          color: AppColors.cardBgColor,
+                          months: data.packageDuration!,
+                          price: data.price.toString(),
+                          buttonText: "Purchase Now",
+                          title: data.packageName!,
+                        ),
                       );
                     },
                     options: CarouselOptions(
@@ -75,7 +78,7 @@ class SubscriptionPlans extends StatelessWidget {
                         subscriptionController.updateCurrentIndex(value: index);
                       },
                       autoPlay: false,
-                      aspectRatio: 8.3 / 9,
+                      aspectRatio: 8.5 / 9,
                       autoPlayCurve: Curves.easeInOut,
                       viewportFraction: 0.8,
                     ),

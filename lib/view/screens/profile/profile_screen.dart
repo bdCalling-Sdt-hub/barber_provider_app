@@ -146,6 +146,8 @@ class ProfileScreen extends StatelessWidget {
                             Get.toNamed(AppRoute.subscriptionPlans);
                           }),
                       const SizedBox(height: 16),
+                      //=====================================My Plan=================================
+
                       ProfileCards(
                         imageSrc: AppIcons.subscriptionPlan,
                         text: "My Plan".tr,
@@ -153,22 +155,41 @@ class ProfileScreen extends StatelessWidget {
                           showDialog(
                             context: context,
                             builder: (context) {
+                              var value = profileController.packageInfo;
                               return AlertDialog(
                                 contentPadding: const EdgeInsets.all(0),
                                 backgroundColor: AppColors.cardBgColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
-                                content: const SubscriptionPlanCard(
-                                    months: "3",
-                                    price: "200",
-                                    buttonText: "Renew",
-                                    title: "Gold"),
+                                content: SizedBox(
+                                  height: 400,
+                                  child: SubscriptionPlanCard(
+                                      packageFeatures:
+                                          value.packageFeatures!.isEmpty
+                                              ? [
+                                                  "Add unlimited services for your business",
+                                                  "Edit service details",
+                                                  "Manage bookings"
+                                                ]
+                                              : value.packageFeatures!,
+                                      ontap: () {
+                                        navigator!.pop();
+                                        Get.toNamed(AppRoute.subscriptionPlans);
+                                      },
+                                      months: value.packageDuration ?? "",
+                                      price: "${value.price ?? 0}",
+                                      buttonText: "Renew",
+                                      title: value.packageName ?? ""),
+                                ),
                               );
                             },
                           );
                         },
                       ),
                       const SizedBox(height: 16),
+
+                      //=====================================Settings=================================
+
                       ProfileCards(
                           imageSrc: AppIcons.settings,
                           text: "Settings".tr,
@@ -176,6 +197,9 @@ class ProfileScreen extends StatelessWidget {
                             Get.toNamed(AppRoute.settings);
                           }),
                       const SizedBox(height: 16),
+
+                      //=====================================Log out=================================
+
                       ProfileCards(
                         imageSrc: AppIcons.logOut,
                         text: "Log out".tr,

@@ -1,5 +1,7 @@
 class ApiConstant {
   static const baseUrl = "http://192.168.10.121:8000/";
+  static const paymentPublicKey =
+      "FLWPUBK_TEST-db5cf091ec9599c4b3404f0fe4ea40b4-X";
 
   //===================Auth===============================
   //=========Sign UP==========
@@ -36,6 +38,7 @@ class ApiConstant {
   static const logOut = "api/logout";
   static const changePassword = "api/change-password";
   static const aboutPrivacyTerms = "api/show-website-pages";
+  static const myPlan = "api/my-plan";
 
   //===================Service Details=========================
   static const serviceDetails = "api/service/details/";

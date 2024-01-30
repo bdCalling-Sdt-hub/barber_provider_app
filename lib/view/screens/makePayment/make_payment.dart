@@ -6,10 +6,6 @@ import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/subsription_plan/subsription_plan_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterwave_standard/core/flutterwave.dart';
-import 'package:flutterwave_standard/models/requests/customer.dart';
-import 'package:flutterwave_standard/models/requests/customizations.dart';
-import 'package:flutterwave_standard/models/responses/charge_response.dart';
 import 'package:get/get.dart';
 
 class MakePayment extends StatelessWidget {
@@ -39,6 +35,7 @@ class MakePayment extends StatelessWidget {
                 //======================================Package Design=============================
 
                 SubscriptionPlanCard(
+                  showButton: false,
                   packageFeatures: packages.packageFeatures!,
                   color: AppColors.cardBgColor,
                   months: packages.packageDuration!,
@@ -58,28 +55,7 @@ class MakePayment extends StatelessWidget {
                     : CustomButton(
                         titleText: "Proceed to Payment".tr,
                         onPressed: () async {
-                          // final Customer customer = Customer(
-                          //     name: "Md Jusef",
-                          //     phoneNumber: "01317659523",
-                          //     email: "mdjusef143@gmail.com");
-                          // final Flutterwave flutterwave = Flutterwave(
-                          //     context: context,
-                          //     publicKey:
-                          //         "FLWPUBK_TEST-db5cf091ec9599c4b3404f0fe4ea40b4-X",
-                          //     currency: "NGN",
-                          //     redirectUrl:
-                          //         "https://ravemodal-dev.herokuapp.com/v3/hosted/pay/98ee71adad5aae5cb4c4",
-                          //     txRef: "12345678",
-                          //     amount: "200",
-                          //     customer: customer,
-                          //     paymentOptions: "card",
-                          //     customization: Customization(title: "My Payment"),
-                          //     isTestMode: true);
-
-                          // final ChargeResponse response = await flutterwave.charge();
-
-                          // print(
-                          //     "Payment=============================${response.success}");
+                        
 
                           makePaymentController.generateGatewayLink(
                               ammount: packages.price.toString(),

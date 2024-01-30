@@ -48,7 +48,6 @@ class SubscriptionPlanCard extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.only(right: 20.w),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(8),
@@ -110,9 +109,14 @@ class SubscriptionPlanCard extends StatelessWidget {
 
                 // features(title: "Manage bookings"),
 
-                Column(
-                  children: List.generate(packageFeatures.length,
-                      (index) => features(title: packageFeatures[index])),
+                SizedBox(
+                  height: 80,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: List.generate(packageFeatures.length,
+                          (index) => features(title: packageFeatures[index])),
+                    ),
+                  ),
                 ),
 
                 const SizedBox(height: 16),
