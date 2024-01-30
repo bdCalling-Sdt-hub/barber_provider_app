@@ -42,4 +42,7 @@ class ApiConstant {
 
   //===================Service Details=========================
   static const showPackage = "api/show-package";
+
+  //===================Payment===============================
+  static const makePayment = "api/pay/";
 }

@@ -1,4 +1,3 @@
-import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
@@ -17,8 +16,8 @@ class SubscriptionPlanCard extends StatelessWidget {
       required this.buttonText,
       required this.title,
       this.showButton = true,
-      this.package,
-      this.packageFeatures = const []});
+      this.packageFeatures = const [],
+      this.ontap});
 
   final String months;
   final String price;
@@ -26,7 +25,7 @@ class SubscriptionPlanCard extends StatelessWidget {
   final String title;
   final Color? color;
   final bool showButton;
-  final dynamic package;
+  final VoidCallback? ontap;
   final List<String> packageFeatures;
 
   @override
@@ -58,7 +57,7 @@ class SubscriptionPlanCard extends StatelessWidget {
         children: [
           Container(
             width: double.maxFinite,
-            padding: const EdgeInsets.symmetric(vertical: 32),
+            padding: EdgeInsets.symmetric(vertical: 32.h),
             decoration: const BoxDecoration(
               color: AppColors.primaryOrange,
               borderRadius: BorderRadius.only(
@@ -73,7 +72,7 @@ class SubscriptionPlanCard extends StatelessWidget {
           //===================================Purchase Price==============================
 
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
             child: Column(
               children: [
                 Row(
@@ -81,7 +80,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                   children: [
                     CustomText(
                         text: "Purchase for".tr, color: AppColors.paragraph),
-                    CustomText(text: "\$$price".tr, left: 12),
+                    CustomText(text: "\$$price".tr, left: 12.w),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -91,9 +90,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomText(
-                        text: "Package Validity".tr,
-                        color: AppColors.paragraph),
+                    CustomText(text: "Validity".tr, color: AppColors.paragraph),
                     CustomText(text: "$months Months".tr, left: 12),
                   ],
                 ),
@@ -118,15 +115,6 @@ class SubscriptionPlanCard extends StatelessWidget {
                       (index) => features(title: packageFeatures[index])),
                 ),
 
-                // Flexible(
-                //     child: ListView.builder(
-                //   shrinkWrap: true,
-                //   itemCount: packageFeatures.length,
-                //   itemBuilder: (context, index) {
-                //     return features(title: packageFeatures[index]);
-                //   },
-                // )),
-
                 const SizedBox(height: 16),
 
                 //===================================Purches Button======================
@@ -134,7 +122,7 @@ class SubscriptionPlanCard extends StatelessWidget {
                 if (showButton)
                   CustomButton(
                       onPressed: () {
-                        Get.toNamed(AppRoute.makePayments, arguments: package);
+                        ontap!();
                       },
                       titleText: buttonText.tr,
                       titleSize: 16,

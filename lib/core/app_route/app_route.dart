@@ -18,7 +18,6 @@ import 'package:barbar_provider/view/screens/category/category.dart';
 import 'package:barbar_provider/view/screens/clients_reviews/clients_reviews.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/edit_business_details.dart';
 import 'package:barbar_provider/view/screens/edit_service_details/edit_service_details.dart';
-import 'package:barbar_provider/view/screens/make_payment/make_payment_screen.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
 import 'package:barbar_provider/view/screens/notification/notification_screen.dart';
 import 'package:barbar_provider/view/screens/onboarding/onboarding_screen.dart';
@@ -30,7 +29,7 @@ import 'package:barbar_provider/view/screens/settings/privacy_policy/privacy_pol
 import 'package:barbar_provider/view/screens/settings/settings_screen.dart';
 import 'package:barbar_provider/view/screens/settings/terms_conditions/terms_condition_screen.dart';
 import 'package:barbar_provider/view/screens/splash_screen/splash_screen.dart';
-import 'package:barbar_provider/view/screens/makePayment/subscription_plan.dart';
+import 'package:barbar_provider/view/screens/makePayment/make_payment.dart';
 import 'package:barbar_provider/view/screens/subscription_plans/subscription_plans.dart';
 import 'package:get/get.dart';
 
@@ -55,7 +54,7 @@ class AppRoute {
   static const String termsCondition = "/terms_condition_screen";
   static const String aboutUs = "/about_us_screen";
   static const String makePayments = "/makePayments";
-  static const String paymentInfo = "/paymentInfo";
+
   static const String notification = "/notification_screen";
   static const String bookingRequest = "/booking_request";
   static const String bookingRequestDetails = "/booking_request_details";
@@ -89,8 +88,7 @@ class AppRoute {
     GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
     GetPage(name: termsCondition, page: () => TermsCondition()),
     GetPage(name: aboutUs, page: () => AboutUs()),
-    GetPage(name: makePayments, page: () => const MakePayment()),
-    GetPage(name: paymentInfo, page: () => const MakePaymentScreen()),
+    GetPage(name: makePayments, page: () => MakePayment()),
     GetPage(name: notification, page: () => const NotificationScreen()),
     GetPage(name: bookingRequest, page: () => const BookingsRequest()),
     GetPage(

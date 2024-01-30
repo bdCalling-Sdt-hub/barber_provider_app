@@ -1,3 +1,4 @@
+import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/screens/subscription_plans/controller/subscription_controller.dart';
@@ -59,8 +60,9 @@ class SubscriptionPlans extends StatelessWidget {
 
                       return SubscriptionPlanCard(
                         packageFeatures: data.packageFeatures!,
-                        package: subscriptionController
-                            .packageListModel.value.data![index],
+                        ontap: () {
+                          Get.toNamed(AppRoute.makePayments, arguments: data);
+                        },
                         color: AppColors.cardBgColor,
                         months: data.packageDuration!,
                         price: data.price.toString(),
@@ -73,7 +75,7 @@ class SubscriptionPlans extends StatelessWidget {
                         subscriptionController.updateCurrentIndex(value: index);
                       },
                       autoPlay: false,
-                      height: 450.h,
+                      aspectRatio: 8.3 / 9,
                       autoPlayCurve: Curves.easeInOut,
                       viewportFraction: 0.8,
                     ),
