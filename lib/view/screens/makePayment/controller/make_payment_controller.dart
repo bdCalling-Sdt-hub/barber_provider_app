@@ -10,9 +10,12 @@ import 'package:flutterwave_standard/models/requests/customer.dart';
 import 'package:flutterwave_standard/models/requests/customizations.dart';
 import 'package:flutterwave_standard/models/responses/charge_response.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class MakePaymentController extends GetxController {
   ProfileController profileController = Get.find<ProfileController>();
+
+  dynamic package;
 
   RxBool isloading = false.obs;
   Customer customer = Customer(email: "");
@@ -53,12 +56,16 @@ class MakePaymentController extends GetxController {
   }
 
   makePayment({required String redirectUrl, required String ammount}) async {
+    var uuid = const Uuid();
+
+    debugPrint("uuid========================${uuid.v1()}");
+
     final Flutterwave flutterwave = Flutterwave(
         context: Get.context!,
         publicKey: ApiConstant.paymentPublicKey,
         currency: "NGN",
         redirectUrl: redirectUrl,
-        txRef: "12678999",
+        txRef: uuid.v1(),
         amount: ammount,
         customer: customer,
         paymentOptions: "ussd, card, barter, payattitude",
@@ -77,5 +84,7 @@ class MakePaymentController extends GetxController {
         "Payment txRef===================================${response.txRef}");
 
     SharePrefsHelper.setBool(AppConstants.paymentDone, response.success!);
+
+    profileController.getMyPlan();
   }
 }

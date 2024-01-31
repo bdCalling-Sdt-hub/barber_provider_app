@@ -19,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CategoryController addNewServiceController = Get.put(CategoryController());
+    CategoryController categoryController = Get.put(CategoryController());
 
     return SafeArea(
       top: true,
@@ -33,10 +33,10 @@ class CategoryScreen extends StatelessWidget {
             backgroundColor: AppColors.cardBgColor,
             color: AppColors.primaryOrange,
             onRefresh: () async {
-              await addNewServiceController.getCategory();
+              await categoryController.getCategory();
             },
             child: Obx(() {
-              switch (addNewServiceController.rxRequestStatus.value) {
+              switch (categoryController.rxRequestStatus.value) {
                 case Status.loading:
                   return const CustomLoader();
                 case Status.internetError:
@@ -44,7 +44,7 @@ class CategoryScreen extends StatelessWidget {
                 case Status.error:
                   return GeneralErrorScreen(
                     onTap: () {
-                      addNewServiceController.getCategory();
+                      categoryController.getCategory();
                     },
                   );
 
@@ -62,8 +62,7 @@ class CategoryScreen extends StatelessWidget {
                           textInputAction: TextInputAction.done,
                           onFieldSubmitted: (value) {
                             if (value.isNotEmpty) {
-                              addNewServiceController.getCategory(
-                                  search: value);
+                              categoryController.getCategory(search: value);
                             }
                           },
                           hintText: "Search".tr,
@@ -103,11 +102,9 @@ class CategoryScreen extends StatelessWidget {
                                     crossAxisSpacing: 16,
                                     mainAxisSpacing: 24,
                                     mainAxisExtent: 120),
-                            itemCount:
-                                addNewServiceController.categoryList.length,
+                            itemCount: categoryController.categoryList.length,
                             itemBuilder: (context, index) {
-                              var data =
-                                  addNewServiceController.categoryList[index];
+                              var data = categoryController.categoryList[index];
                               return GestureDetector(
                                 onTap: () {
                                   // Get.toNamed(AppRoute.providerDetails,
@@ -138,16 +135,14 @@ class CategoryScreen extends StatelessWidget {
                           ),
                         ),
 
-                        if (addNewServiceController.clearSearch.value == false)
+                        if (categoryController.clearSearch.value == false)
                           Align(
                               alignment: Alignment.bottomCenter,
                               child: IconButton(
                                   onPressed: () {
-                                    addNewServiceController.getCategory(
-                                        search: "");
+                                    categoryController.getCategory(search: "");
 
-                                    addNewServiceController.clearSearch.value =
-                                        true;
+                                    categoryController.clearSearch.value = true;
                                   },
                                   icon: const Icon(
                                     Icons.close,
@@ -156,6 +151,8 @@ class CategoryScreen extends StatelessWidget {
                       ],
                     ),
                   );
+            
+            
               }
             }),
           )),

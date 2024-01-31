@@ -22,7 +22,6 @@ class ProfileController extends GetxController with GetxServiceMixin {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   Rx<ProfileModel> profileModel = ProfileModel().obs;
-
   bool profileUpdateLoading = false;
 
   File? proImage;
@@ -136,15 +135,17 @@ class ProfileController extends GetxController with GetxServiceMixin {
 
   MyPackage myPackage = MyPackage();
 
-  Package packageInfo = Package();
+  Package package = Package();
+
+  List<Datum> packageInfo = [];
 
   getMyPlan() async {
     var response = await ApiClient.getData(ApiConstant.myPlan);
 
     if (response.statusCode == 200) {
       myPackage = MyPackage.fromJson(response.body);
-      Package? rawdata = myPackage.data![0].package;
-      if (rawdata != null) {
+      List<Datum>? rawdata = myPackage.data;
+      if (rawdata != null && rawdata.isNotEmpty) {
         packageInfo = rawdata;
       }
       update();

@@ -20,7 +20,7 @@ class SelectCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CategoryController addNewServiceController = Get.put(CategoryController());
+    CategoryController categoryController = Get.put(CategoryController());
 
     return SafeArea(
       top: true,
@@ -31,7 +31,7 @@ class SelectCategory extends StatelessWidget {
             appBarContent: CustomBack(text: "Select Categorie".tr),
           ),
           body: Obx(() {
-            switch (addNewServiceController.rxRequestStatus.value) {
+            switch (categoryController.rxRequestStatus.value) {
               case Status.loading:
                 return const CustomLoader();
               case Status.internetError:
@@ -39,7 +39,7 @@ class SelectCategory extends StatelessWidget {
               case Status.error:
                 return GeneralErrorScreen(
                   onTap: () {
-                    addNewServiceController.getCategory();
+                    categoryController.getCategory();
                   },
                 );
 
@@ -54,6 +54,12 @@ class SelectCategory extends StatelessWidget {
                       //==============================Search Field==============================
 
                       CustomTextField(
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (value) {
+                          if (value.isNotEmpty) {
+                            categoryController.getCategory(search: value);
+                          }
+                        },
                         hintText: "Search".tr,
                         hintColor: AppColors.white,
                         fillColor: AppColors.stroke,
@@ -78,7 +84,8 @@ class SelectCategory extends StatelessWidget {
                         height: 24.h,
                       ),
 
-                      //==============================Cetegorys==============================
+                      //==============================Cetegorys===================================
+
                       SingleChildScrollView(
                         physics: const ClampingScrollPhysics(),
                         child: GridView.builder(
@@ -90,11 +97,9 @@ class SelectCategory extends StatelessWidget {
                                   crossAxisSpacing: 16,
                                   mainAxisSpacing: 24,
                                   mainAxisExtent: 120),
-                          itemCount:
-                              addNewServiceController.categoryList.length,
+                          itemCount: categoryController.categoryList.length,
                           itemBuilder: (context, index) {
-                            var data =
-                                addNewServiceController.categoryList[index];
+                            var data = categoryController.categoryList[index];
                             return GestureDetector(
                               onTap: () {
                                 Get.toNamed(AppRoute.providerDetails,
@@ -124,6 +129,20 @@ class SelectCategory extends StatelessWidget {
                           },
                         ),
                       ),
+
+                      if (categoryController.clearSearch.value == false)
+                        Align(
+                            alignment: Alignment.bottomCenter,
+                            child: IconButton(
+                                onPressed: () {
+                                  categoryController.getCategory(search: "");
+
+                                  categoryController.clearSearch.value = true;
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: AppColors.primaryOrange,
+                                )))
                     ],
                   ),
                 );

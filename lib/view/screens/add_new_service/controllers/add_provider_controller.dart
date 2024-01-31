@@ -106,6 +106,7 @@ class AddProviderController extends GetxController {
 
         var jSONData = jsonDecode(response.body);
         debugPrint("catIDShaPre========================$catId");
+
         debugPrint(
             "Provider ID========================${jSONData["message"]["id"]}");
 

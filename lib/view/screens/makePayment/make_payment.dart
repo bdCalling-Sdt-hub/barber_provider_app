@@ -8,16 +8,27 @@ import 'package:barbar_provider/view/widgets/subsription_plan/subsription_plan_c
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MakePayment extends StatelessWidget {
+class MakePayment extends StatefulWidget {
   MakePayment({super.key});
 
+  @override
+  State<MakePayment> createState() => _MakePaymentState();
+}
+
+class _MakePaymentState extends State<MakePayment> {
   final MakePaymentController makePaymentController =
       Get.find<MakePaymentController>();
 
+  var packages = Get.arguments;
+
+  @override
+  void initState() {
+    makePaymentController.package = packages;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var packages = Get.arguments;
-
     return SafeArea(
       top: true,
       child: Scaffold(
@@ -36,12 +47,13 @@ class MakePayment extends StatelessWidget {
 
                 SubscriptionPlanCard(
                   showButton: false,
-                  packageFeatures: packages.packageFeatures!,
+                  packageFeatures:
+                      makePaymentController.package.packageFeatures!,
                   color: AppColors.cardBgColor,
-                  months: packages.packageDuration!,
-                  price: packages.price.toString(),
+                  months: makePaymentController.package.packageDuration!,
+                  price: makePaymentController.package.price.toString(),
                   buttonText: "Purchase Now",
-                  title: packages.packageName!,
+                  title: makePaymentController.package.packageName!,
                 ),
                 // CustomText(
                 //     text: "Choose your payment method".tr, top: 44, bottom: 16),
@@ -55,11 +67,10 @@ class MakePayment extends StatelessWidget {
                     : CustomButton(
                         titleText: "Proceed to Payment".tr,
                         onPressed: () async {
-                        
-
                           makePaymentController.generateGatewayLink(
-                              ammount: packages.price.toString(),
-                              packageID: packages.id);
+                              ammount: makePaymentController.package.price
+                                  .toString(),
+                              packageID: makePaymentController.package.id);
                         },
                       ),
               ],

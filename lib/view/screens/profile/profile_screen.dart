@@ -31,6 +31,7 @@ class ProfileScreen extends StatelessWidget {
         appBar: CustomAppBar(
             appBarContent: CustomBack(text: "Profile".tr, isIcon: false)),
         body: Obx(() {
+          var value = profileController.packageInfo[0].package;
           switch (profileController.rxRequestStatus.value) {
             case Status.loading:
               return const CustomLoader();
@@ -148,44 +149,45 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                       //=====================================My Plan=================================
 
-                      ProfileCards(
-                        imageSrc: AppIcons.subscriptionPlan,
-                        text: "My Plan".tr,
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              var value = profileController.packageInfo;
-                              return AlertDialog(
-                                contentPadding: const EdgeInsets.all(0),
-                                backgroundColor: AppColors.cardBgColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                content: SizedBox(
-                                  height: 400,
-                                  child: SubscriptionPlanCard(
-                                      packageFeatures:
-                                          value.packageFeatures!.isEmpty
-                                              ? [
-                                                  "Add unlimited services for your business",
-                                                  "Edit service details",
-                                                  "Manage bookings"
-                                                ]
-                                              : value.packageFeatures!,
-                                      ontap: () {
-                                        navigator!.pop();
-                                        Get.toNamed(AppRoute.subscriptionPlans);
-                                      },
-                                      months: value.packageDuration ?? "",
-                                      price: "${value.price ?? 0}",
-                                      buttonText: "Renew",
-                                      title: value.packageName ?? ""),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
+                      if (profileController.packageInfo.isNotEmpty)
+                        ProfileCards(
+                          imageSrc: AppIcons.subscriptionPlan,
+                          text: "My Plan".tr,
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  contentPadding: const EdgeInsets.all(0),
+                                  backgroundColor: AppColors.cardBgColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  content: SizedBox(
+                                    height: 400,
+                                    child: SubscriptionPlanCard(
+                                        packageFeatures:
+                                            value!.packageFeatures!.isEmpty
+                                                ? [
+                                                    "Add unlimited services for your business",
+                                                    "Edit service details",
+                                                    "Manage bookings"
+                                                  ]
+                                                : value.packageFeatures!,
+                                        ontap: () {
+                                          navigator!.pop();
+                                          Get.toNamed(
+                                              AppRoute.subscriptionPlans);
+                                        },
+                                        months: value.packageDuration ?? "",
+                                        price: "${value.price ?? 0}",
+                                        buttonText: "Renew",
+                                        title: value.packageName ?? ""),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                       const SizedBox(height: 16),
 
                       //=====================================Settings=================================
