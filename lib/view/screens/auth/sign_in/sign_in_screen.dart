@@ -1,4 +1,5 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/core/global/location_controller.dart';
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
@@ -123,7 +124,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
                         GestureDetector(
                           onTap: () {
-                            controller.signInWithGoogle();
+                            // controller.signInWithGoogle();
+                            LocationController locationController =
+                                Get.find<LocationController>();
+
+                            locationController.getLocation();
                           },
                           child: Container(
                             height: 64,

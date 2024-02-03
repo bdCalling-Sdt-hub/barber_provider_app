@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/core/global/location_controller.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class Authcontroller extends GetxController {
   bool loading = false;
+
+  LocationController locationController = Get.find<LocationController>();
 
   String otp = "";
   TextEditingController nameController = TextEditingController();
@@ -25,6 +28,7 @@ class Authcontroller extends GetxController {
 
   var headers = {'Content-Type': 'application/json'};
 
+//================================Sign In User==============================
   signInUser() async {
     loading = true;
     update();
@@ -48,6 +52,8 @@ class Authcontroller extends GetxController {
     loading = false;
     update();
   }
+
+//================================Sign Up User==============================
 
   signUpUser() async {
     loading = true;
@@ -73,25 +79,31 @@ class Authcontroller extends GetxController {
     update();
   }
 
+//================================Sign In With Google==============================
+
   Future<void> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    // final GoogleSignInAuthentication? googleAuth =
+    //     await googleUser?.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+    // // Create a new credential
+    // final credential = GoogleAuthProvider.credential(
+    //   accessToken: googleAuth?.accessToken,
+    //   idToken: googleAuth?.idToken,
+    // );
 
     debugPrint(
-        "credential========================$credential============================");
+        "credential====================================================$googleUser");
+    debugPrint(
+        "googleAuth?.idToken====================================================${googleUser!.id}");
 
     // Once signed in, return the UserCredential
   }
+
+//================================Resend OTP==============================
 
   Future<bool> resendOTP() async {
     loading = true;
@@ -117,6 +129,8 @@ class Authcontroller extends GetxController {
       return false;
     }
   }
+
+//================================Varify OTP==============================
 
   varifyOTP({required bool forgetPass}) async {
     loading = true;
@@ -155,6 +169,8 @@ class Authcontroller extends GetxController {
     loading = false;
     update();
   }
+
+//================================Reset Password==============================
 
   resetPassword() async {
     loading = true;

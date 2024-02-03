@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+    <key>NSLocationAlwaysUsageDescription</key> 
+    <string>For showing nearby salons</string>
+
+
     <key>NSPhotoLibraryUsageDescription</key>
     <string>To pick the photo you want to show</string>
 	<key>NSCameraUsageDescription</key>

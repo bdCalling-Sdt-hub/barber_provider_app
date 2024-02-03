@@ -1,3 +1,4 @@
+import 'package:barbar_provider/core/global/location_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_catalouge_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
@@ -17,6 +18,9 @@ class Dependancy extends Bindings {
   void dependencies() {
     //============================Authentication=======================
     Get.lazyPut(() => Authcontroller(), fenix: true);
+
+    //============================Location=======================
+    Get.lazyPut(() => LocationController(), fenix: true);
 
     //============================Home=======================
 

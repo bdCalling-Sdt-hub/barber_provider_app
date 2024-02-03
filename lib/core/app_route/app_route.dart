@@ -88,7 +88,7 @@ class AppRoute {
     GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
     GetPage(name: termsCondition, page: () => TermsCondition()),
     GetPage(name: aboutUs, page: () => AboutUs()),
-    GetPage(name: makePayments, page: () => MakePayment()),
+    GetPage(name: makePayments, page: () => const MakePayment()),
     GetPage(name: notification, page: () => NotificationScreen()),
     GetPage(name: bookingRequest, page: () => const BookingsRequest()),
     GetPage(

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MakePayment extends StatefulWidget {
-  MakePayment({super.key});
+  const MakePayment({super.key});
 
   @override
   State<MakePayment> createState() => _MakePaymentState();

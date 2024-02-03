@@ -159,15 +159,20 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         //Google Button
 
-                        Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.cardBgColor,
-                          ),
-                          child: const Center(
-                            child: CustomImage(imageSrc: AppIcons.google),
+                        GestureDetector(
+                          onTap: () {
+                            controller.signInWithGoogle();
+                          },
+                          child: Container(
+                            height: 64,
+                            width: 64,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.cardBgColor,
+                            ),
+                            child: const Center(
+                              child: CustomImage(imageSrc: AppIcons.google),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
