@@ -10,6 +10,9 @@ class AppConstants {
   static String providerID = "providerID";
   static String profileID = "profileID";
   static String paymentDone = "paymentDone";
+  static String latitude = "latitude";
+  static String longitude = "longitude";
+
 
 
   static String onlineImage =

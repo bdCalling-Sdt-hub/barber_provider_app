@@ -1,26 +1,53 @@
+import 'package:barbar_provider/helper/prefs_helper.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart' as loc;
+import 'package:location/location.dart';
 
 class LocationController extends GetxController {
   bool addressLoading = false;
-  loc.LocationData? locationData;
+  // late PermissionStatus _permissionGranted;
+  // Location loc = Location();
+  // loc.LocationData? locationData;
 
   Future getLocation() async {
     try {
       addressLoading = true;
       update();
-      locationData = await loc.Location.instance.getLocation();
 
-      // var locationData = loc.LocationData.fromMap({
-      //   'latitude' : 44.2423649,
-      //   'longitude' : -119.8093025
-      //  });
+      Location location = Location();
+
+      bool serviceEnabled;
+      PermissionStatus permissionGranted;
+      LocationData locationData;
+
+      serviceEnabled = await location.serviceEnabled();
+      if (!serviceEnabled) {
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return;
+        }
+      }
+
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return;
+        }
+      }
+
+      locationData = await location.getLocation();
+
+      SharePrefsHelper.setString(
+          AppConstants.latitude, locationData.latitude.toString());
+      SharePrefsHelper.setString(
+          AppConstants.longitude, locationData.longitude.toString());
 
       debugPrint(
-          "Latitute====================================${locationData!.latitude}");
+          "Latitute====================================${locationData.latitude}");
       debugPrint(
-          "Longitude====================================${locationData!.longitude}");
+          "Longitude====================================${locationData.longitude}");
     } catch (error) {
       addressLoading = false;
       update();

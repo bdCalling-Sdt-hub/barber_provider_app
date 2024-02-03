@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/core/global/location_controller.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
@@ -82,25 +81,54 @@ class Authcontroller extends GetxController {
 //================================Sign In With Google==============================
 
   Future<void> signInWithGoogle() async {
-    // Trigger the authentication flow
+    //==================Get Location Permission=============
+
+    locationController.getLocation();
+
+    //========Trigger the authentication flow=========
+
     final googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    // final GoogleSignInAuthentication? googleAuth =
-    //     await googleUser?.authentication;
-
-    // // Create a new credential
-    // final credential = GoogleAuthProvider.credential(
-    //   accessToken: googleAuth?.accessToken,
-    //   idToken: googleAuth?.idToken,
-    // );
 
     debugPrint(
         "credential====================================================$googleUser");
     debugPrint(
         "googleAuth?.idToken====================================================${googleUser!.id}");
 
-    // Once signed in, return the UserCredential
+    //================Send Information To Server==================
+    loading = true;
+    update();
+
+    //===============Get latitude and longitude============
+
+    String? latitude = await SharePrefsHelper.getString(AppConstants.latitude);
+    String? longitude =
+        await SharePrefsHelper.getString(AppConstants.longitude);
+
+    var body = {
+      "name": googleUser.displayName ?? "",
+      "email": googleUser.email,
+      "google_id": googleUser.id,
+      "user_type": "provider",
+      "latitude": latitude,
+      "longitude": longitude,
+    };
+
+    var response = await ApiClient.postData(ApiConstant.socialAuth, body);
+
+    if (response.statusCode == 200) {
+      debugPrint(
+          "Access token=================================${response.body["access_token"]}");
+
+      SharePrefsHelper.setString(
+          AppConstants.bearerToken, response.body["access_token"]);
+
+      Get.offAllNamed(AppRoute.navBar);
+    } else {
+      ApiChecker.checkApi(response);
+    }
+
+    loading = false;
+    update();
   }
 
 //================================Resend OTP==============================

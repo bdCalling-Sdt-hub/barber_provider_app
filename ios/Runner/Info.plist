@@ -3,7 +3,13 @@
 <plist version="1.0">
 <dict>
 
-    <key>NSLocationAlwaysUsageDescription</key> 
+    <key>NSLocationWhenInUseUsageDescription</key> 
+    <string>For showing nearby salons</string>
+
+	<key>NSLocationAlwaysUsageDescription</key> 
+    <string>For showing nearby salons</string>
+
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key> 
     <string>For showing nearby salons</string>
 
 

@@ -4,6 +4,11 @@ class ApiConstant {
       "FLWPUBK_TEST-db5cf091ec9599c4b3404f0fe4ea40b4-X";
 
   //===================Auth===============================
+
+   //=========Social login / Sign up==========
+
+  static const socialAuth = "api/social-login";
+
   //=========Sign UP==========
   static const register = "api/register";
   static const verified = "api/verified";

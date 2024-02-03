@@ -31,7 +31,6 @@ class ProfileScreen extends StatelessWidget {
         appBar: CustomAppBar(
             appBarContent: CustomBack(text: "Profile".tr, isIcon: false)),
         body: Obx(() {
-          var value = profileController.packageInfo[0].package;
           switch (profileController.rxRequestStatus.value) {
             case Status.loading:
               return const CustomLoader();
@@ -146,7 +145,8 @@ class ProfileScreen extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(AppRoute.subscriptionPlans);
                           }),
-                      const SizedBox(height: 16),
+                      if (profileController.packageInfo.isNotEmpty)
+                        const SizedBox(height: 16),
                       //=====================================My Plan=================================
 
                       if (profileController.packageInfo.isNotEmpty)
@@ -157,6 +157,8 @@ class ProfileScreen extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (context) {
+                                var value =
+                                    profileController.packageInfo[0].package;
                                 return AlertDialog(
                                   contentPadding: const EdgeInsets.all(0),
                                   backgroundColor: AppColors.cardBgColor,
