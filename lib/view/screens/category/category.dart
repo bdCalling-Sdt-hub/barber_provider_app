@@ -1,7 +1,7 @@
+import 'package:barbar_provider/helper/network_image.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
-import 'package:barbar_provider/utils/app_icons.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/category_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
@@ -9,7 +9,6 @@ import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:barbar_provider/view/widgets/error/general_error.dart';
-import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -73,17 +72,6 @@ class CategoryScreen extends StatelessWidget {
                             size: 24,
                             color: AppColors.white,
                           ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {},
-                            child: const Padding(
-                              padding: EdgeInsets.all(12.0),
-                              child: CustomImage(
-                                imageSrc: AppIcons.filter,
-                                size: 12,
-                                imageColor: AppColors.paragraph,
-                              ),
-                            ),
-                          ),
                         ),
                         SizedBox(
                           height: 24.h,
@@ -113,17 +101,16 @@ class CategoryScreen extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      height: 85.w,
-                                      width: 85.w,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                  "${ApiConstant.baseUrl}${data.categoryImage!}")),
-                                          borderRadius:
-                                              BorderRadius.circular(12)),
-                                    ),
+                                    //===============================Image======================
+
+                                    CustomNetworkImage(
+                                        imageUrl:
+                                            "${ApiConstant.baseUrl}${data.categoryImage!}",
+                                        height: 85.w,
+                                        width: 85.w),
+
+                                    //===============================Name======================
+
                                     CustomText(
                                         text: data.categoryName ?? "",
                                         fontSize: 14,
@@ -151,8 +138,6 @@ class CategoryScreen extends StatelessWidget {
                       ],
                     ),
                   );
-            
-            
               }
             }),
           )),

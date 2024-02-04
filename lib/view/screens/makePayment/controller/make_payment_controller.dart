@@ -76,8 +76,10 @@ class MakePaymentController extends GetxController {
 
     debugPrint(
         "Payment Success===================================${response.success}");
+
     debugPrint(
         "Payment transactionId===================================${response.transactionId}");
+
     debugPrint(
         "Payment status===================================${response.status}");
     debugPrint(

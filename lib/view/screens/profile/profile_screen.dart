@@ -1,4 +1,5 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/network_image.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
@@ -64,19 +65,12 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             //============================Profile Image=======================
 
-                            Container(
+                            CustomNetworkImage(
+                              boxShape: BoxShape.circle,
+                              imageUrl:
+                                  "${ApiConstant.baseUrl}${profileController.profileModel.value.image}",
                               height: 64.w,
                               width: 64.w,
-                              margin: EdgeInsets.only(right: 10.w),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(profileController
-                                                  .profileModel.value.image ==
-                                              null
-                                          ? AppConstants.onlineImage
-                                          : "${ApiConstant.baseUrl}${profileController.profileModel.value.image}"))),
                             ),
                             Flexible(
                               child: Column(

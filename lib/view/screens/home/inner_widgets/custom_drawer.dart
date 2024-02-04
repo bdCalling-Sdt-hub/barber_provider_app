@@ -1,8 +1,8 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/network_image.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
-import 'package:barbar_provider/utils/app_images.dart';
 import 'package:barbar_provider/view/screens/home/inner_widgets/drawer_card.dart';
 import 'package:barbar_provider/view/screens/profile/controller/profile_controller.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
@@ -40,19 +40,13 @@ class CustomDrawer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     //====================Image================
-                    Container(
-                      height: 48.w,
-                      width: 48.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: data.image!.isNotEmpty
-                              ? DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      "${ApiConstant.baseUrl}${controller.profileModel.value.image!}"))
-                              : const DecorationImage(
-                                  image: NetworkImage(AppImages.salonImg))),
-                    ),
+
+                    CustomNetworkImage(
+                        boxShape: BoxShape.circle,
+                        imageUrl:
+                            "${ApiConstant.baseUrl}${controller.profileModel.value.image!}",
+                        height: 48.w,
+                        width: 48.w),
 
                     SizedBox(
                       width: 10.w,

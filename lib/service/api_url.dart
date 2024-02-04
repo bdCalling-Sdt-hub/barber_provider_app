@@ -1,11 +1,16 @@
 class ApiConstant {
   static const baseUrl = "http://192.168.10.121:8000/";
   static const paymentPublicKey =
-      "FLWPUBK_TEST-db5cf091ec9599c4b3404f0fe4ea40b4-X";
+      "FLWPUBK_TEST-b5bb5bbff5a355e6f0c070063af0f04b-X";
+
+  static const paymentScretKey =
+      "FLWSECK_TEST-8309a9e1bb5220b153b3da94fdbe0cae-X";
+
+  static const paymentScrethash = "FLWSECK_TEST47a272d5d15e";
 
   //===================Auth===============================
 
-   //=========Social login / Sign up==========
+  //=========Social login / Sign up==========
 
   static const socialAuth = "api/social-login";
 

@@ -78,7 +78,7 @@ class SubscriptionPlans extends StatelessWidget {
                         subscriptionController.updateCurrentIndex(value: index);
                       },
                       autoPlay: false,
-                      aspectRatio: 8.5 / 9,
+                      aspectRatio: 8.4 / 9,
                       autoPlayCurve: Curves.easeInOut,
                       viewportFraction: 0.8,
                     ),

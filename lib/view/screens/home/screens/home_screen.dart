@@ -1,4 +1,5 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/network_image.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
@@ -95,16 +96,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   //=================================Banner image=============================
 
-                  Container(
-                    height: 240.h,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                            image: NetworkImage(
-                                "${ApiConstant.baseUrl}images/${data.coverPhoto}"),
-                            fit: BoxFit.cover)),
-                  ),
+                  CustomNetworkImage(
+                      imageUrl:
+                          "${ApiConstant.baseUrl}images/${data.coverPhoto}",
+                      height: 240.h,
+                      width: double.maxFinite),
 
                   //=================================Business Name=============================
                   CustomText(
@@ -162,17 +158,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 //=================================Services Image=============================
-                                Container(
-                                  margin: EdgeInsets.only(right: 16.w),
-                                  height: 90.w,
-                                  width: 90.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                              "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto![0]}"))),
-                                ),
+
+                                CustomNetworkImage(
+                                    imageUrl:
+                                        "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto![0]}",
+                                    height: 90.w,
+                                    width: 90.w),
+
                                 //=================================Services Text=============================
 
                                 CustomText(
@@ -188,6 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                   //=================================Available Service Hours=============================
+
                   if (data.availableServiceOur!.isNotEmpty)
                     CustomText(
                         text: "Available Service Hours".tr,
@@ -221,17 +214,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                   if (data.salonDetails!.isNotEmpty)
-                    Container(
-                      height: 90.w,
-                      width: 90.w,
-                      margin: const EdgeInsets.only(right: 16),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  "${ApiConstant.baseUrl}images/${data.gallaryPhoto![0]}"))),
-                    ),
+                    CustomNetworkImage(
+                        imageUrl:
+                            "${ApiConstant.baseUrl}images/${data.gallaryPhoto![0]}",
+                        height: 90.w,
+                        width: 90.w),
                   SizedBox(height: 26.h),
 
                   //================================waiting for admin approval========================================-
