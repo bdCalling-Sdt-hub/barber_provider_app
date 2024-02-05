@@ -6,6 +6,7 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/utils/snack_bar.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -42,8 +43,13 @@ class Authcontroller extends GetxController {
         headers: headers);
 
     if (response.statusCode == 200) {
+      //==========================save user info======================
+
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["access_token"]);
+      SharePrefsHelper.setString(
+          AppConstants.profileID, response.body["user_id"].toString());
+
       Get.offNamed(
         AppRoute.navBar,
       );
@@ -229,7 +235,7 @@ class Authcontroller extends GetxController {
         headers: headers);
 
     if (response.statusCode == 200) {
-      Get.snackbar("Done", "Successfully updated");
+      toastMessage(message: "Successfully updated");
       Get.offNamed(AppRoute.signInScreen);
     } else {
       ApiChecker.checkApi(response);

@@ -58,6 +58,7 @@ class ApiConstant {
 
   //===================Payment===============================
   static const makePayment = "api/pay/";
+  static const paymentSuccess = "api/payment-success";
 
   //===================Notification===============================
   static const notification = "api/notification";

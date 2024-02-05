@@ -46,7 +46,14 @@ class MakePaymentController extends GetxController {
       debugPrint(
           "Response URL===================================${response.body["gateway_link"]}");
 
-      makePayment(redirectUrl: response.body["gateway_link"], ammount: ammount);
+      // Get.to(() => WebviewPayment(
+      //       url: response.body["gateway_link"],
+      //     ));
+
+      makePayment(
+          redirectUrl: response.body["gateway_link"],
+          ammount: ammount,
+          packageID: packageID.toString());
     } else {
       ApiChecker.checkApi(response);
     }
@@ -55,7 +62,10 @@ class MakePaymentController extends GetxController {
     refresh();
   }
 
-  makePayment({required String redirectUrl, required String ammount}) async {
+  makePayment(
+      {required String redirectUrl,
+      required String ammount,
+      required String packageID}) async {
     var uuid = const Uuid();
 
     debugPrint("uuid========================${uuid.v1()}");
@@ -87,6 +97,48 @@ class MakePaymentController extends GetxController {
 
     SharePrefsHelper.setBool(AppConstants.paymentDone, response.success!);
 
-    profileController.getMyPlan();
+    inputInServer(
+        ammount: ammount,
+        status: response.status!,
+        txRef: response.txRef!,
+        packageID: packageID,
+        transactionId: response.transactionId!);
+  }
+
+  inputInServer({
+    required String ammount,
+    required String status,
+    required String txRef,
+    required String packageID,
+    required String transactionId,
+  }) async {
+    var info = profileController.profileModel.value;
+
+    //=============Get User ID==========
+    var profileID = await SharePrefsHelper.getInt(
+      AppConstants.profileID,
+    );
+
+    debugPrint("user_id==========================>>>>>>>>>>>$profileID");
+
+    var body = {
+      "package_id": packageID,
+      "user_id": profileID.toString(),
+      "tx_ref": txRef,
+      "amount": ammount,
+      "currency": "NGN",
+      "payment_type": "Card",
+      "status": status,
+      "email": info.email,
+      "name": info.name,
+    };
+
+    var response = await ApiClient.postData(ApiConstant.paymentSuccess, body);
+
+    if (response.statusCode == 200) {
+      profileController.getMyPlan();
+    } else {
+      ApiChecker.checkApi(response);
+    }
   }
 }

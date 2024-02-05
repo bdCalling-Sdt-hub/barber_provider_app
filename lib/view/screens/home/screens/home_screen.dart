@@ -153,26 +153,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () => Get.toNamed(AppRoute.serviceDetails,
                                 arguments:
                                     data.salonDetails![index].id.toString()),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                //=================================Services Image=============================
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 20.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //=================================Services Image=============================
 
-                                CustomNetworkImage(
-                                    imageUrl:
-                                        "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto![0]}",
-                                    height: 90.w,
-                                    width: 90.w),
+                                  CustomNetworkImage(
+                                      imageUrl:
+                                          "${ApiConstant.baseUrl}images/${data.salonDetails![index].gallaryPhoto![0]}",
+                                      height: 90.w,
+                                      width: 90.w),
 
-                                //=================================Services Text=============================
+                                  //=================================Services Text=============================
 
-                                CustomText(
-                                    textAlign: TextAlign.center,
-                                    right: 16.w,
-                                    text:
-                                        data.salonDetails![index].serviceName!)
-                              ],
+                                  CustomText(
+                                      fontSize: 16.w,
+                                      textAlign: TextAlign.center,
+                                      text: data
+                                          .salonDetails![index].serviceName!)
+                                ],
+                              ),
                             ),
                           );
                         },

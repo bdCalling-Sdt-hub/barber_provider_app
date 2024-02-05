@@ -95,7 +95,7 @@ class AddCatalougeController extends GetxController {
       var response = await ApiClient.postMultipartData(
           ApiConstant.postCatalouge, body,
           multipartBody: [
-            MultipartBody("catalougPhoto", galleryPhoto!),
+            MultipartBody("catalougPhoto[]", galleryPhoto!),
           ]);
 
       if (response.statusCode == 200) {
