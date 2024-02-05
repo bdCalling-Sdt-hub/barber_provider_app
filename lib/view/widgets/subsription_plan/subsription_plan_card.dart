@@ -101,16 +101,8 @@ class SubscriptionPlanCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
             child: Column(
               children: [
-                // features(title: "Add unlimited services for your business."),
-                // const SizedBox(height: 12),
-
-                // features(title: "Edit service details"),
-                // const SizedBox(height: 12),
-
-                // features(title: "Manage bookings"),
-
                 SizedBox(
-                  height: 80,
+                  height: 90,
                   child: SingleChildScrollView(
                     child: Column(
                       children: List.generate(packageFeatures.length,

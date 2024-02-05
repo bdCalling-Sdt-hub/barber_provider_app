@@ -153,7 +153,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: CustomText(
                           text: _secondsRemaining == 0
                               ? "Resend OTP".tr
-                              : "Resend SMS $_secondsRemaining",
+                              : "Resend OTP $_secondsRemaining",
                           color: AppColors.primaryOrange,
                           fontWeight: FontWeight.w600),
                     ),

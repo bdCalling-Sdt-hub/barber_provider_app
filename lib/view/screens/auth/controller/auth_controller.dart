@@ -25,11 +25,13 @@ class Authcontroller extends GetxController {
       TextEditingController(text: kDebugMode ? "1234567rr" : "");
   TextEditingController confirmPasController = TextEditingController();
 
-  var headers = {'Content-Type': 'application/json'};
+  var headers = {'Accept': 'application/json'};
 
 //================================Sign In User==============================
   signInUser() async {
     loading = true;
+    var headers = {'Content-Type': 'application/json'};
+
     update();
     Map<String, String> body = {
       'email': emailController.text,
@@ -56,14 +58,20 @@ class Authcontroller extends GetxController {
 
   signUpUser() async {
     loading = true;
+
+    //===============Get latitude and longitude============
+
+    String? latitude = await SharePrefsHelper.getString(AppConstants.latitude);
+    String? longitude =
+        await SharePrefsHelper.getString(AppConstants.longitude);
     update();
     Map<String, String> body = {
       'name': nameController.text,
       'email': emailController.text,
       'password': passWordController.text,
       'password_confirmation': confirmPasController.text,
-      "latitude": "3214",
-      "longitude": "1234",
+      "latitude": latitude,
+      "longitude": longitude,
       "user_type": "provider",
     };
 
@@ -92,7 +100,7 @@ class Authcontroller extends GetxController {
     debugPrint(
         "credential====================================================$googleUser");
     debugPrint(
-        "googleAuth?.idToken====================================================${googleUser!.id}");
+        "Google User ID====================================================${googleUser!.id}");
 
     //================Send Information To Server==================
     loading = true;

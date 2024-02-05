@@ -78,7 +78,7 @@ class SubscriptionPlans extends StatelessWidget {
                         subscriptionController.updateCurrentIndex(value: index);
                       },
                       autoPlay: false,
-                      aspectRatio: 8.4 / 9,
+                      height: 400,
                       autoPlayCurve: Curves.easeInOut,
                       viewportFraction: 0.8,
                     ),
@@ -89,15 +89,17 @@ class SubscriptionPlans extends StatelessWidget {
 
                   //=======================================DotsIndicator================================
 
-                  DotsIndicator(
-                    decorator: DotsDecorator(
-                        activeColor: AppColors.primaryOrange,
-                        size: Size.square(16.r),
-                        activeSize: Size.square(16.r)),
-                    dotsCount: subscriptionController
-                        .packageListModel.value.data!.length,
-                    position: subscriptionController.currentIndex.value,
-                  )
+                  if (subscriptionController
+                      .packageListModel.value.data!.isNotEmpty)
+                    DotsIndicator(
+                      decorator: DotsDecorator(
+                          activeColor: AppColors.primaryOrange,
+                          size: Size.square(16.r),
+                          activeSize: Size.square(16.r)),
+                      dotsCount: subscriptionController
+                          .packageListModel.value.data!.length,
+                      position: subscriptionController.currentIndex.value,
+                    )
                 ],
               );
           }
