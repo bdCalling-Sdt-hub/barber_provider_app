@@ -18,7 +18,7 @@ class DateConverter {
   }
 
   static String formatValidityDate(String dateString) {
-    var inputDate = DateFormat('yyyy-MM-dd hh:mm:ss').parse(dateString);
+    var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSSSSZ').parse(dateString);
     var outputFormat = DateFormat('dd MMM yyyy').format(inputDate);
     return outputFormat;
   }

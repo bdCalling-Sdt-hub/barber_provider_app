@@ -50,6 +50,8 @@ class NotificationScreen extends StatelessWidget {
                         ),
                       )
                     : ListView.builder(
+                        padding:
+                            EdgeInsets.only(top: 24.h, left: 20.w, right: 20.w),
                         itemCount: data.length,
                         itemBuilder: (context, index) {
                           // Check if it's the first item or if the date has changed
@@ -61,23 +63,26 @@ class NotificationScreen extends StatelessWidget {
                                       data[index - 1].data!.user!.createdAt!);
 
                           // Display the date only if it's the first item or the date has changed
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (isFirstItem || isNewDate)
-                                CustomText(
-                                  text: DateConverter.formatValidityDate(
-                                      data[index].data!.user!.createdAt!),
-                                  fontWeight: FontWeight.w500,
-                                  bottom: 16.h,
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 15.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (isFirstItem || isNewDate)
+                                  CustomText(
+                                    text: DateConverter.formatValidityDate(
+                                        data[index].data!.user!.createdAt!),
+                                    fontWeight: FontWeight.w500,
+                                    bottom: 16.h,
+                                  ),
+                                NotificationCard(
+                                  imageSrc: AppIcons.bookingRequest,
+                                  title: data[index].data!.message!,
+                                  subText:
+                                      "You have a new booking request with Jane Cooper at 6 Sep 2023.",
                                 ),
-                              NotificationCard(
-                                imageSrc: AppIcons.bookingRequest,
-                                title: data[index].data!.message!,
-                                subText:
-                                    "You have a new booking request with Jane Cooper at 6 Sep 2023.",
-                              ),
-                            ],
+                              ],
+                            ),
                           );
                         },
                       );

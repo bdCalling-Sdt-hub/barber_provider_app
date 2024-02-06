@@ -86,10 +86,12 @@ class Notification {
 
 class Data {
   String? message;
+  String? description;
   User? user;
 
   Data({
     this.message,
+    this.description,
     this.user,
   });
 
@@ -99,11 +101,13 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         message: json["message"],
+        description: json["description"],
         user: json["user"] == null ? null : User.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "message": message,
+        "description": description,
         "user": user?.toJson(),
       };
 }
@@ -121,9 +125,10 @@ class User {
   String? userStatus;
   String? phoneNumber;
   dynamic address;
-  String? createdAt;
-  DateTime? updatedAt;
   dynamic googleId;
+  dynamic facebookId;
+  String? createdAt;
+  String? updatedAt;
   dynamic deletedAt;
 
   User({
@@ -139,9 +144,10 @@ class User {
     this.userStatus,
     this.phoneNumber,
     this.address,
+    this.googleId,
+    this.facebookId,
     this.createdAt,
     this.updatedAt,
-    this.googleId,
     this.deletedAt,
   });
 
@@ -162,11 +168,10 @@ class User {
         userStatus: json["user_status"],
         phoneNumber: json["phone_number"],
         address: json["address"],
-        createdAt: json["created_at"] == null ? null : "",
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
         googleId: json["google_id"],
+        facebookId: json["facebook_id"],
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         deletedAt: json["deleted_at"],
       );
 
@@ -183,9 +188,10 @@ class User {
         "user_status": userStatus,
         "phone_number": phoneNumber,
         "address": address,
-        "created_at": createdAt ?? "",
-        "updated_at": updatedAt?.toIso8601String(),
         "google_id": googleId,
+        "facebook_id": facebookId,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "deleted_at": deletedAt,
       };
 }
