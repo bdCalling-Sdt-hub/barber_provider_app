@@ -1,8 +1,12 @@
+import 'package:barbar_provider/helper/network_image.dart';
+import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/view/screens/booking_request/model/booking_req_model.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BookingCard extends StatelessWidget {
@@ -10,20 +14,23 @@ class BookingCard extends StatelessWidget {
       {super.key,
       required this.profileImage,
       required this.profileName,
-      required this.value1,
-      required this.value2,
-      required this.value3,
+      required this.date,
+      required this.catelouges,
+      required this.totalPrice,
       this.onTap,
       this.onPressedLeft,
       this.onPressedRight,
       required this.buttonLeft,
-      required this.buttonRight});
+      required this.buttonRight,
+      required this.time});
 
   final String profileImage;
   final String profileName;
-  final String value1;
-  final String value2;
-  final String value3;
+  final String date;
+  final String time;
+
+  final List<CatalogDetail>? catelouges;
+  final String totalPrice;
   final String buttonLeft;
   final String buttonRight;
   final VoidCallback? onTap;
@@ -46,18 +53,18 @@ class BookingCard extends StatelessWidget {
             color: AppColors.cardBgColor),
         child: Column(
           children: [
-            //Image and Name section
             Row(
               children: [
-                Container(
-                  height: 64,
-                  width: 64,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: AssetImage(profileImage), fit: BoxFit.fill),
-                  ),
-                ),
+                //==============================Image=============================
+
+                CustomNetworkImage(
+                    boxShape: BoxShape.circle,
+                    imageUrl: "${ApiConstant.baseUrl}$profileImage",
+                    height: 64.h,
+                    width: 64.w),
+
+                //=================================Name==============================
+
                 Flexible(
                   child: CustomText(
                       text: profileName,
@@ -68,20 +75,61 @@ class BookingCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            RowText(field: "Date:".tr, value: value1),
+            //=================================date==============================
+
+            RowText(field: "Date:".tr, value: date),
             const SizedBox(height: 12),
-            RowText(field: "Services :".tr, value: value2, maxLine: 2),
-            const SizedBox(height: 12),
-            RowText(field: "Total Amount :".tr, value: "\$ $value3"),
-            const SizedBox(height: 16),
+
+            //=================================Catelouge==============================
+
             Row(
               children: [
+                const CustomText(
+                  fontSize: 14,
+                  text: "Catelouge :",
+                ),
+                const Expanded(child: SizedBox()),
+                Expanded(
+                  child: Wrap(
+                    alignment: WrapAlignment.end,
+                    children: List.generate(catelouges!.length, (index) {
+                      return CustomText(
+                        maxLines: 100,
+                        fontSize: 12.w,
+                        fontWeight: FontWeight.w500,
+                        right: index % 2 == 0 ? 10.w : 0,
+                        text: catelouges![index].catalogName!,
+                      );
+                    }),
+                  ),
+                )
+              ],
+            ),
+
+            // RowText(field: "Services :".tr, value: catelouges, maxLine: 2),
+            const SizedBox(height: 12),
+
+            //=================================Total Amount==============================
+
+            RowText(field: "Total Amount :".tr, value: "\$ $totalPrice"),
+            const SizedBox(height: 16),
+
+            RowText(field: "Time :".tr, value: time),
+            const SizedBox(height: 16),
+
+            Row(
+              children: [
+                //=================================Accept Button===========================
+
                 Expanded(
                     child: CustomButton(
                         titleText: buttonLeft,
                         buttonHeight: 44,
                         onPressed: onPressedLeft)),
                 const SizedBox(width: 12),
+
+                //=================================Decline Button===========================
+
                 Expanded(
                   child: CustomButton(
                     onPressed: onPressedRight,

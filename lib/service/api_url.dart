@@ -44,7 +44,8 @@ class ApiConstant {
   //===================Post Catalouge=========================
   static const home = "api/get/provider";
 
-  //===================Settings=========================
+  //==========================Settings===============================
+
   static const logOut = "api/logout";
   static const changePassword = "api/change-password";
   static const aboutPrivacyTerms = "api/show-website-pages";
@@ -62,4 +63,9 @@ class ApiConstant {
 
   //===================Notification===============================
   static const notification = "api/notification";
+
+  //========================Booking Request============================
+  static const bookingReq = "api/booking/request";
+
+  static const bookingReqUpdate = "api/booking/accept";
 }

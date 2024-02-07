@@ -159,7 +159,7 @@ class ProfileScreen extends StatelessWidget {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
                                   content: SizedBox(
-                                    height: 400,
+                                    height: 420,
                                     child: SubscriptionPlanCard(
                                         packageFeatures:
                                             value!.packageFeatures!.isEmpty

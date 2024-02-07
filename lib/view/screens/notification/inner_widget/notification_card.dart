@@ -24,7 +24,7 @@ class NotificationCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CustomImage(imageSrc: imageSrc, size: 56, imageType: ImageType.png),
+          CustomImage(imageSrc: imageSrc, size: 56, imageType: ImageType.svg),
           const SizedBox(width: 16),
           Flexible(
             child: Column(

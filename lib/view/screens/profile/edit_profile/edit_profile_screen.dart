@@ -115,6 +115,8 @@ class EditProfile extends StatelessWidget {
                     hintColor: AppColors.white),
 
                 const SizedBox(height: 56),
+
+                
                 controller.profileUpdateLoading
                     ? const CustomLoader()
                     : CustomButton(

@@ -78,7 +78,7 @@ class SubscriptionPlans extends StatelessWidget {
                         subscriptionController.updateCurrentIndex(value: index);
                       },
                       autoPlay: false,
-                      height: 400,
+                      height: 420,
                       autoPlayCurve: Curves.easeInOut,
                       viewportFraction: 0.8,
                     ),

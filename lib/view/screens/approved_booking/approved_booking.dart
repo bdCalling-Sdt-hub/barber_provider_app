@@ -24,14 +24,14 @@ class ApprovedBooking extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              BookingCard(
-                  profileImage: AppImages.profile,
-                  profileName: "Jane Cooper",
-                  value1: "24 Nov 2023",
-                  value2: "Regular Hair Cut, Hair Spa",
-                  value3: "100",
-                  buttonLeft: "Complete".tr,
-                  buttonRight: "Mark as late".tr)
+              // BookingCard(
+              //     profileImage: AppImages.profile,
+              //     profileName: "Jane Cooper",
+              //     date: "24 Nov 2023",
+              //     catelouges: "Regular Hair Cut, Hair Spa",
+              //     totalPrice: "100",
+              //     buttonLeft: "Complete".tr,
+              //     buttonRight: "Mark as late".tr)
             ],
           ),
         ),

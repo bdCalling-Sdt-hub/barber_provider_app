@@ -4,6 +4,7 @@ import 'package:barbar_provider/view/screens/add_new_service/controllers/add_pro
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/category_controller.dart';
 import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dart';
+import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
 
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/screens/makePayment/controller/make_payment_controller.dart';
@@ -47,5 +48,9 @@ class Dependancy extends Bindings {
     //============================Notification=======================
 
     Get.lazyPut(() => NotificationController(), fenix: true);
+
+    //============================Booking Request=====================
+
+    Get.lazyPut(() => BookingRequestController(), fenix: true);
   }
 }

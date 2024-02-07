@@ -90,9 +90,8 @@ class AppRoute {
     GetPage(name: aboutUs, page: () => AboutUs()),
     GetPage(name: makePayments, page: () => const MakePayment()),
     GetPage(name: notification, page: () => NotificationScreen()),
-    GetPage(name: bookingRequest, page: () => const BookingsRequest()),
-    GetPage(
-        name: bookingRequestDetails, page: () => const BookingRequestDetails()),
+    GetPage(name: bookingRequest, page: () => BookingsRequest()),
+    GetPage(name: bookingRequestDetails, page: () => BookingRequestDetails()),
     GetPage(name: bookingReSchedule, page: () => const BookingReSchedule()),
     GetPage(name: approvedBooking, page: () => const ApprovedBooking()),
     GetPage(name: bookingHistory, page: () => const BookingHistory()),

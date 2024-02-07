@@ -19,6 +19,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
   TextEditingController addressController = TextEditingController();
 
   final rxRequestStatus = Status.loading.obs;
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   Rx<ProfileModel> profileModel = ProfileModel().obs;

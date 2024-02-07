@@ -76,10 +76,9 @@ class NotificationScreen extends StatelessWidget {
                                     bottom: 16.h,
                                   ),
                                 NotificationCard(
-                                  imageSrc: AppIcons.bookingRequest,
+                                  imageSrc: AppIcons.notification,
                                   title: data[index].data!.message!,
-                                  subText:
-                                      "You have a new booking request with Jane Cooper at 6 Sep 2023.",
+                                  subText: data[index].data!.description!,
                                 ),
                               ],
                             ),
