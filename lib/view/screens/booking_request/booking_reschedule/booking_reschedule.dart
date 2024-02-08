@@ -1,8 +1,11 @@
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
+import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
+import 'package:barbar_provider/view/screens/booking_request/model/booking_req_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +30,7 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
+      
       });
     }
   }
@@ -48,6 +52,7 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
     "08.00 PM",
   ];
 
+  final Datum bookingReqList = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -67,6 +72,9 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
                   text: "Select Date".tr,
                   fontWeight: FontWeight.w600,
                   bottom: 16),
+
+              //================================Choose Date=============================
+
               GestureDetector(
                 onTap: () {
                   _selectDate(context);
@@ -75,22 +83,26 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
                   padding: const EdgeInsets.all(16),
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                    color: AppColors.cardBgColor,
-                    borderRadius: BorderRadius.circular(8)
-                  ),
+                      color: AppColors.cardBgColor,
+                      borderRadius: BorderRadius.circular(8)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      CustomText(text: "${selectedDate.toLocal()}".split(' ')[0]),
+                      CustomText(
+                          text: "${selectedDate.toLocal()}".split(' ')[0]),
                       const CustomImage(
                         imageSrc: AppIcons.bookings,
-                        size: 24,imageColor: AppColors.white,
+                        size: 24,
+                        imageColor: AppColors.white,
                       ),
                     ],
                   ),
                 ),
               ),
+
+              //================================Time slot=============================
+
               CustomText(
                   text: "Available Slot ".tr,
                   fontWeight: FontWeight.w600,
@@ -120,7 +132,12 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
                           ? AppColors.primaryOrange
                           : AppColors.bgColor,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: currentIndex == index ? Colors.transparent : AppColors.stroke,width: 1,style: BorderStyle.solid),
+                      border: Border.all(
+                          color: currentIndex == index
+                              ? Colors.transparent
+                              : AppColors.stroke,
+                          width: 1,
+                          style: BorderStyle.solid),
                     ),
                     child: Center(
                       child: CustomText(
@@ -134,11 +151,35 @@ class _BookingReScheduleState extends State<BookingReSchedule> {
             ],
           ),
         ),
-        bottomNavigationBar: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          child: CustomButton(titleText: "Continue".tr,onPressed: () => Get.back()),
-        ),
+        bottomNavigationBar:
+            GetBuilder<BookingRequestController>(builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+            child:
+
+                //===================================Continue Button=============================
+
+                controller.isLoading
+                    ? const CustomLoader()
+                    : CustomButton(
+                        titleText: "Continue".tr,
+                        onPressed: () async {
+                          debugPrint(
+                              "Date=========${selectedDate.year}-${selectedDate.month}-${selectedDate.day} Time-------- ${timeList[currentIndex]} ");
+
+                          bool success = await controller.reSchedule(
+                              id: bookingReqList.booking!.id.toString(),
+                              date:
+                                  "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}",
+                              time: timeList[currentIndex]);
+
+                          if (success) {
+                            Get.back();
+                            Get.back();
+                          }
+                        }),
+          );
+        }),
       ),
     );
   }

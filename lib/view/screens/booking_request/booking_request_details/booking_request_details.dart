@@ -90,6 +90,11 @@ class BookingRequestDetails extends StatelessWidget {
                 RowText(
                     field: "Date:".tr, value: bookingReqList.booking!.date!),
 
+                //==================================Time===============================
+                const SizedBox(height: 24),
+                RowText(
+                    field: "Time:".tr, value: bookingReqList.booking!.time!),
+
                 // //==================================Client name===============================
 
                 // Padding(
@@ -198,8 +203,7 @@ class BookingRequestDetails extends StatelessWidget {
                                                 updateBooking:
                                                     UpdateBooking.accept);
 
-                                    print(
-                                        "Success================================>>>>>>>>>>>>>>>>$success");
+                                   
                                     if (success == true) {
                                       Get.back();
                                     }
@@ -216,8 +220,9 @@ class BookingRequestDetails extends StatelessWidget {
                               buttonHeight: 44,
                               buttonColor: AppColors.bgColor,
                               borderColor: AppColors.primaryOrange,
-                              onPressed: () =>
-                                  Get.toNamed(AppRoute.bookingReSchedule),
+                              onPressed: () => Get.toNamed(
+                                  AppRoute.bookingReSchedule,
+                                  arguments: bookingReqList),
                             ),
                           ),
                         ],

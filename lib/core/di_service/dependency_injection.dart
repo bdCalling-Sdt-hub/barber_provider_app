@@ -3,6 +3,7 @@ import 'package:barbar_provider/view/screens/add_new_service/controllers/add_cat
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_provider_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/category_controller.dart';
+import 'package:barbar_provider/view/screens/approved_booking/controller/approved_booking_controller.dart';
 import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dart';
 import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
 
@@ -31,15 +32,15 @@ class Dependancy extends Bindings {
     Get.lazyPut(() => AddCatalougeController(), fenix: true);
     Get.lazyPut(() => HomeController(), fenix: true);
 
-    //============================Profile=======================
+    //============================Profile=========================
 
     Get.lazyPut(() => ProfileController(), fenix: true);
 
-    //============================Settings=======================
+    //============================Settings=========================
 
     Get.lazyPut(() => SettingsController(), fenix: true);
 
-    //============================Subscription=======================
+    //============================Subscription=========================
 
     Get.lazyPut(() => SubscriptionController(), fenix: true);
 
@@ -49,8 +50,12 @@ class Dependancy extends Bindings {
 
     Get.lazyPut(() => NotificationController(), fenix: true);
 
-    //============================Booking Request=====================
+    //============================Booking Request========================
 
     Get.lazyPut(() => BookingRequestController(), fenix: true);
+
+    //============================Approved Booking========================
+
+    Get.lazyPut(() => ApprovedBookingController(), fenix: true);
   }
 }

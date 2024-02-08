@@ -66,6 +66,10 @@ class ApiConstant {
 
   //========================Booking Request============================
   static const bookingReq = "api/booking/request";
+  static const reSchedule = "api/re/schedule/appoinment";
 
   static const bookingReqUpdate = "api/booking/accept";
+
+  //===================Booking Req===============================
+  static const approvedBooking = "api/approved/booking";
 }

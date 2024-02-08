@@ -4,21 +4,21 @@
 
 import 'dart:convert';
 
-BookingReqModel bookingReqModelFromJson(String str) =>
-    BookingReqModel.fromJson(json.decode(str));
+ApprovedBooking bookingReqModelFromJson(String str) =>
+    ApprovedBooking.fromJson(json.decode(str));
 
-String bookingReqModelToJson(BookingReqModel data) =>
+String bookingReqModelToJson(ApprovedBooking data) =>
     json.encode(data.toJson());
 
-class BookingReqModel {
+class ApprovedBooking {
   List<Datum>? data;
 
-  BookingReqModel({
+  ApprovedBooking({
     this.data,
   });
 
-  factory BookingReqModel.fromJson(Map<String, dynamic> json) =>
-      BookingReqModel(
+  factory ApprovedBooking.fromJson(Map<String, dynamic> json) =>
+      ApprovedBooking(
         data: json["data"] == null
             ? []
             : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),

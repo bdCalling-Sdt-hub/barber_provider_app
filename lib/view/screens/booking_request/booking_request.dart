@@ -46,35 +46,35 @@ class BookingsRequest extends StatelessWidget {
                     bookingReqController.refreshBookingReq();
                   },
                   child: ListView.builder(
+                      controller: bookingReqController.scrollController,
                       padding:
                           EdgeInsets.only(top: 24.h, left: 20.w, right: 20.w),
-                      itemCount: bookingReqController.bookingReqList.length,
+                      itemCount: bookingReqController.bookingReqModel.length,
                       itemBuilder: (context, index) {
                         var userInfo = bookingReqController
-                            .bookingReqList[index].booking!.user;
+                            .bookingReqModel[index].booking!.user;
 
-                        if (bookingReqController.isLoading) {
-                          return const CustomLoader();
-                        } else {
+                        if (bookingReqController.isLoadMoreRunning.value ==
+                            false) {
                           return BookingCard(
                             //============================Navigate Screen========================
 
                             onTap: () {
                               Get.toNamed(AppRoute.bookingRequestDetails,
                                   arguments: bookingReqController
-                                      .bookingReqList[index]);
+                                      .bookingReqModel[index]);
                             },
                             profileImage: userInfo!.image!,
                             profileName: userInfo.name!,
                             date: bookingReqController
-                                .bookingReqList[index].booking!.date!,
+                                .bookingReqModel[index].booking!.date!,
                             catelouges: bookingReqController
-                                .bookingReqList[index].catalogDetails!,
+                                .bookingReqModel[index].catalogDetails!,
                             totalPrice: bookingReqController
-                                .bookingReqList[index].booking!.price!,
+                                .bookingReqModel[index].booking!.price!,
                             buttonLeft: "Accept".tr,
                             time: bookingReqController
-                                .bookingReqList[index].booking!.time!,
+                                .bookingReqModel[index].booking!.time!,
                             buttonRight: "Decline".tr,
 
                             //===============================Accept Button===========================
@@ -97,13 +97,11 @@ class BookingsRequest extends StatelessWidget {
                               //   },
                               // );
 
-                             bookingReqController.updateBooking(
-                                      bookingID: bookingReqController
-                                          .bookingReqList[index].booking!.id
-                                          .toString(),
-                                      updateBooking: UpdateBooking.accept);
-
-                             
+                              bookingReqController.updateBooking(
+                                  bookingID: bookingReqController
+                                      .bookingReqModel[index].booking!.id
+                                      .toString(),
+                                  updateBooking: UpdateBooking.accept);
                             },
 
                             //===============================Decline Button===========================
@@ -126,11 +124,13 @@ class BookingsRequest extends StatelessWidget {
 
                               bookingReqController.updateBooking(
                                   bookingID: bookingReqController
-                                      .bookingReqList[index].booking!.id
+                                      .bookingReqModel[index].booking!.id
                                       .toString(),
                                   updateBooking: UpdateBooking.decline);
                             },
                           );
+                        } else {
+                          return const CustomLoader();
                         }
                       }),
                 );
