@@ -1,13 +1,19 @@
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/view/screens/bookings/controller/booking_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
-import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
+import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class BookingsScreen extends StatelessWidget {
-  const BookingsScreen({super.key});
+  BookingsScreen({super.key});
+
+  final BookingsController bookingsController = Get.find<BookingsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,227 +24,102 @@ class BookingsScreen extends StatelessWidget {
         extendBody: true,
         appBar: CustomAppBar(
             appBarContent: CustomBack(text: "Bookings".tr, isIcon: false)),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        body: Padding(
+          padding: EdgeInsets.only(top: 24.h, left: 20.w, right: 20.r),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomTextField(
-                hintText: "Search",
-                prefixIcon:
-                    Icon(Icons.search, size: 18, color: AppColors.white),
+              Container(
+                width: double.maxFinite,
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(top: 24),
+                decoration: const BoxDecoration(
+                    color: AppColors.primaryOrange,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8),
+                        topLeft: Radius.circular(8))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomText(
+                        text: "Client".tr,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600),
+                    CustomText(
+                        text: "Catelouge".tr,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600),
+                    CustomText(
+                        text: "Date & Time".tr,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600),
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(top: 24),
-                    decoration: const BoxDecoration(
-                        color: AppColors.primaryOrange,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            topLeft: Radius.circular(8))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(
-                            text: "Client".tr,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600),
-                        CustomText(
-                            text: "Services".tr,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600),
-                        CustomText(
-                            text: "Date & Time".tr,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.maxFinite,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8)),
-                        border: Border.all(
-                            color: AppColors.stroke,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        color: AppColors.cardBgColor),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomText(text: "Jane Cooper".tr, fontSize: 10),
-                        CustomText(text: "Hair Cut, Shaving".tr, fontSize: 10),
-                        Flexible(
-                            child: CustomText(
-                                text: "23 Sept, 10:02 am".tr,
-                                fontSize: 10,
-                                maxLines: 2,
-                                textAlign: TextAlign.right,
-                                overflow: TextOverflow.ellipsis)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              Obx(() {
+                switch (bookingsController.rxRequestStatus.value) {
+                  case Status.loading:
+                    return const CustomLoader();
+                  case Status.internetError:
+                    return const CustomLoader();
+                  case Status.error:
+                    return GeneralErrorScreen(
+                      onTap: () {
+                        bookingsController.bookings();
+                      },
+                    );
+
+                  case Status.completed:
+                    return Expanded(
+                        child: ListView.builder(
+                      itemCount: bookingsController.bookingsModel.length,
+                      itemBuilder: (context, index) {
+                        var bookInfo =
+                            bookingsController.bookingsModel[index].booking;
+
+                        var catelouge = bookingsController
+                            .bookingsModel[index].catalogDetails;
+                        return Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: AppColors.stroke,
+                                  width: 1,
+                                  style: BorderStyle.solid),
+                              color: AppColors.cardBgColor),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CustomText(
+                                  text: bookInfo!.user!.name!, fontSize: 10),
+                              Wrap(
+                                alignment: WrapAlignment.end,
+                                children:
+                                    List.generate(catelouge!.length, (index) {
+                                  return CustomText(
+                                    maxLines: 100,
+                                    fontSize: 10,
+                                    right: 0,
+                                    text: "${catelouge[index].catalogName!} ",
+                                  );
+                                }),
+                              ),
+                              Flexible(
+                                  child: CustomText(
+                                      text: bookInfo.date!,
+                                      fontSize: 10,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.right,
+                                      overflow: TextOverflow.ellipsis)),
+                            ],
+                          ),
+                        );
+                      },
+                    ));
+                }
+              })
             ],
           ),
         ),

@@ -22,7 +22,7 @@ class _NavBarState extends State<NavBar> {
   static List<Widget> screens = <Widget>[
     const HomeRoutes(),
     const EarningsScreen(),
-    const BookingsScreen(),
+    BookingsScreen(),
     ProfileScreen()
   ];
 

@@ -57,106 +57,110 @@ class BookingHistory extends StatelessWidget with GetxServiceMixin {
 
                       var catalogDetails = bookingHistoryController
                           .bookingHistoryModel[index].catalogDetails!;
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        padding: const EdgeInsets.all(16),
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: AppColors.cardBgColor,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //=================================Calender Icon and Date==================================
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                //===========Calender Icon========
-                                const CustomImage(
-                                    imageSrc: AppIcons.bookings, size: 20),
 
-                                //==============Date===========
+                      if (bookingHistoryController.isLoadMoreRunning.value ==
+                          false) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(16),
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                              color: AppColors.cardBgColor,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //=================================Calender Icon and Date==================================
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  //===========Calender Icon========
+                                  const CustomImage(
+                                      imageSrc: AppIcons.bookings, size: 20),
 
-                                CustomText(
-                                    text: "${bookInfo!.date}, ${bookInfo.time}",
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.primaryOrange,
-                                    left: 16),
-                              ],
-                            ),
+                                  //==============Date===========
 
-                            //======================================Client name=========================================
+                                  CustomText(
+                                      text:
+                                          "${bookInfo!.date}, ${bookInfo.time}",
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.primaryOrange,
+                                      left: 16),
+                                ],
+                              ),
 
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              child: RowText(
-                                  field: "Client name :".tr,
-                                  value: bookInfo.user!.name.toString()),
-                            ),
+                              //======================================Client name=========================================
 
-                            // //======================================Catelouges=========================================
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: RowText(
+                                    field: "Client name :".tr,
+                                    value: bookInfo.user!.name.toString()),
+                              ),
 
-                            // RowText(
-                            //     field: "Services :".tr,
-                            //     value: "Regular Hair Cut, Hair Spa"),
+                              // //======================================Catelouges=========================================
 
-                            //=================================Catelouge==============================
-
-                            Row(
-                              children: [
-                                const CustomText(
-                                  fontSize: 14,
-                                  text: "Catelouge :",
-                                ),
-                                const Expanded(child: SizedBox()),
-                                Expanded(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.end,
-                                    children: List.generate(
-                                        catalogDetails.length, (index) {
-                                      return CustomText(
-                                        maxLines: 100,
-                                        fontSize: 12.w,
-                                        fontWeight: FontWeight.w500,
-                                        right: 0,
-                                        text:
-                                            "${catalogDetails[index].catalogName!} ",
-                                      );
-                                    }),
+                              Row(
+                                children: [
+                                  const CustomText(
+                                    fontSize: 14,
+                                    text: "Catelouge :",
                                   ),
-                                )
-                              ],
-                            ),
+                                  const Expanded(child: SizedBox()),
+                                  Expanded(
+                                    child: Wrap(
+                                      alignment: WrapAlignment.end,
+                                      children: List.generate(
+                                          catalogDetails.length, (index) {
+                                        return CustomText(
+                                          maxLines: 100,
+                                          fontSize: 12.w,
+                                          fontWeight: FontWeight.w500,
+                                          right: 0,
+                                          text:
+                                              "${catalogDetails[index].catalogName!} ",
+                                        );
+                                      }),
+                                    ),
+                                  )
+                                ],
+                              ),
 
-                            //======================================Service Type=========================================
+                              //======================================Service Type=========================================
 
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              child: RowText(
-                                  field: "Service Type :".tr,
-                                  value: bookInfo.serviceType.toString()),
-                            ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                child: RowText(
+                                    field: "Service Type :".tr,
+                                    value: bookInfo.serviceType.toString()),
+                              ),
 
-                            //=================================Total Amount==================================
+                              //=================================Total Amount==================================
 
-                            RowText(
-                                field: "Total Amount :".tr,
-                                value: "${bookInfo.price} \$"),
+                              RowText(
+                                  field: "Total Amount :".tr,
+                                  value: "${bookInfo.price} \$"),
 
-                            //=================================Booking Status ==================================
+                              //=================================Booking Status ==================================
 
-                            Padding(
-                              padding: const EdgeInsets.only(top: 12),
-                              child: RowText(
-                                  field: "Booking Status :".tr,
-                                  value: bookingHistoryController.bookingStatus(
-                                      bookingStatus: bookInfo.status!),
-                                  color: AppColors.green),
-                            ),
-                          ],
-                        ),
-                      );
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: RowText(
+                                    field: "Booking Status :".tr,
+                                    value:
+                                        bookingHistoryController.bookingStatus(
+                                            bookingStatus: bookInfo.status!),
+                                    color: AppColors.green),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const CustomLoader();
+                      }
                     },
                   ),
                 );
