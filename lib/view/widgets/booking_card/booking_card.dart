@@ -1,7 +1,6 @@
 import 'package:barbar_provider/helper/network_image.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
-import 'package:barbar_provider/view/screens/booking_request/model/booking_req_model.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
@@ -29,7 +28,7 @@ class BookingCard extends StatelessWidget {
   final String date;
   final String time;
 
-  final List<CatalogDetail>? catelouges;
+  final List<dynamic>? catelouges;
   final String totalPrice;
   final String buttonLeft;
   final String buttonRight;

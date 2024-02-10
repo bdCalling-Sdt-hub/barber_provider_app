@@ -2,19 +2,21 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
-import 'package:barbar_provider/view/screens/approved_booking/model/approved_booking_model.dart';
+import 'package:barbar_provider/view/screens/booking_history/model/booking_history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ApprovedBookingController extends GetxController with GetxServiceMixin {
+class BookingHistoryController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
-  RxList<Datum> approvedBookingModel = <Datum>[].obs;
+  RxList<Datum> bookingHistoryModel = <Datum>[].obs;
 
   var totalPage = 0;
   var currentPage = 0;
+
+  bool isLoading = false;
 
   ScrollController scrollController = ScrollController();
 
@@ -27,23 +29,21 @@ class ApprovedBookingController extends GetxController with GetxServiceMixin {
     }
   }
 
-  //==================================Get Approved Booking req==================================
+  //=================================Booking History===========================
 
-  approvedBooking() async {
+  bookingHistory() async {
     setRxRequestStatus(Status.loading);
 
-    var response = await ApiClient.getData(ApiConstant.approvedBooking);
+    var response = await ApiClient.getData(ApiConstant.bookingHistory);
 
     if (response.statusCode == 200) {
-      page = 1;
-      approvedBookingModel.value =
+      bookingHistoryModel.value =
           List<Datum>.from(response.body["data"].map((x) => Datum.fromJson(x)));
 
-      if (approvedBookingModel.isNotEmpty) {
+      if (bookingHistoryModel.isNotEmpty) {
         currentPage = response.body['pagination']['current_page'];
-        totalPage = response.body['pagination']['last_page'];
+        totalPage = response.body['pagination']['total_pages'];
       }
-
       setRxRequestStatus(Status.completed);
     } else {
       if (response.statusText == ApiClient.noInternetMessage) {
@@ -55,32 +55,32 @@ class ApprovedBookingController extends GetxController with GetxServiceMixin {
     }
   }
 
-//==================================Pagination============================
+//==================================Pagination Load More Data============================
 
   var isLoadMoreRunning = false.obs;
-  int page = 1;
+  RxInt page = 1.obs;
 
   loadMore() async {
     debugPrint(
-        "============================>>>>>>>>>load more Approved Booking");
+        "============================>>>>>>>>>load more Booking History");
     if (rxRequestStatus.value != Status.loading &&
         isLoadMoreRunning.value == false &&
         totalPage != currentPage) {
       isLoadMoreRunning(true);
-      page += 1;
+      page.value += 1;
 
       Response response = await ApiClient.getData(
         "${ApiConstant.approvedBooking}?page=$page",
       );
       currentPage = response.body['pagination']['current_page'];
-      totalPage = response.body['pagination']['last_page'];
+      totalPage = response.body['pagination']['total_pages'];
 
       if (response.statusCode == 200) {
         var demoList = List<Datum>.from(
             response.body["data"].map((x) => Datum.fromJson(x)));
-        approvedBookingModel.addAll(demoList);
+        bookingHistoryModel.addAll(demoList);
 
-        approvedBookingModel.refresh();
+        bookingHistoryModel.refresh();
       } else {
         ApiChecker.checkApi(response);
       }
@@ -88,18 +88,34 @@ class ApprovedBookingController extends GetxController with GetxServiceMixin {
     }
   }
 
-//=====================refresh Approved Booking==================
+//=================================refresh Approved Booking===============================
 
-  refreshApprovedBooking() {
-    page = 1;
-    approvedBookingModel.clear();
-    approvedBooking();
+  refreshBookingHistory() {
+    page = 1.obs;
+    bookingHistoryModel.clear();
+    bookingHistory();
+  }
+
+//==============================Get Booking Status======================
+
+  String bookingStatus({required int bookingStatus}) {
+    if (bookingStatus == 0) {
+      return "Pending";
+    } else if (bookingStatus == 1) {
+      return "Approved";
+    } else if (bookingStatus == 2) {
+      return "Complete";
+    } else if (bookingStatus == 3) {
+      return "Late";
+    } else {
+      return "Decline";
+    }
   }
 
   @override
   void onInit() {
-    approvedBooking();
     scrollController.addListener(addScrollListener);
+    bookingHistory();
     super.onInit();
   }
 }

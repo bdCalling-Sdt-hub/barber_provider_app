@@ -1,41 +1,115 @@
 import 'package:barbar_provider/utils/app_colors.dart';
-import 'package:barbar_provider/utils/app_images.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/view/screens/approved_booking/controller/approved_booking_controller.dart';
+import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/booking_card/booking_card.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
+import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
+import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ApprovedBooking extends StatelessWidget {
-  const ApprovedBooking({super.key});
+  ApprovedBooking({super.key});
 
+  final ApprovedBookingController approvedBookingController =
+      Get.find<ApprovedBookingController>();
+
+  final BookingRequestController bookingRequestController =
+      Get.find<BookingRequestController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: true,
-      child: Scaffold(
-        backgroundColor: AppColors.bgColor,
-        extendBody: true,
-        appBar: CustomAppBar(
-            appBarContent: CustomBack(text: "Approved Bookings".tr)),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // BookingCard(
-              //     profileImage: AppImages.profile,
-              //     profileName: "Jane Cooper",
-              //     date: "24 Nov 2023",
-              //     catelouges: "Regular Hair Cut, Hair Spa",
-              //     totalPrice: "100",
-              //     buttonLeft: "Complete".tr,
-              //     buttonRight: "Mark as late".tr)
-            ],
-          ),
-        ),
-      ),
-    );
+        top: true,
+        child: Scaffold(
+            backgroundColor: AppColors.bgColor,
+            extendBody: true,
+            appBar: CustomAppBar(
+                appBarContent: CustomBack(text: "Approved Bookings".tr)),
+            body: Obx(() {
+              switch (approvedBookingController.rxRequestStatus.value) {
+                case Status.loading:
+                  return const CustomLoader();
+                case Status.internetError:
+                  return const CustomLoader();
+                case Status.error:
+                  return GeneralErrorScreen(
+                    onTap: () {
+                      approvedBookingController.refreshApprovedBooking();
+                    },
+                  );
+
+                case Status.completed:
+                  return approvedBookingController.approvedBookingModel.isEmpty
+                      ? Center(
+                          child: CustomText(
+                            fontSize: 18.sp,
+                            text: "Empty",
+                          ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            approvedBookingController.approvedBooking();
+                          },
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(
+                                top: 24.h, right: 20.w, left: 20.w),
+                            controller:
+                                approvedBookingController.scrollController,
+                            itemCount: approvedBookingController
+                                .approvedBookingModel.length,
+                            itemBuilder: (context, index) {
+                              var data = approvedBookingController
+                                  .approvedBookingModel[index].booking;
+
+                              if (approvedBookingController
+                                      .isLoadMoreRunning.value ==
+                                  false) {
+                                return BookingCard(
+                                  profileImage: data!.user!.image.toString(),
+                                  profileName: data.user!.name.toString(),
+                                  date: data.date.toString(),
+                                  catelouges: approvedBookingController
+                                      .approvedBookingModel[index]
+                                      .catalogDetails,
+                                  totalPrice: data.price.toString(),
+                                  buttonLeft: "Complete".tr,
+                                  buttonRight: "Mark as late".tr,
+                                  time: data.time.toString(),
+
+                                  //================================Complete Button=========================
+
+                                  onPressedLeft: () {
+                                    bookingRequestController.updateBooking(
+                                        bookingID: approvedBookingController
+                                            .approvedBookingModel[index]
+                                            .booking!
+                                            .id
+                                            .toString(),
+                                        updateBooking: UpdateBooking.complete);
+                                  },
+                                  //================================Complete Button=========================
+
+                                  onPressedRight: () {
+                                    bookingRequestController.updateBooking(
+                                        bookingID: approvedBookingController
+                                            .approvedBookingModel[index]
+                                            .booking!
+                                            .id
+                                            .toString(),
+                                        updateBooking: UpdateBooking.late);
+                                  },
+                                );
+                              } else {
+                                return const CustomLoader();
+                              }
+                            },
+                          ),
+                        );
+              }
+            })));
   }
 }

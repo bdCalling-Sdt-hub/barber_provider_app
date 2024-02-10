@@ -72,4 +72,7 @@ class ApiConstant {
 
   //===================Booking Req===============================
   static const approvedBooking = "api/approved/booking";
+
+    //===================Booking History===============================
+  static const bookingHistory = "api/booking/history";
 }

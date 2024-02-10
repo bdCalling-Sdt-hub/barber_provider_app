@@ -1,156 +1,167 @@
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/app_icons.dart';
+import 'package:barbar_provider/view/screens/booking_history/controller/booking_history_controller.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
+import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
+import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class BookingHistory extends StatelessWidget {
-  const BookingHistory({super.key});
+class BookingHistory extends StatelessWidget with GetxServiceMixin {
+  BookingHistory({super.key});
+
+  final BookingHistoryController bookingHistoryController =
+      Get.find<BookingHistoryController>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: true,
       child: Scaffold(
-        extendBody: true,
-        backgroundColor: AppColors.bgColor,
-        appBar: CustomAppBar(appBarContent: CustomBack(text: "Booking History".tr)),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 24),
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.all(16),
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  color: AppColors.cardBgColor,
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomImage(imageSrc: AppIcons.bookings,size: 20),
-                        CustomText(text: "06 Nov 2023, 07:30",fontWeight: FontWeight.w500,color: AppColors.primaryOrange,left: 16),
-                      ],
-                    ),
+          extendBody: true,
+          backgroundColor: AppColors.bgColor,
+          appBar: CustomAppBar(
+              appBarContent: CustomBack(text: "Booking History".tr)),
+          body: Obx(() {
+            switch (bookingHistoryController.rxRequestStatus.value) {
+              case Status.loading:
+                return const CustomLoader();
+              case Status.internetError:
+                return const CustomLoader();
+              case Status.error:
+                return GeneralErrorScreen(
+                  onTap: () {
+                    bookingHistoryController.bookingHistory();
+                  },
+                );
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Client name :".tr, value: "Jane Cooper"),
-                    ),
+              case Status.completed:
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    bookingHistoryController.refreshBookingHistory();
+                  },
+                  child: ListView.builder(
+                    controller: bookingHistoryController.scrollController,
+                    padding: EdgeInsets.only(top: 24.h, left: 20, right: 20),
+                    itemCount:
+                        bookingHistoryController.bookingHistoryModel.length,
+                    itemBuilder: (context, index) {
+                      var bookInfo = bookingHistoryController
+                          .bookingHistoryModel[index].booking;
 
-                    RowText(field: "Services :".tr, value: "Regular Hair Cut, Hair Spa"),
+                      var catalogDetails = bookingHistoryController
+                          .bookingHistoryModel[index].catalogDetails!;
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(16),
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: AppColors.cardBgColor,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //=================================Calender Icon and Date==================================
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                //===========Calender Icon========
+                                const CustomImage(
+                                    imageSrc: AppIcons.bookings, size: 20),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Service Type :".tr, value: "Home Service"),
-                    ),
+                                //==============Date===========
 
-                    RowText(field: "Total Amount :".tr, value: "\$ 100"),
+                                CustomText(
+                                    text: "${bookInfo!.date}, ${bookInfo.time}",
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.primaryOrange,
+                                    left: 16),
+                              ],
+                            ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: RowText(field: "Booking Status :".tr, value: "Completed",color: AppColors.green),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.all(16),
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    color: AppColors.cardBgColor,
-                    borderRadius: BorderRadius.circular(8)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomImage(imageSrc: AppIcons.bookings,size: 20),
-                        CustomText(text: "06 Nov 2023, 07:30",fontWeight: FontWeight.w500,color: AppColors.primaryOrange,left: 16),
-                      ],
-                    ),
+                            //======================================Client name=========================================
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Client name :".tr, value: "Jane Cooper"),
-                    ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: RowText(
+                                  field: "Client name :".tr,
+                                  value: bookInfo.user!.name.toString()),
+                            ),
 
-                    RowText(field: "Services :".tr, value: "Regular Hair Cut, Hair Spa"),
+                            // //======================================Catelouges=========================================
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Service Type :".tr, value: "Home Service"),
-                    ),
+                            // RowText(
+                            //     field: "Services :".tr,
+                            //     value: "Regular Hair Cut, Hair Spa"),
 
-                    RowText(field: "Total Amount :".tr, value: "\$ 100"),
+                            //=================================Catelouge==============================
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: RowText(field: "Booking Status :".tr, value: "Marked as late",color: AppColors.yellow),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.all(16),
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                    color: AppColors.cardBgColor,
-                    borderRadius: BorderRadius.circular(8)
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CustomImage(imageSrc: AppIcons.bookings,size: 20),
-                        CustomText(text: "06 Nov 2023, 07:30",fontWeight: FontWeight.w500,color: AppColors.primaryOrange,left: 16),
-                      ],
-                    ),
+                            Row(
+                              children: [
+                                const CustomText(
+                                  fontSize: 14,
+                                  text: "Catelouge :",
+                                ),
+                                const Expanded(child: SizedBox()),
+                                Expanded(
+                                  child: Wrap(
+                                    alignment: WrapAlignment.end,
+                                    children: List.generate(
+                                        catalogDetails.length, (index) {
+                                      return CustomText(
+                                        maxLines: 100,
+                                        fontSize: 12.w,
+                                        fontWeight: FontWeight.w500,
+                                        right: 0,
+                                        text:
+                                            "${catalogDetails[index].catalogName!} ",
+                                      );
+                                    }),
+                                  ),
+                                )
+                              ],
+                            ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Client name :".tr, value: "Jane Cooper"),
-                    ),
+                            //======================================Service Type=========================================
 
-                    RowText(field: "Services :".tr, value: "Regular Hair Cut, Hair Spa"),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: RowText(
+                                  field: "Service Type :".tr,
+                                  value: bookInfo.serviceType.toString()),
+                            ),
 
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      child: RowText(field: "Service Type :".tr, value: "Home Service"),
-                    ),
+                            //=================================Total Amount==================================
 
-                    RowText(field: "Total Amount :".tr, value: "\$ 100"),
+                            RowText(
+                                field: "Total Amount :".tr,
+                                value: "${bookInfo.price} \$"),
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: RowText(field: "Booking Status :".tr, value: "Cancelled",color: AppColors.red),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+                            //=================================Booking Status ==================================
+
+                            Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: RowText(
+                                  field: "Booking Status :".tr,
+                                  value: bookingHistoryController.bookingStatus(
+                                      bookingStatus: bookInfo.status!),
+                                  color: AppColors.green),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                );
+            }
+          })),
     );
   }
 }

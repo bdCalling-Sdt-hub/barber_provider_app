@@ -3,6 +3,7 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/approved_booking/controller/approved_booking_controller.dart';
 import 'package:barbar_provider/view/screens/booking_request/model/booking_req_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,33 +13,15 @@ enum UpdateBooking { accept, decline, late, complete }
 class BookingRequestController extends GetxController with GetxServiceMixin {
   final rxRequestStatus = Status.loading.obs;
 
+  ApprovedBookingController approvedBookingController =
+      Get.find<ApprovedBookingController>();
+
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   RxList<Datum> bookingReqModel = <Datum>[].obs;
 
-  RxList<bool> isSelectRemoveList = <bool>[].obs;
-
-  var isSelected = false.obs;
-
   var totalPage = 0;
   var currentPage = 0;
-
-  selectContent(int index) {
-    isSelectRemoveList[index] = !isSelectRemoveList[index];
-    var isEmpty = [];
-    for (int i = 0; i < isSelectRemoveList.length; i++) {
-      if (isSelectRemoveList[i] == true) {
-        isEmpty.add(i);
-      }
-    }
-    if (isEmpty.isEmpty) {
-      isSelected.value = false;
-    }
-
-    isSelectRemoveList.refresh();
-  }
-
-  //RxList bookingReqList = [].obs;
 
   bool isLoading = false;
 
@@ -61,10 +44,13 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
     var response = await ApiClient.getData(ApiConstant.bookingReq);
 
     if (response.statusCode == 200) {
-      currentPage = response.body['pagination']['current_page'];
-      totalPage = response.body['pagination']['total_pages'];
       bookingReqModel.value =
           List<Datum>.from(response.body["data"].map((x) => Datum.fromJson(x)));
+
+      if (bookingReqModel.isNotEmpty) {
+        currentPage = response.body['pagination']['current_page'];
+        totalPage = response.body['pagination']['total_pages'];
+      }
 
       //  bookingReqList.value = bookingReqModel.value.data!;
       setRxRequestStatus(Status.completed);
@@ -78,12 +64,7 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
     }
   }
 
-//=====================refresh Booking==================
-  refreshBookingReq() {
-    bookingReq();
-    refresh();
-  }
-  //==================Update Booking like Accept==1, Decline==4, Mark-as-late==3, complete==2  =================
+//==================Update Booking like Accept==1, Decline==4, Mark-as-late==3, complete==2=================
 
   Future<bool> updateBooking(
       {required String bookingID, required UpdateBooking updateBooking}) async {
@@ -104,7 +85,9 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
     var response = await ApiClient.postData(ApiConstant.bookingReqUpdate, body);
 
     if (response.statusCode == 200) {
-      toastMessage(message: "Booking Accepted");
+      toastMessage(message: "Success");
+
+      approvedBookingController.approvedBooking();
       refreshBookingReq();
       isLoading = false;
       update();
@@ -148,7 +131,7 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
 //==================================Pagination============================
 
   var isLoadMoreRunning = false.obs;
-  int page = 1;
+  RxInt page = 1.obs;
 
   loadMore() async {
     debugPrint("===============load more=============");
@@ -156,7 +139,7 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
         isLoadMoreRunning.value == false &&
         totalPage != currentPage) {
       isLoadMoreRunning(true);
-      page += 1;
+      page.value += 1;
 
       Response response = await ApiClient.getData(
         "${ApiConstant.bookingReq}?page=$page",
@@ -169,15 +152,20 @@ class BookingRequestController extends GetxController with GetxServiceMixin {
             response.body["data"].map((x) => Datum.fromJson(x)));
         bookingReqModel.addAll(demoList);
 
-        for (int i = 0; i < bookingReqModel.length; i++) {
-          isSelectRemoveList.add(false);
-        }
         bookingReqModel.refresh();
       } else {
         ApiChecker.checkApi(response);
       }
       isLoadMoreRunning(false);
     }
+  }
+
+//=====================refresh Booking==================
+  refreshBookingReq() {
+    bookingReqModel.clear();
+    bookingReq();
+    page.value = 1;
+    refresh();
   }
 
   @override

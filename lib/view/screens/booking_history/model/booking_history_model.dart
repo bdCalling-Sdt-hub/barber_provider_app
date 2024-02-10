@@ -1,48 +1,56 @@
 // To parse this JSON data, do
 //
-//     final bookingReqModel = bookingReqModelFromJson(jsonString);
+//     final bookingHistory = bookingHistoryFromJson(jsonString);
 
 import 'dart:convert';
 
-BookingReqModel bookingReqModelFromJson(String str) =>
-    BookingReqModel.fromJson(json.decode(str));
+BookingHistory bookingHistoryFromJson(String str) =>
+    BookingHistory.fromJson(json.decode(str));
 
-String bookingReqModelToJson(BookingReqModel data) =>
-    json.encode(data.toJson());
+String bookingHistoryToJson(BookingHistory data) => json.encode(data.toJson());
 
-class BookingReqModel {
+class BookingHistory {
   List<Datum>? data;
+  Pagination? pagination;
 
-  BookingReqModel({
+  BookingHistory({
     this.data,
+    this.pagination,
   });
 
-  factory BookingReqModel.fromJson(Map<String, dynamic> json) =>
-      BookingReqModel(
+  factory BookingHistory.fromJson(Map<String, dynamic> json) => BookingHistory(
         data: json["data"] == null
             ? []
             : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+        pagination: json["pagination"] == null
+            ? null
+            : Pagination.fromJson(json["pagination"]),
       );
 
   Map<String, dynamic> toJson() => {
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "pagination": pagination?.toJson(),
       };
 }
 
 class Datum {
   Booking? booking;
+  Service? service;
   List<CatalogDetail>? catalogDetails;
 
   Datum({
     this.booking,
+    this.service,
     this.catalogDetails,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         booking:
             json["booking"] == null ? null : Booking.fromJson(json["booking"]),
+        service:
+            json["service"] == null ? null : Service.fromJson(json["service"]),
         catalogDetails: json["catalog_details"] == null
             ? []
             : List<CatalogDetail>.from(
@@ -51,6 +59,7 @@ class Datum {
 
   Map<String, dynamic> toJson() => {
         "booking": booking?.toJson(),
+        "service": service?.toJson(),
         "catalog_details": catalogDetails == null
             ? []
             : List<dynamic>.from(catalogDetails!.map((x) => x.toJson())),
@@ -93,7 +102,7 @@ class Booking {
         userId: json["user_id"],
         providerId: json["provider_id"],
         service: json["service"],
-        serviceType: json["service_type"],
+        serviceType: json["service_type"]!,
         serviceDuration: json["service_duration"],
         price: json["price"],
         date: json["date"],
@@ -127,17 +136,17 @@ class Booking {
 
 class User {
   int? id;
-  String? name;
-  String? email;
+  Name? name;
+  Email? email;
   dynamic emailVerifiedAt;
   int? isVerified;
-  String? image;
+  UserImage? image;
   String? latitude;
   String? longitude;
-  String? userType;
+  UserType? userType;
   String? userStatus;
   String? phoneNumber;
-  String? address;
+  Address? address;
   dynamic googleId;
   dynamic facebookId;
   DateTime? createdAt;
@@ -166,17 +175,17 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: json["name"],
-        email: json["email"],
+        name: nameValues.map[json["name"]]!,
+        email: emailValues.map[json["email"]]!,
         emailVerifiedAt: json["email_verified_at"],
         isVerified: json["is_verified"],
-        image: json["image"],
+        image: userImageValues.map[json["image"]]!,
         latitude: json["latitude"],
         longitude: json["longitude"],
-        userType: json["user_type"],
+        userType: userTypeValues.map[json["user_type"]]!,
         userStatus: json["user_status"],
-        phoneNumber: json["phone_number"] ?? "None",
-        address: json["address"] ?? "None",
+        phoneNumber: json["phone_number"],
+        address: addressValues.map[json["address"]]!,
         googleId: json["google_id"],
         facebookId: json["facebook_id"],
         createdAt: json["created_at"] == null
@@ -190,17 +199,17 @@ class User {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
-        "email": email,
+        "name": nameValues.reverse[name],
+        "email": emailValues.reverse[email],
         "email_verified_at": emailVerifiedAt,
         "is_verified": isVerified,
-        "image": image,
+        "image": userImageValues.reverse[image],
         "latitude": latitude,
         "longitude": longitude,
-        "user_type": userType,
+        "user_type": userTypeValues.reverse[userType],
         "user_status": userStatus,
         "phone_number": phoneNumber,
-        "address": address,
+        "address": addressValues.reverse[address],
         "google_id": googleId,
         "facebook_id": facebookId,
         "created_at": createdAt?.toIso8601String(),
@@ -209,13 +218,35 @@ class User {
       };
 }
 
+enum Address { DHAKA }
+
+final addressValues = EnumValues({"dhaka": Address.DHAKA});
+
+enum Email { SOKOREY431_GIRATEX_COM }
+
+final emailValues =
+    EnumValues({"sokorey431@giratex.com": Email.SOKOREY431_GIRATEX_COM});
+
+enum UserImage { DUMMY_IMG_DEFAULT_JPG }
+
+final userImageValues =
+    EnumValues({"dummyImg/default.jpg": UserImage.DUMMY_IMG_DEFAULT_JPG});
+
+enum Name { NADIM_HASAN }
+
+final nameValues = EnumValues({"Nadim hasan": Name.NADIM_HASAN});
+
+enum UserType { USER }
+
+final userTypeValues = EnumValues({"user": UserType.USER});
+
 class CatalogDetail {
   int? id;
   int? providerId;
   int? serviceId;
   String? catalogName;
   String? catalogDescription;
-  String? image;
+  CatalogDetailImage? image;
   String? serviceDuration;
   String? salonServiceCharge;
   String? homeServiceCharge;
@@ -244,9 +275,9 @@ class CatalogDetail {
         id: json["id"],
         providerId: json["provider_id"],
         serviceId: json["service_id"],
-        catalogName: json["catalog_name"],
+        catalogName: json["catalog_name"]!,
         catalogDescription: json["catalog_description"],
-        image: json["image"],
+        image: catalogDetailImageValues.map[json["image"]]!,
         serviceDuration: json["service_duration"],
         salonServiceCharge: json["salon_service_charge"],
         homeServiceCharge: json["home_service_charge"],
@@ -266,7 +297,7 @@ class CatalogDetail {
         "service_id": serviceId,
         "catalog_name": catalogName,
         "catalog_description": catalogDescription,
-        "image": image,
+        "image": catalogDetailImageValues.reverse[image],
         "service_duration": serviceDuration,
         "salon_service_charge": salonServiceCharge,
         "home_service_charge": homeServiceCharge,
@@ -275,4 +306,84 @@ class CatalogDetail {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+}
+
+enum CatalogDetailImage {
+  IMAGES_1707129035_DOWNLOAD_2_JPG,
+  IMAGES_1707129846_IMAGES_15_JPG
+}
+
+final catalogDetailImageValues = EnumValues({
+  "[\"images\\/1707129035.download (2).jpg\"]":
+      CatalogDetailImage.IMAGES_1707129035_DOWNLOAD_2_JPG,
+  "[\"images\\/1707129846.images (15).jpg\"]":
+      CatalogDetailImage.IMAGES_1707129846_IMAGES_15_JPG
+});
+
+class Service {
+  int? serviceId;
+  int? catalougeId;
+
+  Service({
+    this.serviceId,
+    this.catalougeId,
+  });
+
+  factory Service.fromJson(Map<String, dynamic> json) => Service(
+        serviceId: json["service_id"],
+        catalougeId: json["catalouge_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "service_id": serviceId,
+        "catalouge_id": catalougeId,
+      };
+}
+
+class Pagination {
+  int? currentPage;
+  int? totalPages;
+  int? perPage;
+  int? total;
+  dynamic nextPageUrl;
+  dynamic prevPageUrl;
+
+  Pagination({
+    this.currentPage,
+    this.totalPages,
+    this.perPage,
+    this.total,
+    this.nextPageUrl,
+    this.prevPageUrl,
+  });
+
+  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
+        currentPage: json["current_page"],
+        totalPages: json["total_pages"],
+        perPage: json["per_page"],
+        total: json["total"],
+        nextPageUrl: json["next_page_url"],
+        prevPageUrl: json["prev_page_url"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "current_page": currentPage,
+        "total_pages": totalPages,
+        "per_page": perPage,
+        "total": total,
+        "next_page_url": nextPageUrl,
+        "prev_page_url": prevPageUrl,
+      };
+}
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
