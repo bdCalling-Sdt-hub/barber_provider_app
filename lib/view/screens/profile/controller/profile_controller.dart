@@ -148,6 +148,7 @@ class ProfileController extends GetxController with GetxServiceMixin {
       List<Datum>? rawdata = myPackage.data;
       if (rawdata != null && rawdata.isNotEmpty) {
         packageInfo = rawdata;
+        refresh();
       }
       update();
     } else {

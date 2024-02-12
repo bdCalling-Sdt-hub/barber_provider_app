@@ -78,4 +78,8 @@ class ApiConstant {
 
   //===================Booking History===============================
   static const bookingHistory = "api/booking/history";
+
+  //==============================Income===============================
+  static const weeklyIncome = "api/week/income";
+  static const monthIncome = "api/month/income";
 }

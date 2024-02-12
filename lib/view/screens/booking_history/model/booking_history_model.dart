@@ -136,17 +136,17 @@ class Booking {
 
 class User {
   int? id;
-  Name? name;
-  Email? email;
+  String? name;
+  String? email;
   dynamic emailVerifiedAt;
   int? isVerified;
-  UserImage? image;
+  String? image;
   String? latitude;
   String? longitude;
-  UserType? userType;
+  String? userType;
   String? userStatus;
   String? phoneNumber;
-  Address? address;
+  String? address;
   dynamic googleId;
   dynamic facebookId;
   DateTime? createdAt;
@@ -175,17 +175,17 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: nameValues.map[json["name"]]!,
-        email: emailValues.map[json["email"]]!,
+        name: json["name"]!,
+        email: json["email"]!,
         emailVerifiedAt: json["email_verified_at"],
         isVerified: json["is_verified"],
-        image: userImageValues.map[json["image"]]!,
+        image: json["image"]!,
         latitude: json["latitude"],
         longitude: json["longitude"],
-        userType: userTypeValues.map[json["user_type"]]!,
+        userType: json["user_type"]!,
         userStatus: json["user_status"],
         phoneNumber: json["phone_number"],
-        address: addressValues.map[json["address"]]!,
+        address: json["address"]!,
         googleId: json["google_id"],
         facebookId: json["facebook_id"],
         createdAt: json["created_at"] == null
@@ -199,17 +199,17 @@ class User {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": nameValues.reverse[name],
-        "email": emailValues.reverse[email],
+        "name": name,
+        "email": email,
         "email_verified_at": emailVerifiedAt,
         "is_verified": isVerified,
-        "image": userImageValues.reverse[image],
+        "image": image,
         "latitude": latitude,
         "longitude": longitude,
-        "user_type": userTypeValues.reverse[userType],
+        "user_type": userType,
         "user_status": userStatus,
         "phone_number": phoneNumber,
-        "address": addressValues.reverse[address],
+        "address": address,
         "google_id": googleId,
         "facebook_id": facebookId,
         "created_at": createdAt?.toIso8601String(),
@@ -218,35 +218,13 @@ class User {
       };
 }
 
-enum Address { DHAKA }
-
-final addressValues = EnumValues({"dhaka": Address.DHAKA});
-
-enum Email { SOKOREY431_GIRATEX_COM }
-
-final emailValues =
-    EnumValues({"sokorey431@giratex.com": Email.SOKOREY431_GIRATEX_COM});
-
-enum UserImage { DUMMY_IMG_DEFAULT_JPG }
-
-final userImageValues =
-    EnumValues({"dummyImg/default.jpg": UserImage.DUMMY_IMG_DEFAULT_JPG});
-
-enum Name { NADIM_HASAN }
-
-final nameValues = EnumValues({"Nadim hasan": Name.NADIM_HASAN});
-
-enum UserType { USER }
-
-final userTypeValues = EnumValues({"user": UserType.USER});
-
 class CatalogDetail {
   int? id;
   int? providerId;
   int? serviceId;
   String? catalogName;
   String? catalogDescription;
-  CatalogDetailImage? image;
+  String? image;
   String? serviceDuration;
   String? salonServiceCharge;
   String? homeServiceCharge;
@@ -277,7 +255,7 @@ class CatalogDetail {
         serviceId: json["service_id"],
         catalogName: json["catalog_name"]!,
         catalogDescription: json["catalog_description"],
-        image: catalogDetailImageValues.map[json["image"]]!,
+        image: json["image"]!,
         serviceDuration: json["service_duration"],
         salonServiceCharge: json["salon_service_charge"],
         homeServiceCharge: json["home_service_charge"],
@@ -297,7 +275,7 @@ class CatalogDetail {
         "service_id": serviceId,
         "catalog_name": catalogName,
         "catalog_description": catalogDescription,
-        "image": catalogDetailImageValues.reverse[image],
+        "image": image,
         "service_duration": serviceDuration,
         "salon_service_charge": salonServiceCharge,
         "home_service_charge": homeServiceCharge,
@@ -307,18 +285,6 @@ class CatalogDetail {
         "updated_at": updatedAt?.toIso8601String(),
       };
 }
-
-enum CatalogDetailImage {
-  IMAGES_1707129035_DOWNLOAD_2_JPG,
-  IMAGES_1707129846_IMAGES_15_JPG
-}
-
-final catalogDetailImageValues = EnumValues({
-  "[\"images\\/1707129035.download (2).jpg\"]":
-      CatalogDetailImage.IMAGES_1707129035_DOWNLOAD_2_JPG,
-  "[\"images\\/1707129846.images (15).jpg\"]":
-      CatalogDetailImage.IMAGES_1707129846_IMAGES_15_JPG
-});
 
 class Service {
   int? serviceId;

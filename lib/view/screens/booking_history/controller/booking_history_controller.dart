@@ -13,6 +13,8 @@ class BookingHistoryController extends GetxController {
 
   RxList<Datum> bookingHistoryModel = <Datum>[].obs;
 
+
+
   var totalPage = 0;
   var currentPage = 0;
 
