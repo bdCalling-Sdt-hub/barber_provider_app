@@ -45,14 +45,12 @@ class EarningController extends GetxController {
   }
 
   //=======Weekly income Variable========
-  RxList<WeekEarning> weekEarning = <WeekEarning>[].obs;
 
   Rx<WeeklyData> weeklyData = WeeklyData().obs;
 
   RxList<SalesData> weekEarningData = <SalesData>[].obs;
 
   weeklyIncome() async {
-    weekEarning.value = [];
     weekEarningData.value = [];
 
     refresh();
@@ -61,6 +59,8 @@ class EarningController extends GetxController {
     var response = await ApiClient.getData(ApiConstant.weeklyIncome);
 
     if (response.statusCode == 200) {
+      RxList<WeekEarning> weekEarning = <WeekEarning>[].obs;
+      weekEarning.value = [];
       //=====================Getting the Weekly Income=====================
 
       weekEarning.value = List<WeekEarning>.from(
@@ -91,7 +91,6 @@ class EarningController extends GetxController {
   }
 
   monthlyIncome() async {
-    weekEarning.value = [];
     weekEarningData.value = [];
 
     refresh();
@@ -101,6 +100,8 @@ class EarningController extends GetxController {
 
     if (response.statusCode == 200) {
       //=====================Getting the Weekly Income=====================
+      RxList<WeekEarning> weekEarning = <WeekEarning>[].obs;
+      weekEarning.value = [];
 
       weekEarning.value = List<WeekEarning>.from(
           response.body["week_earning"].map((x) => WeekEarning.fromJson(x)));
@@ -127,6 +128,13 @@ class EarningController extends GetxController {
       ApiChecker.checkApi(response);
     }
   }
+
+
+yearlyIncome(){
+
+
+}
+
 
   @override
   void onInit() {

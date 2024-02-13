@@ -3,7 +3,6 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_service_controller.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
-import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/screens/service_details/model/salon_details_model.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
@@ -25,7 +24,6 @@ class EditServiceDetails extends StatefulWidget {
 
 class _EditServiceDetailsState extends State<EditServiceDetails> {
   List<Map<String, dynamic>> convertedServiceHour = [];
-  HomeController homeController = Get.find<HomeController>();
 
   ServiceDetails serviceDetails = ServiceDetails();
 

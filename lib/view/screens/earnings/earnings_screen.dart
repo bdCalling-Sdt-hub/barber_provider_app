@@ -146,8 +146,11 @@ class _EarningsScreenState extends State<EarningsScreen> {
                                     ),
                                   ],
                                   onChanged: (value) {
+                                    //===========update the income Type===========
                                     earningController.updateIncomeType(
                                         getIncomeType: value!);
+
+                                    //===========Get the income type===========
 
                                     if (value == "Weekly") {
                                       earningController.weeklyIncome();
@@ -162,22 +165,24 @@ class _EarningsScreenState extends State<EarningsScreen> {
 
                             //==================================Graph Design==================================
 
-                            SfCartesianChart(
-                              primaryXAxis: const CategoryAxis(),
-                              series: <LineSeries<SalesData, String>>[
-                                LineSeries<SalesData, String>(
-                                  dataSource: earningController.weekEarningData,
-                                  xValueMapper: (SalesData sales, _) =>
-                                      sales.weekday,
-                                  yValueMapper: (SalesData sales, _) =>
-                                      sales.totalAmount,
-                                  dataLabelSettings: const DataLabelSettings(
-                                    isVisible: true,
-                                    color: AppColors.white,
+                            if (earningController.weekEarningData.isNotEmpty)
+                              SfCartesianChart(
+                                primaryXAxis: const CategoryAxis(),
+                                series: <LineSeries<SalesData, String>>[
+                                  LineSeries<SalesData, String>(
+                                    dataSource:
+                                        earningController.weekEarningData,
+                                    xValueMapper: (SalesData sales, _) =>
+                                        sales.weekday,
+                                    yValueMapper: (SalesData sales, _) =>
+                                        sales.totalAmount,
+                                    dataLabelSettings: const DataLabelSettings(
+                                      isVisible: true,
+                                      color: AppColors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )
+                                ],
+                              )
                           ],
                         ),
                       ),

@@ -1,6 +1,9 @@
+import 'package:barbar_provider/helper/time_converter.dart';
+import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/utils/api_static_string.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/view/screens/add_new_service/controllers/add_catalouge_controller.dart';
+import 'package:barbar_provider/view/screens/catalouge_list/model/catalouge_list_model.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/inner_widget/select_time.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
@@ -12,15 +15,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class AddCatalougeDetails extends StatefulWidget {
-  const AddCatalougeDetails({super.key});
+class EditCatalougeDetails extends StatefulWidget {
+  const EditCatalougeDetails({super.key});
 
   @override
-  State<AddCatalougeDetails> createState() => _AddCatalougeDetailsState();
+  State<EditCatalougeDetails> createState() => _EditCatalougeDetailsState();
 }
 
-class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
-  int serviceId = Get.arguments;
+class _EditCatalougeDetailsState extends State<EditCatalougeDetails> {
+  List<Map<String, dynamic>> convertedServiceHour = [];
+  Provider catalougeInfo = Provider();
+
+  @override
+  void initState() {
+    catalougeInfo = Get.arguments;
+    convertedServiceHour = stringToTimeDate(catalougeInfo.serviceHour);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,7 +42,7 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
         backgroundColor: AppColors.bgColor,
         extendBody: true,
         appBar:
-            CustomAppBar(appBarContent: CustomBack(text: "Add Catalouge".tr)),
+            CustomAppBar(appBarContent: CustomBack(text: "Edit Catalouge".tr)),
         body: GetBuilder<AddCatalougeController>(builder: (controller) {
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -41,7 +54,8 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 CustomText(text: "Service name".tr, bottom: 12),
                 CustomTextField(
-                    textEditingController: controller.serviceNameController,
+                    textEditingController: controller.serviceNameController =
+                        TextEditingController(text: catalougeInfo.catalogName),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -54,7 +68,9 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 CustomText(text: "Service description".tr, bottom: 12, top: 16),
                 CustomTextField(
-                    textEditingController: controller.serviceDesController,
+                    textEditingController: controller.serviceDesController =
+                        TextEditingController(
+                            text: catalougeInfo.catalogDescription),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -72,29 +88,28 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                     controller.openGallery();
                   },
                   child: Container(
-                    height: 240.h,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: AppColors.cardBgColor),
-                    child: controller.galleryPhoto == null
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.camera_alt_outlined,
-                                  color: AppColors.primaryOrange, size: 64),
-                              CustomText(
-                                  text: "Upload Picture".tr,
-                                  color: AppColors.primaryOrange,
-                                  fontWeight: FontWeight.w500)
-                            ],
-                          )
-                        : Image.file(
-                            controller.galleryPhoto!,
-                            fit: BoxFit.cover,
-                          ),
-                  ),
+                      height: 240.h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBgColor),
+                      child: catalougeInfo.image!.isNotEmpty
+                          ? Image.network(
+                              "${ApiConstant.baseUrl}${catalougeInfo.image![0]}",
+                              fit: BoxFit.cover,
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.camera_alt_outlined,
+                                    color: AppColors.primaryOrange, size: 64),
+                                CustomText(
+                                    text: "Upload Picture".tr,
+                                    color: AppColors.primaryOrange,
+                                    fontWeight: FontWeight.w500)
+                              ],
+                            )),
                 ),
 
                 //================================Service Duration=============================
@@ -103,7 +118,10 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                     text: "Service Duration (min)".tr, bottom: 12, top: 16),
                 CustomTextField(
                     keyboardType: TextInputType.number,
-                    textEditingController: controller.serviceDurationController,
+                    textEditingController:
+                        controller.serviceDurationController =
+                            TextEditingController(
+                                text: catalougeInfo.serviceDuration),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -125,7 +143,9 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 CustomTextField(
                     keyboardType: TextInputType.number,
-                    textEditingController: controller.salonSerChargeController,
+                    textEditingController: controller.salonSerChargeController =
+                        TextEditingController(
+                            text: catalougeInfo.salonServiceCharge),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -139,7 +159,9 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                 CustomText(text: "Home Service Charge".tr, bottom: 12, top: 16),
                 CustomTextField(
                     keyboardType: TextInputType.number,
-                    textEditingController: controller.homeSerChargeController,
+                    textEditingController: controller.homeSerChargeController =
+                        TextEditingController(
+                            text: catalougeInfo.homeServiceCharge),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -148,12 +170,13 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                     },
                     hintText: "Set booking money".tr),
 
-                //================================Set Booking money=============================
+                //==================================Set Booking money===============================
 
                 CustomText(text: "Set Booking money".tr, bottom: 12, top: 16),
                 CustomTextField(
                     keyboardType: TextInputType.number,
-                    textEditingController: controller.setBookingController,
+                    textEditingController: controller.setBookingController =
+                        TextEditingController(text: catalougeInfo.bookingMoney),
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
                         return AppStaticStrings.fieldCantBeEmpty;
@@ -177,9 +200,9 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: controller.days.length,
+                            itemCount: convertedServiceHour.length,
                             itemBuilder: (context, index) {
-                              var data2 = controller.days[index];
+                              var value = convertedServiceHour[index];
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
@@ -190,7 +213,7 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                                       children: [
                                         if (index == 0)
                                           CustomText(bottom: 16.h, text: "Day"),
-                                        CustomText(text: data2["day"])
+                                        CustomText(text: value["day"])
                                       ],
                                     )),
                                     Expanded(
@@ -204,12 +227,10 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                                           SelectTime(
                                             onTimeSelected: (time) {
                                               setState(() {
-                                                controller.days[index]
-                                                    ["start"] = time;
+                                                value["start"] = time;
                                               });
                                             },
-                                            initialTime: controller.days[index]
-                                                ["start"],
+                                            initialTime: value["start"],
                                           ),
                                         ],
                                       ),
@@ -227,12 +248,10 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                                           SelectTime(
                                             onTimeSelected: (time) {
                                               setState(() {
-                                                controller.days[index]["end"] =
-                                                    time;
+                                                value["end"] = time;
                                               });
                                             },
-                                            initialTime: controller.days[index]
-                                                ["end"],
+                                            initialTime: value["end"],
                                           ),
                                         ],
                                       ),
@@ -249,15 +268,16 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                 ),
                 const SizedBox(height: 44),
 
-                //================================Save Button=============================
+                //================================Update Button=============================
 
                 controller.isLoading
                     ? const CustomLoader()
                     : CustomButton(
-                        titleText: "Save".tr,
+                        titleText: "Update".tr,
                         onPressed: () {
-                          controller.addCatalouge(
-                              serviceID: serviceId.toString());
+                          controller.updateCatalouge(
+                              catelougeInfo: catalougeInfo,
+                              updatedServiceHours: convertedServiceHour);
                         }),
                 const SizedBox(height: 24),
               ],

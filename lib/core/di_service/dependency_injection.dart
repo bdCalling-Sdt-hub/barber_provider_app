@@ -8,12 +8,14 @@ import 'package:barbar_provider/view/screens/auth/controller/auth_controller.dar
 import 'package:barbar_provider/view/screens/booking_history/controller/booking_history_controller.dart';
 import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
 import 'package:barbar_provider/view/screens/bookings/controller/booking_controller.dart';
+import 'package:barbar_provider/view/screens/catalouge_list/controller/catalouge_list_controller.dart';
 import 'package:barbar_provider/view/screens/earnings/controller/earning_controller.dart';
 
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/screens/makePayment/controller/make_payment_controller.dart';
 import 'package:barbar_provider/view/screens/notification/controller/notification_controller.dart';
 import 'package:barbar_provider/view/screens/profile/controller/profile_controller.dart';
+import 'package:barbar_provider/view/screens/service_catalouge/controller/service_catalouge_controller.dart';
 import 'package:barbar_provider/view/screens/settings/controller/settings_controller.dart';
 import 'package:barbar_provider/view/screens/subscription_plans/controller/subscription_controller.dart';
 import 'package:get/get.dart';
@@ -72,5 +74,13 @@ class Dependancy extends Bindings {
     //============================Total Earning ========================
 
     Get.lazyPut(() => EarningController(), fenix: true);
+
+    //============================ServiceCatalouge Controller========================
+
+    Get.lazyPut(() => ServiceCatalougeController(), fenix: true);
+
+    //============================Catalouge List Controller========================
+
+    Get.lazyPut(() => CatalougeListController(), fenix: true);
   }
 }

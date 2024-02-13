@@ -100,11 +100,13 @@ class CustomDrawer extends StatelessWidget {
                 imageType: ImageType.png,
                 onTap: () => Get.toNamed(AppRoute.editBusinessDetails)),
             const SizedBox(height: 16),
+
+            //=============================Service Catelouge======================
             DrawerCard(
                 imageSrc: AppIcons.categories,
-                text: "Categories",
+                text: "Service & Catalogue ",
                 imageType: ImageType.png,
-                onTap: () => Get.toNamed(AppRoute.categoriesScreen)),
+                onTap: () => Get.toNamed(AppRoute.serviceCatalogue)),
             const SizedBox(height: 16),
             DrawerCard(
                 imageSrc: AppIcons.reviews,

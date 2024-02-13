@@ -6,6 +6,8 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
+import 'package:barbar_provider/view/screens/catalouge_list/controller/catalouge_list_controller.dart';
+import 'package:barbar_provider/view/screens/catalouge_list/model/catalouge_list_model.dart';
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +25,9 @@ class AddCatalougeController extends GetxController {
     {"day": "Sat", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
   ];
   HomeController homeController = Get.find<HomeController>();
+
+  CatalougeListController catalougeListController =
+      Get.find<CatalougeListController>();
 
   TextEditingController serviceNameController =
       TextEditingController(text: kDebugMode ? "Hair Cut" : "");
@@ -50,6 +55,8 @@ class AddCatalougeController extends GetxController {
 
   bool isLoading = false;
 
+  //============================Open the Gallary to pick image========================
+
   void openGallery() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -61,6 +68,8 @@ class AddCatalougeController extends GetxController {
     }
     update();
   }
+
+  //============================Get the Service Time========================
 
   getServiceTime() {
     //======================Getting the Json of Date======================
@@ -75,14 +84,16 @@ class AddCatalougeController extends GetxController {
     update();
   }
 
-  addCatalouge({required String id}) async {
+  //=====================================Add Catalouge================================
+
+  addCatalouge({required String serviceID}) async {
     isLoading = true;
     getServiceTime();
     update();
 
     if (galleryPhoto != null) {
       var body = {
-        "serviceId": id,
+        "serviceId": serviceID,
         "catalougName": serviceNameController.text,
         "description": serviceDesController.text,
         "serviceDuration": serviceDurationController.text,
@@ -100,15 +111,59 @@ class AddCatalougeController extends GetxController {
 
       if (response.statusCode == 200) {
         homeController.homeData();
-        debugPrint("serviceId========================$id");
+        catalougeListController.getCatalougeList(serviceID: serviceID);
+        debugPrint("serviceId========================$serviceID");
         debugPrint(
             "selectedServiceHours========================$selectedServiceHours");
-        Get.offNamed(AppRoute.navBar);
+        Get.offAllNamed(AppRoute.navBar);
       } else {
         ApiChecker.checkApi(response);
       }
     } else {
       showCustomSnackBar("Pick image");
+    }
+
+    isLoading = false;
+    update();
+  }
+
+  //=====================================Update Catalouge================================
+
+  updateCatalouge(
+      {required Provider catelougeInfo,
+      required List<Map<String, dynamic>> updatedServiceHours}) async {
+    isLoading = true;
+    getServiceTime();
+    update();
+
+    var body = {
+      "id": catelougeInfo.id.toString(),
+      "providerId": catelougeInfo.providerId.toString(),
+      "serviceId": catelougeInfo.serviceId.toString(),
+      "catalougName": serviceNameController.text,
+      "description": serviceDesController.text,
+      "serviceDuration": serviceDurationController.text,
+      "serviceCharge": salonSerChargeController.text,
+      "bookingMoney": setBookingController.text,
+      "serviceHoure":
+          jsonEncode(timeDateToString(response: updatedServiceHours)),
+      "homeServiceCharge": homeSerChargeController.text,
+    };
+
+    var response = galleryPhoto != null
+        ? await ApiClient.postMultipartData(ApiConstant.updateCatalouge, body,
+            multipartBody: [
+                MultipartBody("catalougPhoto[]", galleryPhoto!),
+              ])
+        : await ApiClient.postData(ApiConstant.updateCatalouge, body);
+
+    if (response.statusCode == 200) {
+      catalougeListController.getCatalougeList(
+          serviceID: catelougeInfo.serviceId.toString());
+      navigator!.pop();
+      navigator!.pop();
+    } else {
+      ApiChecker.checkApi(response);
     }
 
     isLoading = false;

@@ -14,14 +14,18 @@ import 'package:barbar_provider/view/screens/booking_history/booking_history.dar
 import 'package:barbar_provider/view/screens/booking_request/booking_request.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_request_details/booking_request_details.dart';
 import 'package:barbar_provider/view/screens/booking_request/booking_reschedule/booking_reschedule.dart';
+import 'package:barbar_provider/view/screens/catalouge_details/catalouge_details.dart';
+import 'package:barbar_provider/view/screens/catalouge_list/catalouge_list.dart';
 import 'package:barbar_provider/view/screens/category/category.dart';
 import 'package:barbar_provider/view/screens/clients_reviews/clients_reviews.dart';
 import 'package:barbar_provider/view/screens/edit_business_details/edit_business_details.dart';
+import 'package:barbar_provider/view/screens/edit_catalouge/edit_catalouge.dart';
 import 'package:barbar_provider/view/screens/edit_service_details/edit_service_details.dart';
 import 'package:barbar_provider/view/screens/nav_bar/nav_bar.dart';
 import 'package:barbar_provider/view/screens/notification/notification_screen.dart';
 import 'package:barbar_provider/view/screens/onboarding/onboarding_screen.dart';
 import 'package:barbar_provider/view/screens/profile/edit_profile/edit_profile_screen.dart';
+import 'package:barbar_provider/view/screens/service_catalouge/service_catalouge.dart';
 import 'package:barbar_provider/view/screens/service_details/service_details.dart';
 import 'package:barbar_provider/view/screens/settings/about_us/about_us_screen.dart';
 import 'package:barbar_provider/view/screens/settings/change_password/change_password_screen.dart';
@@ -72,6 +76,11 @@ class AppRoute {
   static const String editServiceDetails = "/edit_service_details";
   static const String subscriptionPlans = "/subscriptionPlans";
 
+  static const String serviceCatalogue = "/service_catagory";
+  static const String catalogueList = "/catalogue_list";
+  static const String catalogueDetails = "/catalogue_details";
+  static const String editCatalouge = "/edit_catalouge";
+
   static List<GetPage> routes = [
     GetPage(name: splashscreen, page: () => const SplashScreen()),
     GetPage(name: onboardingScreen, page: () => const OnboardingScreen()),
@@ -106,5 +115,11 @@ class AppRoute {
     GetPage(name: editServiceDetails, page: () => const EditServiceDetails()),
     GetPage(name: addCatalouge, page: () => const AddCatalougeDetails()),
     GetPage(name: subscriptionPlans, page: () => SubscriptionPlans()),
+
+    //
+    GetPage(name: serviceCatalogue, page: () => const ServiceCatalogue()),
+    GetPage(name: catalogueList, page: () => const CatalougeListScreen()),
+    GetPage(name: catalogueDetails, page: () => const CatalougeDetails()),
+    GetPage(name: editCatalouge, page: () => const EditCatalougeDetails()),
   ];
 }

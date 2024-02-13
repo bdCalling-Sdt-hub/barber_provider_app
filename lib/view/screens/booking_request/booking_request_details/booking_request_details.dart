@@ -203,7 +203,6 @@ class BookingRequestDetails extends StatelessWidget {
                                                 updateBooking:
                                                     UpdateBooking.accept);
 
-                                   
                                     if (success == true) {
                                       Get.back();
                                     }

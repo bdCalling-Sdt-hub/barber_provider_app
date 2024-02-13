@@ -8,7 +8,7 @@ class ApiConstant {
 
   static const paymentScrethash = "FLWSECK_TEST47a272d5d15e";
 
-  //===================Auth===============================
+  //=================================Auth===============================
 
   //=========Social login / Sign up==========
 
@@ -36,6 +36,7 @@ class ApiConstant {
 
   //===================Post Catalouge=========================
   static const postCatalouge = "api/post/catalouge";
+  static const updateCatalouge = "api/update/catalouge";
 
   //===================Profile=========================
   static const getProfile = "api/profile";
@@ -82,4 +83,10 @@ class ApiConstant {
   //==============================Income===============================
   static const weeklyIncome = "api/week/income";
   static const monthIncome = "api/month/income";
+
+  //===================Service List===============================
+  static const serviceList = "api/provider/all/service/";
+
+  //===================Service List===============================
+  static const catalougeList = "api/get/catalouge/";
 }
