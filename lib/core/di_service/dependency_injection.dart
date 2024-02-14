@@ -9,6 +9,7 @@ import 'package:barbar_provider/view/screens/booking_history/controller/booking_
 import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
 import 'package:barbar_provider/view/screens/bookings/controller/booking_controller.dart';
 import 'package:barbar_provider/view/screens/catalouge_list/controller/catalouge_list_controller.dart';
+import 'package:barbar_provider/view/screens/clients_reviews/controller/client_review_controller.dart';
 import 'package:barbar_provider/view/screens/earnings/controller/earning_controller.dart';
 
 import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
@@ -82,5 +83,9 @@ class Dependancy extends Bindings {
     //============================Catalouge List Controller========================
 
     Get.lazyPut(() => CatalougeListController(), fenix: true);
+
+    //============================Client Review========================
+
+    Get.lazyPut(() => ClientReviewController(), fenix: true);
   }
 }

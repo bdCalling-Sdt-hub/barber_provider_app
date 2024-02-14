@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 List<Map<String, dynamic>> serviceHours = [
   {"day": "Sun", "start": TimeOfDay.now(), "end": TimeOfDay.now()},
@@ -62,4 +63,16 @@ List<Map<String, dynamic>> timeDateToString(
   }
 
   return convertedValue;
+}
+
+String dateMonthYearHourMinite(String dateString) {
+  var inputDate = DateFormat('yyyy-MM-dd hh:mm:ss').parse(dateString);
+  var outputFormat = DateFormat('dd MMM yyyy, hh:mm').format(inputDate);
+  return outputFormat;
+}
+
+String dateMonthYear(String dateString) {
+  var inputDate = DateFormat('yyyy-MM-ddTHH:mm:ss.SSSSSS').parseUtc(dateString);
+  var outputFormat = DateFormat('dd MMM yyyy').format(inputDate);
+  return outputFormat;
 }

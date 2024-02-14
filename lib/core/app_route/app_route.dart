@@ -106,7 +106,7 @@ class AppRoute {
     GetPage(name: bookingHistory, page: () => BookingHistory()),
     GetPage(name: editBusinessDetails, page: () => const EditBusinessDetails()),
     GetPage(name: categoriesScreen, page: () => const CategoryScreen()),
-    GetPage(name: clientsReviews, page: () => const ClientsReviews()),
+    GetPage(name: clientsReviews, page: () => ClientsReviews()),
     GetPage(name: addNewServiceCategory, page: () => const SelectCategory()),
     GetPage(name: providerDetails, page: () => const AddProviderDetails()),
     GetPage(name: addPhotos, page: () => const AddPhoto()),

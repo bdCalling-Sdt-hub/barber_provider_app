@@ -40,6 +40,8 @@ class BookingsRequest extends StatelessWidget {
                 );
 
               case Status.completed:
+
+              
                 return RefreshIndicator(
                   color: AppColors.primaryOrange,
                   onRefresh: () async {

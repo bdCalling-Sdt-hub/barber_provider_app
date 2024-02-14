@@ -58,7 +58,7 @@ class ApiConstant {
   //===================Service Details=========================
   static const showPackage = "api/show-package";
 
-  //===================Payment===============================
+  //===========================Payment===============================
   static const makePayment = "api/pay/";
   static const paymentSuccess = "api/payment-success";
 
@@ -89,4 +89,8 @@ class ApiConstant {
 
   //===================Service List===============================
   static const catalougeList = "api/get/catalouge/";
+
+
+   //===================Service List===============================
+  static const review = "api/provider/review";
 }

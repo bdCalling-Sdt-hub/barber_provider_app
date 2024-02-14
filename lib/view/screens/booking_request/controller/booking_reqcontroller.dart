@@ -11,10 +11,10 @@ import 'package:get/get.dart';
 enum UpdateBooking { accept, decline, late, complete }
 
 class BookingRequestController extends GetxController with GetxServiceMixin {
-  final rxRequestStatus = Status.loading.obs;
-
   ApprovedBookingController approvedBookingController =
       Get.find<ApprovedBookingController>();
+
+  final rxRequestStatus = Status.loading.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
