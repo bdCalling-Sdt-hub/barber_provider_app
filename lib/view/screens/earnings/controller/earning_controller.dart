@@ -1,3 +1,4 @@
+import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
@@ -30,6 +31,8 @@ class EarningController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+
+  RxBool providerAdded = false.obs;
 
   //==============For weekly, monthly, yearly status===========
 
@@ -129,16 +132,20 @@ class EarningController extends GetxController {
     }
   }
 
+  yearlyIncome() {}
 
-yearlyIncome(){
+  getPaymentInfo() async {
+    providerAdded.value =
+        (await SharePrefsHelper.getBool(AppConstants.isProviderAdded))!;
 
-
-}
-
+    if (providerAdded.value == true) {
+      weeklyIncome();
+    }
+  }
 
   @override
   void onInit() {
-    weeklyIncome();
+    getPaymentInfo();
     super.onInit();
   }
 }

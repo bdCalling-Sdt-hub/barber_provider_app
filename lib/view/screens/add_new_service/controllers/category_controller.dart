@@ -10,7 +10,7 @@ class CategoryController extends GetxController with GetxServiceMixin {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
 
   CategoryModel categoryModel = CategoryModel();
-  List<Message> categoryList = [];
+  List<Datum> categoryList = [];
 
   var clearSearch = true.obs;
 
@@ -24,7 +24,7 @@ class CategoryController extends GetxController with GetxServiceMixin {
     if (response.statusCode == 200) {
       categoryModel = CategoryModel.fromJson(response.body);
 
-      List<Message>? rawData = categoryModel.message;
+      List<Datum>? rawData = categoryModel.data;
 
       if (rawData != null && rawData.isNotEmpty) {
         categoryList.addAll(rawData);

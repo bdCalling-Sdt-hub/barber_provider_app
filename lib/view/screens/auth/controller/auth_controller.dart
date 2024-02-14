@@ -188,12 +188,12 @@ class Authcontroller extends GetxController {
     if (response.statusCode == 200) {
       //================================Save Token================================
 
-      debugPrint(
-          "Token============================${response.body["token"]["original"]["access_token"]}");
-
       SharePrefsHelper.setString(AppConstants.bearerToken,
           response.body["token"]["original"]["access_token"]);
 
+      //================================Set if Provider added or not {default is false}================================
+
+      SharePrefsHelper.setBool(AppConstants.isProviderAdded, false);
       //=========================Set the payment false so that user cant add Provider=====================
 
       if (forgetPass == false) {

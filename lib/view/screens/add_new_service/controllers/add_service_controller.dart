@@ -125,7 +125,7 @@ class AddServiceController extends GetxController {
             "selectedServiceHours========================$selectedServiceHours");
         var jSON = jsonDecode(response.body);
 
-        Get.offNamed(AppRoute.addCatalouge, arguments: jSON["message"]["id"]);
+        Get.offNamed(AppRoute.addCatalouge, arguments: jSON["data"]["id"]);
         homeController.homeData();
       } else {
         ApiChecker.checkApi(response);

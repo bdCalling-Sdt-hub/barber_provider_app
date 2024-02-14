@@ -36,9 +36,8 @@ class AddProviderController extends GetxController {
   //=================================Open Gallary for image==============================
 
   void openGallery({required bool isCoverPhoto}) async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+    final pickedFile = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 20);
 
     if (pickedFile != null) {
       if (isCoverPhoto) {
@@ -108,11 +107,12 @@ class AddProviderController extends GetxController {
         debugPrint("catIDShaPre========================$catId");
 
         debugPrint(
-            "Provider ID========================${jSONData["message"]["id"]}");
+            "Provider ID========================${jSONData["data"]["id"]}");
 
         SharePrefsHelper.setString(AppConstants.catID, catId);
         SharePrefsHelper.setString(
-            AppConstants.providerID, jSONData["message"]["id"].toString());
+            AppConstants.providerID, jSONData["data"]["id"].toString());
+        SharePrefsHelper.setBool(AppConstants.isProviderAdded, true);
 
         Get.offAllNamed(AppRoute.addServiceDetails);
       } else {

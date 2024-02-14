@@ -36,7 +36,10 @@ class PurchasePopUp extends StatelessWidget {
                 buttonHeight: 44,
                 buttonColor: AppColors.white,
                 titleColor: AppColors.primaryOrange,
-                onPressed: () => Get.toNamed(AppRoute.subscriptionPlans))
+                onPressed: () {
+                  navigator!.pop();
+                  Get.toNamed(AppRoute.subscriptionPlans);
+                })
           ],
         ),
       ),

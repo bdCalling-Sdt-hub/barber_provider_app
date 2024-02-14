@@ -45,7 +45,7 @@ class ClientsReviews extends StatelessWidget {
                 return clientReviewController.rattingList.isEmpty
                     ? Center(
                         child: CustomText(
-                        fontSize: 24.sp,
+                        fontSize: 18.sp,
                         text: "No review yet",
                       ))
                     : Padding(

@@ -6,7 +6,7 @@ import 'package:barbar_provider/view/screens/clients_reviews/model/client_review
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ClientReviewController extends GetxController {
+class ClientReviewController extends GetxController with GetxServiceMixin {
   final rxRequestStatus = Status.loading.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;

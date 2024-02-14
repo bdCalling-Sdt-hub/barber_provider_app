@@ -47,9 +47,8 @@ class ProfileController extends GetxController with GetxServiceMixin {
 //=============================Picking Image===========================
 
   void openGallery() async {
-    final pickedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+    final pickedFile = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 20);
 
     if (pickedFile != null) {
       proImage = File(pickedFile.path);

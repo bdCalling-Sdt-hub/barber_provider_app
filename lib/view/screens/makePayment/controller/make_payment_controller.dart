@@ -46,10 +46,6 @@ class MakePaymentController extends GetxController {
       debugPrint(
           "Response URL===================================${response.body["gateway_link"]}");
 
-      // Get.to(() => WebviewPayment(
-      //       url: response.body["gateway_link"],
-      //     ));
-
       makePayment(
           redirectUrl: response.body["gateway_link"],
           ammount: ammount,
@@ -136,6 +132,7 @@ class MakePaymentController extends GetxController {
     var response = await ApiClient.postData(ApiConstant.paymentSuccess, body);
 
     if (response.statusCode == 200) {
+      SharePrefsHelper.setBool(AppConstants.paymentDone, true);
       profileController.getMyPlan();
     } else {
       ApiChecker.checkApi(response);

@@ -69,8 +69,6 @@ class ServiceCatalogue extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(AppRoute.catalogueList,
                                 arguments: data.id.toString());
-
-                            print(data.id);
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

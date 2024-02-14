@@ -98,7 +98,8 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
 
                 //================================Service Duration=============================
 
-                CustomText(text: "Service Duration".tr, bottom: 12, top: 16),
+                CustomText(
+                    text: "Service Duration (min)".tr, bottom: 12, top: 16),
                 CustomTextField(
                     keyboardType: TextInputType.number,
                     textEditingController: controller.serviceDurationController,
