@@ -2,6 +2,7 @@ import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/view/screens/home/controller/home_controller.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +74,14 @@ class LogOutPopUp extends StatelessWidget {
 
                         SharePrefsHelper.setBool(
                             AppConstants.isProviderAdded, false);
+
+                        SharePrefsHelper.remove(AppConstants.bearerToken);
+
+                        if (Get.isRegistered<HomeController>()) {
+                          HomeController homeController =
+                              Get.find<HomeController>();
+                          homeController.dispose();
+                        }
 
                         Get.offAllNamed(AppRoute.signInScreen);
                       },

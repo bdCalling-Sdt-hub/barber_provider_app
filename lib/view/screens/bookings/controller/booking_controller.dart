@@ -6,7 +6,7 @@ import 'package:barbar_provider/view/screens/bookings/model/bookings_model.dart'
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BookingsController extends GetxController with GetxServiceMixin {
+class BookingsController extends GetxController {
   final rxRequestStatus = Status.loading.obs;
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;

@@ -34,9 +34,11 @@ class WeeklyModel {
         "week_earning": weekEarning == null
             ? []
             : List<dynamic>.from(weekEarning!.map((x) => x.toJson())),
-        "data": data?.toJson(),
+        "data": data?.toJson().runtimeType,
       };
 }
+
+// "data": data?.toJson().runtimeType,
 
 class WeeklyData {
   Headers? headers;

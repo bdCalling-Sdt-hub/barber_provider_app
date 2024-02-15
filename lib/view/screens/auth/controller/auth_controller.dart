@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/core/di_service/dependency_injection.dart';
 import 'package:barbar_provider/core/global/location_controller.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/service/api_ckeck.dart';
@@ -30,6 +31,8 @@ class Authcontroller extends GetxController {
 
 //================================Sign In User==============================
   signInUser() async {
+    Dependancy dI = Dependancy();
+    dI.dependencies();
     loading = true;
     var headers = {'Content-Type': 'application/json'};
 
@@ -95,6 +98,8 @@ class Authcontroller extends GetxController {
 //================================Sign In With Google==============================
 
   Future<void> signInWithGoogle() async {
+    Dependancy dI = Dependancy();
+    dI.dependencies();
     //==================Get Location Permission=============
 
     locationController.getLocation();

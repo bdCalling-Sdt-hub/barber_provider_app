@@ -53,6 +53,8 @@ class EarningController extends GetxController {
 
   RxList<SalesData> weekEarningData = <SalesData>[].obs;
 
+  //===============================Show Weekly Income============================
+
   weeklyIncome() async {
     weekEarningData.value = [];
 
@@ -93,6 +95,8 @@ class EarningController extends GetxController {
     }
   }
 
+  //===============================Show Monthly Income============================
+
   monthlyIncome() async {
     weekEarningData.value = [];
 
@@ -132,6 +136,8 @@ class EarningController extends GetxController {
     }
   }
 
+  //===============================Show yearly Income============================
+
   yearlyIncome() async {
     weekEarningData.value = [];
 
@@ -155,7 +161,9 @@ class EarningController extends GetxController {
       );
       //=====================Saving Aditional Information=====================
 
-      weeklyData.value = WeeklyData.fromJson(response.body["data"]);
+      if (weekEarningData.isNotEmpty) {
+        weeklyData.value = WeeklyData.fromJson(response.body["data"]);
+      }
 
       refresh();
 

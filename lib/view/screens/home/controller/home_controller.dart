@@ -43,6 +43,10 @@ class HomeController extends GetxController with GetxServiceMixin {
         SharePrefsHelper.setString(
             AppConstants.providerID, provider[0].id.toString());
 
+        SharePrefsHelper.setBool(AppConstants.isProviderAdded, true);
+
+        SharePrefsHelper.setBool(AppConstants.paymentDone, true);
+
         if (rawData.isNotEmpty) {
           SharePrefsHelper.setBool(AppConstants.isProviderAdded, true);
         }
