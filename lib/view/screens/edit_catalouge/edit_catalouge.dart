@@ -93,22 +93,29 @@ class _EditCatalougeDetailsState extends State<EditCatalougeDetails> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           color: AppColors.cardBgColor),
-                      child: catalougeInfo.image!.isNotEmpty
+                      child: controller.galleryPhoto == null
                           ? Image.network(
                               "${ApiConstant.baseUrl}${catalougeInfo.image![0]}",
                               fit: BoxFit.cover,
                             )
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.camera_alt_outlined,
-                                    color: AppColors.primaryOrange, size: 64),
-                                CustomText(
-                                    text: "Upload Picture".tr,
-                                    color: AppColors.primaryOrange,
-                                    fontWeight: FontWeight.w500)
-                              ],
+                          :
+
+                          // Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.center,
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       const Icon(Icons.camera_alt_outlined,
+                          //           color: AppColors.primaryOrange, size: 64),
+                          //       CustomText(
+                          //           text: "Upload Picture".tr,
+                          //           color: AppColors.primaryOrange,
+                          //           fontWeight: FontWeight.w500)
+                          //     ],
+                          //   )
+
+                          Image.file(
+                              controller.galleryPhoto!,
+                              fit: BoxFit.cover,
                             )),
                 ),
 

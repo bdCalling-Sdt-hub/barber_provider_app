@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 enum UpdateBooking { accept, decline, late, complete }
 
-class BookingRequestController extends GetxController with GetxServiceMixin {
+class BookingRequestController extends GetxController  {
   ApprovedBookingController approvedBookingController =
       Get.find<ApprovedBookingController>();
 

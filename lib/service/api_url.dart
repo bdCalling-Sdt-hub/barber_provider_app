@@ -83,6 +83,7 @@ class ApiConstant {
   //==============================Income===============================
   static const weeklyIncome = "api/week/income";
   static const monthIncome = "api/month/income";
+  static const yearIncome = "api/year/income";
 
   //===================Service List===============================
   static const serviceList = "api/provider/all/service/";
@@ -90,7 +91,6 @@ class ApiConstant {
   //===================Service List===============================
   static const catalougeList = "api/get/catalouge/";
 
-
-   //===================Service List===============================
+  //===================Service List===============================
   static const review = "api/provider/review";
 }

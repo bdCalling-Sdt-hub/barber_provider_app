@@ -1,5 +1,7 @@
 import 'package:barbar_provider/core/app_route/app_route.dart';
+import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
+import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +68,11 @@ class LogOutPopUp extends StatelessWidget {
                       titleText: "Confirm".tr,
                       onPressed: () {
                         //   logout();
+                        SharePrefsHelper.setBool(
+                            AppConstants.paymentDone, false);
+
+                        SharePrefsHelper.setBool(
+                            AppConstants.isProviderAdded, false);
 
                         Get.offAllNamed(AppRoute.signInScreen);
                       },

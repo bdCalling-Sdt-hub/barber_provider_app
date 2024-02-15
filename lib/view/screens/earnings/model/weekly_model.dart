@@ -128,7 +128,7 @@ class DailyEarning {
 
 class WeekEarning {
   int? totalAmount;
-  String? eventName;
+  dynamic eventName;
 
   WeekEarning({
     this.totalAmount,
@@ -137,7 +137,7 @@ class WeekEarning {
 
   factory WeekEarning.fromJson(Map<String, dynamic> json) => WeekEarning(
         totalAmount: json["total_amount"] ?? json["count"],
-        eventName: json["Dayname"] ?? json["month_name"],
+        eventName: json["Dayname"] ?? json["month_name"] ?? json["year"],
       );
 
   Map<String, dynamic> toJson() => {

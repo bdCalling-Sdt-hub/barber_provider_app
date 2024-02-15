@@ -134,10 +134,15 @@ class AddProviderController extends GetxController {
       {required List<Map<String, dynamic>> updatedServiceHours}) async {
     isLoading = true;
 
+    String? getTheCatID = await SharePrefsHelper.getString(AppConstants.catID);
+    String? getProviderID =
+        await SharePrefsHelper.getString(AppConstants.providerID);
+
     update();
 
     var body = {
-      "catId": catId,
+      "id": getProviderID,
+      "catId": getTheCatID,
       "businessName": buisnessNameController.text,
       "address": addressController.text,
       "description": descriptionController.text,

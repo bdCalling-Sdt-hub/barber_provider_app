@@ -36,6 +36,8 @@ class HomeController extends GetxController with GetxServiceMixin {
 
         convertedServiceHour = stringToTimeDate(rawData[0].availableServiceOur);
 
+        //===========================Getting and Saving provider and Cat ID============================
+
         SharePrefsHelper.setString(
             AppConstants.catID, provider[0].categoryId.toString());
         SharePrefsHelper.setString(

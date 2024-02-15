@@ -76,7 +76,7 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: AppColors.cardBgColor),
-                    child: controller.galleryPhoto == null
+                    child: controller.pickGalleryPhoto == null
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -90,7 +90,7 @@ class _AddServiceDetailsState extends State<AddServiceDetails> {
                             ],
                           )
                         : Image.file(
-                            controller.galleryPhoto!,
+                            controller.pickGalleryPhoto!,
                             fit: BoxFit.cover,
                           ),
                   ),

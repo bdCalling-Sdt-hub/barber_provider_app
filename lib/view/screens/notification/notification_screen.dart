@@ -46,7 +46,7 @@ class NotificationScreen extends StatelessWidget {
                 return data!.isEmpty
                     ? const Center(
                         child: CustomText(
-                          text: "No Notifications",
+                          text: "No Notification",
                         ),
                       )
                     : ListView.builder(

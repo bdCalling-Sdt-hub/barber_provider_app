@@ -48,7 +48,7 @@ class AddServiceController extends GetxController {
 
   List<Map<String, dynamic>> selectedServiceHours = [];
 
-  File? galleryPhoto;
+  File? pickGalleryPhoto;
 
   bool isLoading = false;
 
@@ -61,8 +61,8 @@ class AddServiceController extends GetxController {
     );
 
     if (pickedFile != null) {
-      galleryPhoto = File(pickedFile.path);
-      debugPrint("Gallery Photo======================$galleryPhoto");
+      pickGalleryPhoto = File(pickedFile.path);
+      debugPrint("Gallery Photo======================$pickGalleryPhoto");
     }
     update();
   }
@@ -100,7 +100,7 @@ class AddServiceController extends GetxController {
 
     update();
 
-    if (galleryPhoto != null) {
+    if (pickGalleryPhoto != null) {
       var body = {
         "catId": catIDShaPre,
         "serviceName": serviceNameController.text,
@@ -116,7 +116,7 @@ class AddServiceController extends GetxController {
       var response = await ApiClient.postMultipartData(
           ApiConstant.postService, body,
           multipartBody: [
-            MultipartBody("servicePhotoGellary[]", galleryPhoto!),
+            MultipartBody("servicePhotoGellary[]", pickGalleryPhoto!),
           ]);
 
       if (response.statusCode == 200) {
@@ -167,10 +167,10 @@ class AddServiceController extends GetxController {
       "providerId": providerID
     };
 
-    var response = galleryPhoto != null
+    var response = pickGalleryPhoto != null
         ? await ApiClient.postMultipartData(
             multipartBody: [
-              MultipartBody("servicePhotoGellary[]", galleryPhoto!),
+              MultipartBody("servicePhotoGellary[]", pickGalleryPhoto!),
             ],
             ApiConstant.updateService,
             body,

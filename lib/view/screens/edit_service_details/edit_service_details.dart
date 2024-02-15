@@ -68,33 +68,29 @@ class _EditServiceDetailsState extends State<EditServiceDetails> {
                             text: serviceDetails.serviceDescription),
                     maxLines: 5),
 
-                //===================================Gallery Photo=========================
+                //===================================Gallery Photo==============================
 
                 CustomText(text: "Gallery Photo".tr, bottom: 12, top: 16),
 
-                Container(
-                  height: 240.h,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: AppColors.cardBgColor),
-                  child: serviceDetails.gallaryPhoto!.isNotEmpty
-                      ? Image.network(
-                          "${ApiConstant.baseUrl}images/${serviceDetails.gallaryPhoto![0]}",
-                          fit: BoxFit.cover,
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(Icons.camera_alt_outlined,
-                                color: AppColors.primaryOrange, size: 64),
-                            CustomText(
-                                text: "Upload Picture".tr,
-                                color: AppColors.primaryOrange,
-                                fontWeight: FontWeight.w500)
-                          ],
-                        ),
+                GestureDetector(
+                  onTap: () {
+                    controller.openGallery();
+                  },
+                  child: Container(
+                      height: 240.h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBgColor),
+                      child: controller.pickGalleryPhoto == null
+                          ? Image.network(
+                              "${ApiConstant.baseUrl}images/${serviceDetails.gallaryPhoto![0]}",
+                              fit: BoxFit.cover,
+                            )
+                          : Image.file(
+                              controller.pickGalleryPhoto!,
+                              fit: BoxFit.cover,
+                            )),
                 ),
 
                 //===================================Service Duration==========================

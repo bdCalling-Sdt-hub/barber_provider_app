@@ -1,7 +1,9 @@
 import 'package:barbar_provider/utils/app_colors.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/utils/snack_bar.dart';
 import 'package:barbar_provider/view/screens/approved_booking/controller/approved_booking_controller.dart';
 import 'package:barbar_provider/view/screens/booking_request/controller/booking_reqcontroller.dart';
+import 'package:barbar_provider/view/screens/no_internet/no_internet.dart';
 import 'package:barbar_provider/view/widgets/appbar/custom_appbar.dart';
 import 'package:barbar_provider/view/widgets/back/custom_back.dart';
 import 'package:barbar_provider/view/widgets/booking_card/booking_card.dart';
@@ -18,8 +20,6 @@ class ApprovedBooking extends StatelessWidget {
   final ApprovedBookingController approvedBookingController =
       Get.find<ApprovedBookingController>();
 
-  final BookingRequestController bookingRequestController =
-      Get.find<BookingRequestController>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,7 +34,11 @@ class ApprovedBooking extends StatelessWidget {
                 case Status.loading:
                   return const CustomLoader();
                 case Status.internetError:
-                  return const CustomLoader();
+                  return NoInternetScreen(
+                    onTap: () {
+                      approvedBookingController.approvedBooking();
+                    },
+                  );
                 case Status.error:
                   return GeneralErrorScreen(
                     onTap: () {
@@ -47,7 +51,7 @@ class ApprovedBooking extends StatelessWidget {
                       ? Center(
                           child: CustomText(
                             fontSize: 18.sp,
-                            text: "Empty",
+                            text: "No booking approved yet",
                           ),
                         )
                       : RefreshIndicator(
@@ -83,17 +87,29 @@ class ApprovedBooking extends StatelessWidget {
                                   //================================Complete Button=========================
 
                                   onPressedLeft: () {
-                                    bookingRequestController.updateBooking(
-                                        bookingID: approvedBookingController
-                                            .approvedBookingModel[index]
-                                            .booking!
-                                            .id
-                                            .toString(),
-                                        updateBooking: UpdateBooking.complete);
+                                    final BookingRequestController
+                                        bookingRequestController =
+                                        Get.find<BookingRequestController>();
+                                    if (data.status == 6) {
+                                      bookingRequestController.updateBooking(
+                                          bookingID: approvedBookingController
+                                              .approvedBookingModel[index]
+                                              .booking!
+                                              .id
+                                              .toString(),
+                                          updateBooking:
+                                              UpdateBooking.complete);
+                                    } else {
+                                      toastMessage(
+                                          message: "Service not ended yet");
+                                    }
                                   },
                                   //================================Complete Button=========================
 
                                   onPressedRight: () {
+                                    final BookingRequestController
+                                        bookingRequestController =
+                                        Get.find<BookingRequestController>();
                                     bookingRequestController.updateBooking(
                                         bookingID: approvedBookingController
                                             .approvedBookingModel[index]

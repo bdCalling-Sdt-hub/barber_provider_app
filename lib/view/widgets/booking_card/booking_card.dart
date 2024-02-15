@@ -124,6 +124,7 @@ class BookingCard extends StatelessWidget {
                     child: CustomButton(
                         titleText: buttonLeft,
                         buttonHeight: 44,
+                        titleSize: 12,
                         onPressed: onPressedLeft)),
                 const SizedBox(width: 12),
 
@@ -131,6 +132,7 @@ class BookingCard extends StatelessWidget {
 
                 Expanded(
                   child: CustomButton(
+                    titleSize: 12,
                     onPressed: onPressedRight,
                     titleText: buttonRight,
                     buttonHeight: 44,

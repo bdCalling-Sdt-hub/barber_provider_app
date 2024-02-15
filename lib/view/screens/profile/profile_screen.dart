@@ -72,6 +72,9 @@ class ProfileScreen extends StatelessWidget {
                               height: 64.w,
                               width: 64.w,
                             ),
+                            SizedBox(
+                              width: 10.w,
+                            ),
                             Flexible(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 24),
 
-                            //============================Edit Button=====================
+                            //===============================Edit Button=========================
 
                             GestureDetector(
                               onTap: () {

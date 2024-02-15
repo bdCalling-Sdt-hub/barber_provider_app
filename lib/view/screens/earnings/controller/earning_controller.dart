@@ -14,8 +14,8 @@ enum IncomeType {
 class SalesData {
   SalesData(this.weekday, this.totalAmount);
 
-  final String weekday;
-  final dynamic totalAmount;
+  final dynamic weekday;
+  final int totalAmount;
 
   // Factory method to create SalesData from JSON
   factory SalesData.fromJson(Map<String, dynamic> json) {
@@ -132,7 +132,44 @@ class EarningController extends GetxController {
     }
   }
 
-  yearlyIncome() {}
+  yearlyIncome() async {
+    weekEarningData.value = [];
+
+    refresh();
+
+    setRxRequestStatus(Status.loading);
+    var response = await ApiClient.getData(ApiConstant.yearIncome);
+
+    if (response.statusCode == 200) {
+      //=====================Getting the Weekly Income=====================
+      RxList<WeekEarning> weekEarning = <WeekEarning>[].obs;
+      weekEarning.value = [];
+
+      weekEarning.value = List<WeekEarning>.from(
+          response.body["week_earning"].map((x) => WeekEarning.fromJson(x)));
+
+      //=====================Saving the Weekly Income=====================
+
+      weekEarningData.addAll(
+        weekEarning.map((item) => SalesData.fromJson(item.toJson())),
+      );
+      //=====================Saving Aditional Information=====================
+
+      weeklyData.value = WeeklyData.fromJson(response.body["data"]);
+
+      refresh();
+
+      setRxRequestStatus(Status.completed);
+      setincomeTypeValue(IncomeType.monthly);
+    } else {
+      if (response.statusText == ApiClient.noInternetMessage) {
+        setRxRequestStatus(Status.internetError);
+      } else {
+        setRxRequestStatus(Status.error);
+      }
+      ApiChecker.checkApi(response);
+    }
+  }
 
   getPaymentInfo() async {
     providerAdded.value =
@@ -141,6 +178,7 @@ class EarningController extends GetxController {
     if (providerAdded.value == true) {
       weeklyIncome();
     }
+    update();
   }
 
   @override
