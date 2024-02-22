@@ -87,7 +87,7 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
 
-                    //Password field
+                    //==================================Password field=========================
 
                     CustomText(text: "Password".tr, top: 16, bottom: 12),
 
@@ -99,19 +99,18 @@ class SignUpScreen extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return AppStaticStrings.fieldCantBeEmpty;
-                        } else if (value.length < 8) {
-                          return AppStaticStrings.passwordLength;
-                        } else if (!AppStaticStrings.passRegExp
-                            .hasMatch(value)) {
-                          return AppStaticStrings.passMustContainBoth;
+                        } else if (value.length < 8 &&
+                            !AppStaticStrings.passRegExp.hasMatch(value)) {
+                          return AppStaticStrings.passwordLengthAndContain;
                         } else {
                           return null;
                         }
                       },
                     ),
 
-                    //Confirm password
-                    CustomText(
+                    //================================Confirm password==========================
+
+                  CustomText(
                         text: "Confirm Password".tr, top: 16, bottom: 12),
 
                     CustomTextField(

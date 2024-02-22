@@ -1,86 +1,123 @@
+// To parse this JSON data, do
+//
+//     final notificationModel = notificationModelFromJson(jsonString);
+
 import 'dart:convert';
+
+NotificationModel notificationModelFromJson(String str) =>
+    NotificationModel.fromJson(json.decode(str));
+
+String notificationModelToJson(NotificationModel data) =>
+    json.encode(data.toJson());
 
 class NotificationModel {
   String? status;
-  List<Notification>? notifications;
+  List<MyNotification>? notification;
+  AccountSetup? accountSetup;
 
   NotificationModel({
     this.status,
-    this.notifications,
+    this.notification,
+    this.accountSetup,
   });
-
-  factory NotificationModel.fromRawJson(String str) =>
-      NotificationModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
         status: json["status"],
+        notification: json["notification"] == null
+            ? []
+            : List<MyNotification>.from(
+                json["notification"]!.map((x) => MyNotification.fromJson(x))),
+        accountSetup: json["account_setup"] == null
+            ? null
+            : AccountSetup.fromJson(json["account_setup"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "notification": notification == null
+            ? []
+            : List<dynamic>.from(notification!.map((x) => x.toJson())),
+        "account_setup": accountSetup?.toJson(),
+      };
+}
+
+class AccountSetup {
+  Headers? headers;
+  Original? original;
+  dynamic exception;
+
+  AccountSetup({
+    this.headers,
+    this.original,
+    this.exception,
+  });
+
+  factory AccountSetup.fromJson(Map<String, dynamic> json) => AccountSetup(
+        headers:
+            json["headers"] == null ? null : Headers.fromJson(json["headers"]),
+        original: json["original"] == null
+            ? null
+            : Original.fromJson(json["original"]),
+        exception: json["exception"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "headers": headers?.toJson(),
+        "original": original?.toJson(),
+        "exception": exception,
+      };
+}
+
+class Headers {
+  Headers();
+
+  factory Headers.fromJson(Map<String, dynamic> json) => Headers();
+
+  Map<String, dynamic> toJson() => {};
+}
+
+class Original {
+  String? status;
+  List<dynamic>? notifications;
+
+  Original({
+    this.status,
+    this.notifications,
+  });
+
+  factory Original.fromJson(Map<String, dynamic> json) => Original(
+        status: json["status"],
         notifications: json["notifications"] == null
             ? []
-            : List<Notification>.from(
-                json["notifications"]!.map((x) => Notification.fromJson(x))),
+            : List<dynamic>.from(json["notifications"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "notifications": notifications == null
             ? []
-            : List<dynamic>.from(notifications!.map((x) => x.toJson())),
+            : List<dynamic>.from(notifications!.map((x) => x)),
       };
 }
 
-class Notification {
+class MyNotification {
   String? id;
-  String? type;
-  String? notifiableType;
-  int? notifiableId;
   Data? data;
-  dynamic readAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
 
-  Notification({
+  MyNotification({
     this.id,
-    this.type,
-    this.notifiableType,
-    this.notifiableId,
     this.data,
-    this.readAt,
-    this.createdAt,
-    this.updatedAt,
   });
 
-  factory Notification.fromRawJson(String str) =>
-      Notification.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
+  factory MyNotification.fromJson(Map<String, dynamic> json) => MyNotification(
         id: json["id"],
-        type: json["type"],
-        notifiableType: json["notifiable_type"],
-        notifiableId: json["notifiable_id"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
-        readAt: json["read_at"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "type": type,
-        "notifiable_type": notifiableType,
-        "notifiable_id": notifiableId,
         "data": data?.toJson(),
-        "read_at": readAt,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 
@@ -94,10 +131,6 @@ class Data {
     this.description,
     this.user,
   });
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         message: json["message"],
@@ -114,84 +147,68 @@ class Data {
 
 class User {
   int? id;
-  String? name;
-  String? email;
-  dynamic emailVerifiedAt;
-  int? isVerified;
-  String? image;
-  String? latitude;
-  String? longitude;
-  String? userType;
-  String? userStatus;
-  String? phoneNumber;
-  dynamic address;
-  dynamic googleId;
-  dynamic facebookId;
+  int? userId;
+  int? providerId;
+  String? service;
+  dynamic catalougeId;
+  String? serviceType;
+  String? serviceDuration;
+  String? price;
+  String? date;
+  String? time;
+  dynamic status;
+  dynamic advanceMoney;
   String? createdAt;
   String? updatedAt;
-  dynamic deletedAt;
 
   User({
     this.id,
-    this.name,
-    this.email,
-    this.emailVerifiedAt,
-    this.isVerified,
-    this.image,
-    this.latitude,
-    this.longitude,
-    this.userType,
-    this.userStatus,
-    this.phoneNumber,
-    this.address,
-    this.googleId,
-    this.facebookId,
+    this.userId,
+    this.providerId,
+    this.service,
+    this.catalougeId,
+    this.serviceType,
+    this.serviceDuration,
+    this.price,
+    this.date,
+    this.time,
+    this.status,
+    this.advanceMoney,
     this.createdAt,
     this.updatedAt,
-    this.deletedAt,
   });
-
-  factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: json["name"],
-        email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        isVerified: json["is_verified"],
-        image: json["image"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
-        userType: json["user_type"],
-        userStatus: json["user_status"],
-        phoneNumber: json["phone_number"],
-        address: json["address"],
-        googleId: json["google_id"],
-        facebookId: json["facebook_id"],
+        userId: json["user_id"],
+        providerId: json["provider_id"],
+        service: json["service"],
+        catalougeId: json["catalouge_id"],
+        serviceType: json["service_type"],
+        serviceDuration: json["service_duration"],
+        price: json["price"],
+        date: json["date"],
+        time: json["time"],
+        status: json["status"],
+        advanceMoney: json["advance_money"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        deletedAt: json["deleted_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
-        "email": email,
-        "email_verified_at": emailVerifiedAt,
-        "is_verified": isVerified,
-        "image": image,
-        "latitude": latitude,
-        "longitude": longitude,
-        "user_type": userType,
-        "user_status": userStatus,
-        "phone_number": phoneNumber,
-        "address": address,
-        "google_id": googleId,
-        "facebook_id": facebookId,
+        "user_id": userId,
+        "provider_id": providerId,
+        "service": service,
+        "catalouge_id": catalougeId,
+        "service_type": serviceType,
+        "service_duration": serviceDuration,
+        "price": price,
+        "date": date,
+        "time": time,
+        "status": status,
+        "advance_money": advanceMoney,
         "created_at": createdAt,
         "updated_at": updatedAt,
-        "deleted_at": deletedAt,
       };
 }

@@ -3,6 +3,7 @@ import 'package:barbar_provider/service/api_ckeck.dart';
 import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
+import 'package:barbar_provider/utils/snack_bar.dart';
 import 'package:barbar_provider/view/screens/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/core/flutterwave.dart';
@@ -134,6 +135,8 @@ class MakePaymentController extends GetxController {
     if (response.statusCode == 200) {
       SharePrefsHelper.setBool(AppConstants.paymentDone, true);
       profileController.getMyPlan();
+      toastMessage(message: "Subscription Done");
+      navigator!.pop();
     } else {
       ApiChecker.checkApi(response);
     }

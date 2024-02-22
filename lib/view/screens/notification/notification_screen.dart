@@ -26,10 +26,9 @@ class NotificationScreen extends StatelessWidget {
           backgroundColor: AppColors.bgColor,
           extendBody: true,
           appBar:
-              CustomAppBar(appBarContent: CustomBack(text: "Notification".tr)),
+              CustomAppBar(appBarContent: CustomBack(text: "Notifications".tr)),
           body: Obx(() {
-            var data =
-                notificationController.notificationModel.value.notifications;
+            var data = notificationController.notificationModel;
             switch (notificationController.rxRequestStatus.value) {
               case Status.loading:
                 return const CustomLoader();
@@ -43,7 +42,7 @@ class NotificationScreen extends StatelessWidget {
                 );
 
               case Status.completed:
-                return data!.isEmpty
+                return data.isEmpty
                     ? const Center(
                         child: CustomText(
                           text: "No Notification",

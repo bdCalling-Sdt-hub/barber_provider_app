@@ -86,6 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget.isPassword ? obscureText : false,
       validator: widget.validator,
       decoration: InputDecoration(
+        errorMaxLines: 2,
         hintText: widget.hintText,
         hintStyle: GoogleFonts.montserrat(
             color: widget.hintColor, fontSize: widget.hintFontSize),

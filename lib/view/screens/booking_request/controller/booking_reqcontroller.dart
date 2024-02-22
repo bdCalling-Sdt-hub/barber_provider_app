@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 
 enum UpdateBooking { accept, decline, late, complete }
 
-class BookingRequestController extends GetxController  {
+class BookingRequestController extends GetxController {
   ApprovedBookingController approvedBookingController =
       Get.find<ApprovedBookingController>();
 
@@ -45,6 +45,7 @@ class BookingRequestController extends GetxController  {
 
     if (response.statusCode == 200) {
       bookingReqModel.value =
+      
           List<Datum>.from(response.body["data"].map((x) => Datum.fromJson(x)));
 
       if (bookingReqModel.isNotEmpty) {

@@ -11,6 +11,9 @@ class AppStaticStrings {
   static const String fieldCantBeEmpty = "Field can't be empty";
   static const String passwordLength =
       "Password should be atleast 8 characters";
+
+  static const String passwordLengthAndContain =
+      "Password must be 8 characters long & must include one capital letter";
   static RegExp passRegExp = RegExp(r'(?=.*[a-zA-Z])(?=.*\d)');
   static const String passMustContainBoth =
       "'Password must contain both alphabets and numerics'";

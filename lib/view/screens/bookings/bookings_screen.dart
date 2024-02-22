@@ -111,9 +111,13 @@ class BookingsScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      //============================User name=========================
                                       CustomText(
                                           text: bookInfo!.user!.name!,
                                           fontSize: 10),
+
+                                      //============================Catalog Name=========================
+
                                       Wrap(
                                         alignment: WrapAlignment.end,
                                         children: List.generate(
@@ -127,6 +131,9 @@ class BookingsScreen extends StatelessWidget {
                                           );
                                         }),
                                       ),
+
+                                      //============================Booking Date=========================
+
                                       Flexible(
                                           child: CustomText(
                                               text: bookInfo.date!,

@@ -9,6 +9,7 @@ import 'package:barbar_provider/view/widgets/custom_loader/custom_loader.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:barbar_provider/view/widgets/custom_textfield/custom_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -102,7 +103,11 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                 CustomText(
                     text: "Service Duration (min)".tr, bottom: 12, top: 16),
                 CustomTextField(
-                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
                     textEditingController: controller.serviceDurationController,
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
@@ -124,7 +129,11 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
                     text: "Salon Service Charge".tr, bottom: 12, top: 16),
 
                 CustomTextField(
-                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
                     textEditingController: controller.salonSerChargeController,
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
@@ -138,7 +147,11 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 CustomText(text: "Home Service Charge".tr, bottom: 12, top: 16),
                 CustomTextField(
-                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
                     textEditingController: controller.homeSerChargeController,
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {
@@ -152,7 +165,11 @@ class _AddCatalougeDetailsState extends State<AddCatalougeDetails> {
 
                 CustomText(text: "Set Booking money".tr, bottom: 12, top: 16),
                 CustomTextField(
-                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    keyboardType:
+                        const TextInputType.numberWithOptions(signed: true),
                     textEditingController: controller.setBookingController,
                     validator: (value) {
                       if (value == null || value.toString().isEmpty) {

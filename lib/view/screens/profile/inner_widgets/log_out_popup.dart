@@ -7,6 +7,7 @@ import 'package:barbar_provider/view/widgets/button/custom_button.dart';
 import 'package:barbar_provider/view/widgets/custom_text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LogOutPopUp extends StatelessWidget {
   const LogOutPopUp({super.key});
@@ -76,6 +77,8 @@ class LogOutPopUp extends StatelessWidget {
                             AppConstants.isProviderAdded, false);
 
                         SharePrefsHelper.remove(AppConstants.bearerToken);
+
+                        GoogleSignIn().signOut();
 
                         if (Get.isRegistered<HomeController>()) {
                           HomeController homeController =

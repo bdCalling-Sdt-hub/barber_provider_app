@@ -63,7 +63,7 @@ class ApiConstant {
   static const paymentSuccess = "api/payment-success";
 
   //===================Notification===============================
-  static const notification = "api/notification";
+  static const notification = "api/send/booking/request/salon";
 
   //========================Booking Request============================
   static const bookingReq = "api/booking/request";
