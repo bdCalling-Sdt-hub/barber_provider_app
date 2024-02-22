@@ -140,15 +140,20 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(width: 16),
                         //=================================Sign In FaceBook===========================
 
-                        Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.cardBgColor,
-                          ),
-                          child: const Center(
-                            child: CustomImage(imageSrc: AppIcons.facebook),
+                        GestureDetector(
+                          onTap: () {
+                            controller.facebookSignIn();
+                          },
+                          child: Container(
+                            height: 64,
+                            width: 64,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              color: AppColors.cardBgColor,
+                            ),
+                            child: const Center(
+                              child: CustomImage(imageSrc: AppIcons.facebook),
+                            ),
                           ),
                         ),
                       ],

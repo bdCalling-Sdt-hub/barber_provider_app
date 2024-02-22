@@ -8,9 +8,9 @@ import 'package:barbar_provider/service/api_url.dart';
 import 'package:barbar_provider/service/app_service.dart';
 import 'package:barbar_provider/utils/app_constent.dart';
 import 'package:barbar_provider/utils/snack_bar.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -150,6 +150,36 @@ class Authcontroller extends GetxController {
     update();
   }
 
+  Future<void> facebookSignIn() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Check if the user has logged in successfully
+    if (loginResult.status == LoginStatus.success) {
+      // Retrieve user profile data
+      // final AccessToken? accessToken = loginResult.accessToken;
+      final userData = await FacebookAuth.instance.getUserData();
+
+      // Access user information
+      final String userId = userData["id"];
+      final String userName = userData["name"];
+      // You can access other user information as well
+
+      // Example of accessing user email if provided
+      final String userEmail = userData["email"];
+
+      // Example of accessing user phone number if provided
+      final String userPhoneNumber = userData["phone"];
+
+      // Print user information
+      print("User ID: $userId");
+      print("User Name: $userName");
+      print("User Email: $userEmail");
+      print("User Phone Number: $userPhoneNumber");
+
+      // Now you can use this information as needed in your application
+    }
+  }
 //================================Resend OTP==============================
 
   Future<bool> resendOTP() async {
