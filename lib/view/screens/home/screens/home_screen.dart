@@ -54,24 +54,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () {
                     Get.toNamed(AppRoute.notification);
                   },
-                  child: Stack(
+                  child: const Stack(
                     children: [
-                      const Align(
+                      Align(
                         alignment: Alignment.center,
                         child: CustomImage(
                             imageSrc: AppIcons.notification, size: 24),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          height: 10,
-                          width: 10,
-                          margin: const EdgeInsets.only(left: 14, bottom: 14),
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.primaryOrange),
-                        ),
-                      ),
+                      // Align(
+                      //   alignment: Alignment.centerRight,
+                      //   child: Container(
+                      //     height: 10,
+                      //     width: 10,
+                      //     margin: const EdgeInsets.only(left: 14, bottom: 14),
+                      //     decoration: const BoxDecoration(
+                      //         shape: BoxShape.circle,
+                      //         color: AppColors.primaryOrange),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

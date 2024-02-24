@@ -48,6 +48,8 @@ class Authcontroller extends GetxController {
     if (response.statusCode == 200) {
       //==========================save user info======================
 
+      SharePrefsHelper.setBool(AppConstants.isSocialLogIn, false);
+
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["access_token"]);
       SharePrefsHelper.setString(
@@ -140,6 +142,8 @@ class Authcontroller extends GetxController {
 
       SharePrefsHelper.setString(
           AppConstants.bearerToken, response.body["access_token"]);
+
+      SharePrefsHelper.setBool(AppConstants.isSocialLogIn, true);
 
       Get.offAllNamed(AppRoute.navBar);
     } else {
@@ -234,6 +238,8 @@ class Authcontroller extends GetxController {
       if (forgetPass == false) {
         SharePrefsHelper.setBool(AppConstants.paymentDone, false);
       }
+
+      SharePrefsHelper.setBool(AppConstants.isSocialLogIn, false);
 
       forgetPass == true
           ? Get.offAllNamed(AppRoute.resetPassword)

@@ -12,6 +12,8 @@ class AppConstants {
   static String paymentDone = "paymentDone";
   static String latitude = "latitude";
   static String longitude = "longitude";
+  static String isSocialLogIn = "isSocialLogIn";
+
 
   static String isProviderAdded = "isProviderAdded";
 

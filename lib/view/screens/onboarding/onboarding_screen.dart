@@ -128,7 +128,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 CustomText(
                   text:
-                      "Find & book your barber,salon & services anytime,anywhere."
+                      "Find & book your barber, salon & services anytime, anywhere."
                           .tr,
                   fontSize: 14,
                   maxLines: 2,
@@ -148,7 +148,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     size: height * 0.6,
                     fit: BoxFit.fill),
                 CustomText(
-                  text: "Style that fit your lifestyle".tr,
+                  text: "Style that fits your lifestyle".tr,
                   fontSize: 24,
                   top: 24,
                   maxLines: 2,
@@ -159,7 +159,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 CustomText(
                   text:
-                      "Choose the special offers & services in nearest salon create a stylish lifestyle."
+                      "Choose the special offers & services in nearest salon, create a stylish lifestyle."
                           .tr,
                   fontSize: 14,
                   maxLines: 2,
@@ -179,7 +179,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     size: height * 0.6,
                     fit: BoxFit.fill),
                 CustomText(
-                  text: "Style that fit your lifestyle".tr,
+                  text: "Style that fits your lifestyle".tr,
                   fontSize: 24,
                   top: 24,
                   maxLines: 2,
@@ -190,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 CustomText(
                   text:
-                      "Choose the special offers & services in nearest salon create a stylish lifestyle."
+                      "Choose the special offers & services in nearest salon, create a stylish lifestyle."
                           .tr,
                   fontSize: 14,
                   maxLines: 2,

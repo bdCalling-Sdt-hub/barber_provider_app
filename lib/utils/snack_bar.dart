@@ -32,7 +32,10 @@ void showCustomSnackBar(String? message,
         backgroundColor: isError ? Colors.red : Colors.green,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-        content: CustomText(text: message),
+        content: CustomText(
+          text: message,
+          fontSize: 12.w,
+        ),
       ));
     }
   }
