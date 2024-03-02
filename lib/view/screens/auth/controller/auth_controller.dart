@@ -176,10 +176,10 @@ class Authcontroller extends GetxController {
       final String userPhoneNumber = userData["phone"];
 
       // Print user information
-      print("User ID: $userId");
-      print("User Name: $userName");
-      print("User Email: $userEmail");
-      print("User Phone Number: $userPhoneNumber");
+      debugPrint("User ID: $userId");
+      debugPrint("User Name: $userName");
+      debugPrint("User Email: $userEmail");
+      debugPrint("User Phone Number: $userPhoneNumber");
 
       // Now you can use this information as needed in your application
     }

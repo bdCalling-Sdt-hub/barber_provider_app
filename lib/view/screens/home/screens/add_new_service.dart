@@ -35,9 +35,9 @@ class AddNewService extends StatelessWidget {
                 Get.toNamed(AppRoute.addNewServiceCategory);
               } else {
                 //If don't have subscription then this section will show
-                // ignore: use_build_context_synchronously
+
                 showDialog(
-                    context: context,
+                    context: Get.context!,
                     builder: (context) {
                       return const PurchasePopUp();
                     });

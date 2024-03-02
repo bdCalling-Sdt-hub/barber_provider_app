@@ -61,8 +61,6 @@ class BookingHistoryController extends GetxController {
   RxInt page = 1.obs;
 
   loadMore() async {
-    debugPrint(
-        "============================>>>>>>>>>load more Booking History");
     if (rxRequestStatus.value != Status.loading &&
         isLoadMoreRunning.value == false &&
         totalPage != currentPage) {

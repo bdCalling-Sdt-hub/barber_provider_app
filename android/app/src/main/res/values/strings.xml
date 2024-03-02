@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">1494571737784868</string>
-    <string name="fb_login_protocol_scheme">fb1494571737784868</string>
-    <string name="facebook_client_token">da3af0c00af2e7e7afb3ce3d51b5e59e</string>
+    <string name="facebook_app_id">1800251133736477</string>
+    <string name="fb_login_protocol_scheme">fb1800251133736477</string>
+    <string name="facebook_client_token">44789c0bd53be60d634d715908d35d2a</string>
     <string name="app_name">"barbar_provider"</string>
 </resources>
