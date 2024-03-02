@@ -11,6 +11,7 @@ import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -98,12 +99,16 @@ class BookingHistory extends StatelessWidget with GetxServiceMixin {
 
                                         //==============Date===========
 
-                                        CustomText(
-                                            text:
-                                                "${bookInfo!.date}, ${bookInfo.time}",
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColors.primaryOrange,
-                                            left: 16),
+                                        Expanded(
+                                          child: CustomText(
+                                              textAlign: TextAlign.left,
+                                              maxLines: 2,
+                                              text:
+                                                  "${bookInfo!.date}, ${bookInfo.time}",
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.primaryOrange,
+                                              left: 16),
+                                        ),
                                       ],
                                     ),
 

@@ -42,8 +42,8 @@ class TermsCondition extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   physics: const BouncingScrollPhysics(),
                   child: HtmlWidget(
-                    settingsController.aboutPrivacyTermsModel.value.message![2]
-                        .pageDescription!,
+                    settingsController
+                        .aboutPrivacyTermsModel.value.data![2].pageDescription!,
                     textStyle: const TextStyle(color: AppColors.white),
                   ));
           }

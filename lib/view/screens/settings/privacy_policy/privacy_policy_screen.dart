@@ -44,8 +44,8 @@ class PrivacyPolicy extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                   physics: const BouncingScrollPhysics(),
                   child: HtmlWidget(
-                    settingsController.aboutPrivacyTermsModel.value.message![1]
-                        .pageDescription!,
+                    settingsController
+                        .aboutPrivacyTermsModel.value.data![1].pageDescription!,
                     textStyle: const TextStyle(color: AppColors.white),
                   ));
           }

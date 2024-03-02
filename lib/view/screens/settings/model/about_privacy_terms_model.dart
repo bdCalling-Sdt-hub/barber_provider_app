@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class AboutPrivacyTermsModel {
-  String? status;
-  List<Message>? message;
+  String? message;
+  List<Datum>? data;
 
   AboutPrivacyTermsModel({
-    this.status,
     this.message,
+    this.data,
   });
 
   factory AboutPrivacyTermsModel.fromRawJson(String str) =>
@@ -16,29 +16,28 @@ class AboutPrivacyTermsModel {
 
   factory AboutPrivacyTermsModel.fromJson(Map<String, dynamic> json) =>
       AboutPrivacyTermsModel(
-        status: json["status"],
-        message: json["message"] == null
+        message: json["message"],
+        data: json["data"] == null
             ? []
-            : List<Message>.from(
-                json["message"]!.map((x) => Message.fromJson(x))),
+            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message == null
+        "message": message,
+        "data": data == null
             ? []
-            : List<dynamic>.from(message!.map((x) => x.toJson())),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
-class Message {
+class Datum {
   int? id;
   String? pageTitle;
   String? pageDescription;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  Message({
+  Datum({
     this.id,
     this.pageTitle,
     this.pageDescription,
@@ -46,11 +45,11 @@ class Message {
     this.updatedAt,
   });
 
-  factory Message.fromRawJson(String str) => Message.fromJson(json.decode(str));
+  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Message.fromJson(Map<String, dynamic> json) => Message(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
         pageTitle: json["page_title"],
         pageDescription: json["page_description"],

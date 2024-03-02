@@ -71,12 +71,14 @@ class Booking {
   int? userId;
   int? providerId;
   String? service;
+  dynamic catalougeId;
   String? serviceType;
   String? serviceDuration;
   String? price;
   String? date;
   String? time;
   int? status;
+  int? advanceMoney;
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
@@ -86,12 +88,14 @@ class Booking {
     this.userId,
     this.providerId,
     this.service,
+    this.catalougeId,
     this.serviceType,
     this.serviceDuration,
     this.price,
     this.date,
     this.time,
     this.status,
+    this.advanceMoney,
     this.createdAt,
     this.updatedAt,
     this.user,
@@ -102,12 +106,14 @@ class Booking {
         userId: json["user_id"],
         providerId: json["provider_id"],
         service: json["service"],
-        serviceType: json["service_type"]!,
+        catalougeId: json["catalouge_id"],
+        serviceType: json["service_type"],
         serviceDuration: json["service_duration"],
         price: json["price"],
         date: json["date"],
         time: json["time"],
         status: json["status"],
+        advanceMoney: json["advance_money"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -122,12 +128,14 @@ class Booking {
         "user_id": userId,
         "provider_id": providerId,
         "service": service,
+        "catalouge_id": catalougeId,
         "service_type": serviceType,
         "service_duration": serviceDuration,
         "price": price,
         "date": date,
         "time": time,
         "status": status,
+        "advance_money": advanceMoney,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toJson(),
@@ -147,7 +155,7 @@ class User {
   String? userStatus;
   String? phoneNumber;
   String? address;
-  dynamic googleId;
+  String? googleId;
   dynamic facebookId;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -175,17 +183,17 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        name: json["name"]!,
-        email: json["email"]!,
+        name: json["name"],
+        email: json["email"],
         emailVerifiedAt: json["email_verified_at"],
         isVerified: json["is_verified"],
-        image: json["image"]!,
+        image: json["image"],
         latitude: json["latitude"],
         longitude: json["longitude"],
-        userType: json["user_type"]!,
+        userType: json["user_type"],
         userStatus: json["user_status"],
         phoneNumber: json["phone_number"],
-        address: json["address"]!,
+        address: json["address"],
         googleId: json["google_id"],
         facebookId: json["facebook_id"],
         createdAt: json["created_at"] == null
@@ -253,9 +261,9 @@ class CatalogDetail {
         id: json["id"],
         providerId: json["provider_id"],
         serviceId: json["service_id"],
-        catalogName: json["catalog_name"]!,
+        catalogName: json["catalog_name"],
         catalogDescription: json["catalog_description"],
-        image: json["image"]!,
+        image: json["image"],
         serviceDuration: json["service_duration"],
         salonServiceCharge: json["salon_service_charge"],
         homeServiceCharge: json["home_service_charge"],
@@ -340,16 +348,4 @@ class Pagination {
         "next_page_url": nextPageUrl,
         "prev_page_url": prevPageUrl,
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }
