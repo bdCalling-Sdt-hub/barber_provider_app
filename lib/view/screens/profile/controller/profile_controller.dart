@@ -12,7 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends GetxController with GetxServiceMixin {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -24,6 +24,8 @@ class ProfileController extends GetxController {
 
   Rx<ProfileModel> profileModel = ProfileModel().obs;
   bool profileUpdateLoading = false;
+
+  bool isLoading = false;
 
   File? proImage;
   String? proImgURL = "";
@@ -65,6 +67,8 @@ class ProfileController extends GetxController {
 //=============================Get Profile Info===========================
 
   getProfileInfo() async {
+    isLoading = true;
+    update();
     setRxRequestStatus(Status.loading);
     var response = await ApiClient.getData(ApiConstant.getProfile);
 
@@ -73,6 +77,8 @@ class ProfileController extends GetxController {
       saveProfileID(iD: profileModel.value.id!);
       setRxRequestStatus(Status.completed);
       getMyPlan();
+
+      isLoading = false;
       update();
 
       debugPrint(
@@ -85,6 +91,9 @@ class ProfileController extends GetxController {
       }
       ApiChecker.checkApi(response);
     }
+
+    isLoading = false;
+    update();
   }
 
 //=============================Update Profile===========================
@@ -155,10 +164,10 @@ class ProfileController extends GetxController {
     }
   }
 
-  // @override
-  // void onInit() {
-  //   getProfileInfo();
+  @override
+  void onInit() {
+    getProfileInfo();
 
-  //   super.onInit();
-  // }
+    super.onInit();
+  }
 }

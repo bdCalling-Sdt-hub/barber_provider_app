@@ -28,11 +28,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final ProfileController profileController = Get.find<ProfileController>();
 
-  @override
-  void initState() {
-    profileController.getProfileInfo();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   profileController.getProfileInfo();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

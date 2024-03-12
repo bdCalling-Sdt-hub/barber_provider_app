@@ -33,6 +33,11 @@ class CustomDrawer extends StatelessWidget {
             //=====================================-Profile Information============================
 
             GetBuilder<ProfileController>(builder: (controller) {
+              if (controller.isLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
               var data = controller.profileModel.value;
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
