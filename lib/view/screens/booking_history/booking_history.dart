@@ -11,7 +11,6 @@ import 'package:barbar_provider/view/widgets/error/general_error.dart';
 import 'package:barbar_provider/view/widgets/image/custom_image.dart';
 import 'package:barbar_provider/view/widgets/row_text/row_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 

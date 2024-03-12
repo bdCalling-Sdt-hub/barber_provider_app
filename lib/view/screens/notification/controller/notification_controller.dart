@@ -16,8 +16,9 @@ class NotificationController extends GetxController {
     var response = await ApiClient.getData(ApiConstant.notification);
 
     if (response.statusCode == 200) {
-      notificationModel.value = List<MyNotification>.from(
-          response.body["notification"].map((x) => MyNotification.fromJson(x)));
+      notificationModel.value = List<MyNotification>.from(response
+          .body["notifications"]
+          .map((x) => MyNotification.fromJson(x)));
 
       setRxRequestStatus(Status.completed);
     } else {

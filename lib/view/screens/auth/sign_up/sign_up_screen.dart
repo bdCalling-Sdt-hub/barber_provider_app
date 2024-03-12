@@ -99,7 +99,7 @@ class SignUpScreen extends StatelessWidget {
                       validator: (value) {
                         if (value.isEmpty) {
                           return AppStaticStrings.fieldCantBeEmpty;
-                        } else if (value.length < 8 &&
+                        } else if (value.length < 8 ||
                             !AppStaticStrings.passRegExp.hasMatch(value)) {
                           return AppStaticStrings.passwordLengthAndContain;
                         } else {
@@ -110,7 +110,7 @@ class SignUpScreen extends StatelessWidget {
 
                     //================================Confirm password==========================
 
-                  CustomText(
+                    CustomText(
                         text: "Confirm Password".tr, top: 16, bottom: 12),
 
                     CustomTextField(

@@ -74,11 +74,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       validator: (value) {
                         if (value.isEmpty) {
                           return AppStaticStrings.fieldCantBeEmpty;
-                        } else if (value.length < 8) {
-                          return AppStaticStrings.passwordLength;
-                        } else if (!AppStaticStrings.passRegExp
-                            .hasMatch(value)) {
-                          return AppStaticStrings.passMustContainBoth;
+                        } else if (value.length < 8 ||
+                            !AppStaticStrings.passRegExp.hasMatch(value)) {
+                          return AppStaticStrings.passwordLengthAndContain;
                         } else {
                           return null;
                         }

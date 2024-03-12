@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:barbar_provider/core/app_route/app_route.dart';
 import 'package:barbar_provider/helper/prefs_helper.dart';
 import 'package:barbar_provider/utils/app_colors.dart';
@@ -86,7 +88,15 @@ class LogOutPopUp extends StatelessWidget {
                           homeController.dispose();
                         }
 
-                        Get.offAllNamed(AppRoute.signInScreen);
+                        // if (Get.isRegistered<ProfileController>()) {
+                        //   ProfileController profileController =
+                        //       Get.find<ProfileController>();
+                        //   profileController.dispose();
+                        // }
+
+                        Future.delayed(const Duration(seconds: 1), () {
+                          Get.offAllNamed(AppRoute.signInScreen);
+                        });
                       },
                     ),
                   ),

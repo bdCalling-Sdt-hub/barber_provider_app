@@ -23,7 +23,7 @@ class _NavBarState extends State<NavBar> {
     const HomeRoutes(),
     const EarningsScreen(),
     BookingsScreen(),
-    ProfileScreen()
+   const ProfileScreen()
   ];
 
   @override

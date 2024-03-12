@@ -75,25 +75,36 @@ class CustomDrawer extends StatelessWidget {
                 ),
               );
             }),
+
+            //==============================Booking Req================================
+
             DrawerCard(
                 imageSrc: AppIcons.br,
                 text: "Booking Request",
                 imageType: ImageType.png,
-                colorTrue: true,
                 onTap: () => Get.toNamed(AppRoute.bookingRequest)),
             const SizedBox(height: 16),
+
+            //==============================Approved Bookings================================
+
             DrawerCard(
                 imageSrc: AppIcons.br,
                 text: "Approved Bookings",
                 imageType: ImageType.png,
                 onTap: () => Get.toNamed(AppRoute.approvedBooking)),
             const SizedBox(height: 16),
+
+            //==============================Bookings History================================
+
             DrawerCard(
                 imageSrc: AppIcons.br,
                 text: "Booking History",
                 imageType: ImageType.png,
                 onTap: () => Get.toNamed(AppRoute.bookingHistory)),
             const SizedBox(height: 16),
+
+            //==============================Edit Business Details================================
+
             DrawerCard(
                 imageSrc: AppIcons.editDetails,
                 text: "Edit Business Details",
@@ -101,13 +112,16 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () => Get.toNamed(AppRoute.editBusinessDetails)),
             const SizedBox(height: 16),
 
-            //=============================Service Catelouge======================
+            //===============================Service Catelouge=============================
             DrawerCard(
                 imageSrc: AppIcons.categories,
                 text: "Service & Catalogue ",
                 imageType: ImageType.png,
                 onTap: () => Get.toNamed(AppRoute.serviceCatalogue)),
             const SizedBox(height: 16),
+
+            //===============================Clients Reviews=============================
+
             DrawerCard(
                 imageSrc: AppIcons.reviews,
                 text: "Clients Reviews",

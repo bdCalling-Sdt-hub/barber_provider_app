@@ -58,6 +58,9 @@ class Authcontroller extends GetxController {
       Get.offNamed(
         AppRoute.navBar,
       );
+
+      Dependancy dI = Dependancy();
+      dI.dependencies();
     } else {
       ApiChecker.checkApi(response);
     }

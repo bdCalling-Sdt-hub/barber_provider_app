@@ -22,5 +22,3 @@ class HomeRoutes extends StatelessWidget {
     });
   }
 }
-
-
