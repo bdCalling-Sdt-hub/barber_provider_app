@@ -150,6 +150,7 @@ class Authcontroller extends GetxController {
 
       Get.offAllNamed(AppRoute.navBar);
     } else {
+      GoogleSignIn().signOut();
       ApiChecker.checkApi(response);
     }
 
