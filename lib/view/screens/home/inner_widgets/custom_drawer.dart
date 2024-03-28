@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
           bottomRight: Radius.circular(16),
         ),
       ),
-      width: 244,
+      width: MediaQuery.of(context).size.width / 1.4,
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -42,7 +42,7 @@ class CustomDrawer extends StatelessWidget {
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 35.h),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     //====================Image================
 

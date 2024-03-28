@@ -147,15 +147,16 @@ class Authcontroller extends GetxController {
           AppConstants.bearerToken, response.body["access_token"]);
 
       SharePrefsHelper.setBool(AppConstants.isSocialLogIn, true);
+      loading = false;
+      update();
 
       Get.offAllNamed(AppRoute.navBar);
     } else {
       GoogleSignIn().signOut();
       ApiChecker.checkApi(response);
+      loading = false;
+      update();
     }
-
-    loading = false;
-    update();
   }
 
   Future<void> facebookSignIn() async {

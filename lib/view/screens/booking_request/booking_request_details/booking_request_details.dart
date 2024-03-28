@@ -68,18 +68,18 @@ class BookingRequestDetails extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryOrange,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Icon(
-                        Icons.call,
-                        size: 24,
-                        color: AppColors.white,
-                      ),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.all(10),
+                    //   decoration: BoxDecoration(
+                    //     color: AppColors.primaryOrange,
+                    //     borderRadius: BorderRadius.circular(8),
+                    //   ),
+                    //   child: const Icon(
+                    //     Icons.call,
+                    //     size: 24,
+                    //     color: AppColors.white,
+                    //   ),
+                    // ),
                   ],
                 ),
 

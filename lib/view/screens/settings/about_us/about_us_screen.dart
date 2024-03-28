@@ -21,7 +21,7 @@ class AboutUs extends StatelessWidget {
         backgroundColor: AppColors.bgColor,
         extendBody: true,
         appBar: CustomAppBar(
-          appBarContent: CustomBack(text: "Terms & Conditions".tr),
+          appBarContent: CustomBack(text: "About Us".tr),
         ),
         body: Obx(() {
           switch (settingsController.rxRequestStatus.value) {

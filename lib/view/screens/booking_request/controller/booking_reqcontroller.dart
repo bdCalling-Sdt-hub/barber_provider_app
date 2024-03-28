@@ -45,7 +45,6 @@ class BookingRequestController extends GetxController {
 
     if (response.statusCode == 200) {
       bookingReqModel.value =
-      
           List<Datum>.from(response.body["data"].map((x) => Datum.fromJson(x)));
 
       if (bookingReqModel.isNotEmpty) {
